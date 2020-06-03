@@ -53,8 +53,8 @@
 	<body>
 		
 	<div class="colorlib-loader"></div>
-	<!-- logo and header in body-->
-	<div id="page">
+<!-- logo and header in body-->
+<div id="page">
 	<nav class="colorlib-nav" role="navigation">
 		<div class="top-menu">
 			<div class="container">
@@ -62,7 +62,7 @@
 					<div class="col-xs-12">
 						<div class="top">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-3">
 									<div id="colorlib-logo"><a href="index.html">Red<span>Positive</span></a></div>
 								</div>
 								<div class="col-md-3">
@@ -76,6 +76,20 @@
 										<span class="icon"><i class="icon-location"></i></span>
 										<p><a href="#">88 Route West 21th Street, Suite 721 New York NY 10016</a></p>
 									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="profile loc">
+										<div class="dropdown">
+											<a href="#"  id="profilebutton"><span class="icon"><i class="icon-user"></i></span></a>
+											<p style="padding-top: 4%;"><a href="#" >User name</a></p>
+											<div class="dropdown-menu" id="profilecontent" style="margin-top: 40px; margin-left:170px;">
+												<ul></ul>
+												<li class="dropdown-item"><a  href="user_profile.html">My Account</a></li>	
+												<li class="dropdown-item"><a  href="index.html">Logout</a></li>
+											</div>
+										</div>
+									</div>
+								</div>
 								</div>
 							</div>
 						</div>
@@ -93,8 +107,8 @@
 								<ul>
 									<li class="active"><a href="index.html">Home</a></li>
 									<li><a href="#">About Us</a></li>
-									<li><a href="blog.html">Blog</a></li>
-									<li><a href="#colorlib-footer">Contact Us</a></li>
+									<li><a href="#">Blog</a></li>
+									<li><a href="#">Contact Us</a></li>
 									<li><a href="#">FAQ</a></li>
 								</ul>
 							</div>
@@ -111,11 +125,11 @@
 			<br><br>
 			<div class=" d-flex justify-content-center text-center">
                 <img class=" img-responsive img-thumbnail profileimg" src="https://png.pngtree.com/png-clipart/20190520/original/pngtree-business-male-icon-vector-png-image_4187852.jpg" > 
-                <p class="profilename">{{Name}}</p>
+                <p class="profilename">Umesh</p>
                  <div class="profiledetails">
-                    <p >Email:{{Email}}</p>
-                    <p>Contact Number:{{phoneno}}</p>
-                    <button class="b_center" style="margin-top: 30px;" onclick="window.location.href='edit_profile.html';"  >Edit profile</button>
+                    <p >Email:anymail@ymail.com</p>
+                    <p>Contact Number:999999999999</p>
+                    <button class="b_center" ><a href="edit_profile.html " style="color:white; text-decoration: none;">Edit profile</a></button>
                 </div>
 			</div>
 		</div>
