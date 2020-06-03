@@ -25,6 +25,7 @@
     margin: 0;
   } */
   
+  
   .mid h2 {
     font-family: 'Roboto', sans-serif;
     font-weight: 900;
@@ -1807,14 +1808,6 @@ h1, h2, h3, h4, h5, h6, figure {
   text-transform: uppercase;
   margin-bottom: 4%;
   text-align: center;
-}
-.b_center:hover
-{
-  background:linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113));
-  box-shadow: 3px 3px 8px rgba(255, 33, 33,0.3) ;
-  color: black;
-  font-family: monsterrat;
-  text-decoration: none;
 }
 
 .profileimg 
