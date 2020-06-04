@@ -55,33 +55,48 @@
 	<div class="colorlib-loader"></div>
 	<!-- logo and header in body-->
 	<div id="page">
-	<nav class="colorlib-nav" role="navigation">
-		<div class="top-menu">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="top">
-							<div class="row">
-								<div class="col-md-6">
-									<div id="colorlib-logo"><a href="index.html">Red<span>Positive</span></a></div>
-								</div>
-								<div class="col-md-3">
-									<div class="num">
-										<span class="icon"><i class="icon-phone"></i></span>
-										<p><a href="#">+91 912-3456-789</a><br><a href="#">+91 912-3456-789</a></p>
+		<nav class="colorlib-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="top">
+								<div class="row">
+									<div class="col-md-4">
+										<div id="colorlib-logo"><a href="index.html">Red<span>Positive</span></a></div>
 									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="loc">
-										<span class="icon"><i class="icon-location"></i></span>
-										<p><a href="#">88 Route West 21th Street, Suite 721 New York NY 10016</a></p>
+									<div class="col-md-3">
+										<div class="num">
+											<span class="icon"><i class="icon-phone"></i></span>
+											<p><a href="#">+91 912-3456-789</a><br><a href="#">+91 912-3456-789</a></p>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="loc">
+											<span class="icon"><i class="icon-location"></i></span>
+											<p><a href="#">88 Route West 21th Street, Suite 721 New York NY 10016</a></p>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="profile loc">
+											<div class="dropdown">
+												<a href="#"  id="profilebutton"><span class="icon"><i class="icon-user"></i></span></a>
+												<p style="padding-top: 4%;"><a href="#" >User name</a></p>
+												<div class="dropdown-menu" id="profilecontent" style="margin-top: 40px; margin-left:170px;">
+													<ul></ul>
+													<li class="dropdown-item"><a  href="user_profile.html">My Account</a></li>	
+													<li class="dropdown-item"><a  href="index.html">Logout</a></li>
+												</div>
+											</div>
+										</div>
+									</div>
+
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
 	<!-- menu -->
 
@@ -95,7 +110,7 @@
 									<li><a href="index.html#colorlib-about">About Us</a></li>
 									<li><a href="blog.html">Blog</a></li>
 									<li><a href="#colorlib-footer">Contact Us</a></li>
-									<li><a href="#">FAQ</a></li>
+									<li><a href="faq.html">FAQ</a></li>
 								</ul>
 							</div>
 						</div>
@@ -116,11 +131,11 @@
                 <form class="editprofileform"">
                     <div class="form-group">
                       <label for="name">name</label>
-                      <input type="text" class="form-control " id="name" aria-describedby="name" value="{{name}}" required>
+                      <input type="text" class="form-control" id="name" aria-describedby="name" value="" required>
                     </div>
                     <div class="form-group">
                         <label for="contactno">mobile number</label>
-                        <input type="text" class="form-control" id="contactno" aria-describedby="contactno" value="{{contactno}}" required>
+                        <input type="text" class="form-control" id="contactno" aria-describedby="contactno" value="" required>
                       </div>
                     <button type="submit" class="b_center">Change</button>
                   </form>
@@ -248,7 +263,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="js/sticky-kit.min.js"></script>
 	<!-- Main -->
 	<script src="js/main.js"></script>
-
+	<script>
+		$(document).ready(function(e) {
+          $("#profilebutton").click(function(e) {
+          $("#profilecontent").toggle();
+          });
+      });
+	</script>
 	</body>
 </html>
 

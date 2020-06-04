@@ -24,6 +24,9 @@
     color: white;
     margin: 0;
   } */
+  /* html {
+    scroll-behavior: smooth;
+  } */
   
   
   .mid h2 {
@@ -1798,7 +1801,6 @@ h1, h2, h3, h4, h5, h6, figure {
   height: 54px;
   background: #FF2121;
   border: none;
-  border-radius: 10px;
   outline: none;
   cursor: pointer;
   color: #FFFFFF;
@@ -1806,6 +1808,7 @@ h1, h2, h3, h4, h5, h6, figure {
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  margin-top: 40px;
   margin-bottom: 4%;
   text-align: center;
 }
@@ -1862,10 +1865,68 @@ h1, h2, h3, h4, h5, h6, figure {
 .editprofileform input[type = "text"]
 {
    width: 300px; 
-   text-align: center;
    margin: 0 auto;
 }
 .blogsection
 {
   padding: 5em 0;
+}
+
+
+/* css for mobile and tablet view */
+.tab-btn
+{
+  width: 260px;
+  height: 54px;
+  background: #FF2121;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #FFFFFF;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 4%;
+  text-align: center;
+}
+.container1 {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.btn-store {
+  color: #ff2121;
+  min-width: 254px;
+  padding: 12px 20px !important;
+  border-color: #dddddd !important;
+}
+
+.btn-store:focus, 
+.btn-store:hover {
+  color: #ffffff !important;
+  background-color: #168eea;
+  border-color: #168eea !important;
+}
+.fa {
+  color: #cccccc;
+}
+.btn-store .btn-label, 
+.btn-store .btn-caption {
+  display: block;
+  text-align: left;
+  line-height: 1;
+}
+
+.btn-store .btn-caption {
+  font-size: 24px;
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

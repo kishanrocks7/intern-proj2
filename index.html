@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html style="scroll-behavior: smooth;">
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,10 +48,48 @@
 	<![endif]-->
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	
+	
+	<style>
+		@media only screen and (max-width:700px) {
+			#desktop {
+				display: none !important
+			}
+		}
+		@media only screen and (min-width:700px) {
+			#tablet {
+				display: none !important
+			}
+		}
+	</style>
 	</head>
-	<body>
-		
+	<body >
+	<div id="tablet">
+		<div class="container1">
+			<img src="images/phone.jpg" alt="Snow" style="width:100%;">
+			<div class="centered">
+				<p>
+				<a href="#" class="btn btn-store">
+					<span class="fa fa-apple fa-3x pull-left"></span> 
+					<span class="btn-label">Download on the</span>
+					<span class="btn-caption">App Store</span>
+				</a>
+				</p>
+				<p>
+					<a href="#" class="btn btn-store">
+						<span class="fa fa-android fa-3x pull-left"></span> 
+						<span class="btn-label">Download on the</span>
+						<span class="btn-caption">Google Play</span>
+					</a>
+				</p>
+			</div>
+		  </div>
+	</div>
+<div id="desktop">
 	<div class="colorlib-loader"></div>
 	<!-- logo and header in body-->
 	<div id="page">
@@ -142,7 +180,7 @@
 									<li><a href="#colorlib-about">About Us</a></li>
 									<li><a href="blog.html">Blog</a></li>
 									<li><a href="#colorlib-footer">Contact Us</a></li>
-									<li><a href="#">FAQ</a></li>
+									<li><a href="faq.html">FAQ</a></li>
 								</ul>
 							</div>
 						</div>
@@ -225,7 +263,7 @@
 			</div>
 			<div class="card-deck">
 				<div class="card col-md-5">
-				  <img class="card-img-top img-thumbnail img-responsive" src="images/6.jpg" alt="Card image cap">
+				  <img class="card-img-top  img-responsive" style="box-shadow: 0px 11px 40px -13px #0A0819;" src="images/6.jpg" alt="Card image cap">
 				  <div class="card-body">
 					<h3 class="card-title">Outlets</h3>
 					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
@@ -236,7 +274,7 @@
 				</div>
 				<div class= "col-md-1 col-sm-0 col-xs-0"></div>
 				<div class="card col-md-5">
-				  <img class="card-img-top img-thumbnail img-responsive" src="images/7.jpg" alt="Card image cap">
+				  <img class="card-img-top  img-responsive" style="box-shadow: 0px 11px 40px -13px #0A0819;" src="images/7.jpg" alt="Card image cap">
 				  <div class="card-body">
 					<h3 class="card-title">Warehouses</h3>
 					<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
@@ -559,16 +597,16 @@
 			<div class="row">
 				<div class="col-md-4 animate-box">
 					<div class="blog-entry">
-						<a href="blog.html" class="blog-img" style="background-image: url(images/blog-6.jpg);"></a>
+						<a href="#" class="blog-img" style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Spacetime_lattice_analogy.svg/1920px-Spacetime_lattice_analogy.svg.png);"></a>
 						<div class="desc">
 							<p class="date">
-								<span><a href="#">Admin</a></span>
-								<span>may 30 2020</span>
-								<span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
+								<span><a href="#">Unkown</a></span>
+								<span>June 3 ,2020</span>
+								<span><a href="#">8 <i class="icon-speech-bubble"></i></a></span>
 							</p>
-							<h3><a href="#">Here's why yoga is best for your health</a></h3>
-							<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-							<p style="color: #ff2121;">Read more <i class="icon-arrow-right3"></i></p>
+							<h3><a href="blog_post.html">Time travel(how a person is travel through time)</a></h3>
+							<p>A wormhole (or Einstein–Rosen bridge or Einstein–Rosen wormhole) is a speculative structure...</p>
+							<a style="color: #ff2121;" href="blog_post.html">Read more <i class="icon-arrow-right3"></i></a>
 						</div>
 					</div>
 				</div>
@@ -583,7 +621,7 @@
 							</p>
 							<h3><a href="#">live better get to know your medical technology</a></h3>
 							<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-							<p style="color: #ff2121;">Read more <i class="icon-arrow-right3"></i></p>
+							<a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
 						</div>
 					</div>
 				</div>
@@ -598,7 +636,7 @@
 							</p>
 							<h3><a href="#">Eating apple is the source of energy</a></h3>
 							<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-							<p style="color: #ff2121;">Read more <i class="icon-arrow-right3"></i></p>
+							<a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
 						</div>
 					</div>
 				</div>
@@ -696,11 +734,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		</div>
 	</footer>
 	</div>
-
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
-	
+</div>	
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -724,7 +761,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="js/sticky-kit.min.js"></script>
 	<!-- Main -->
 	<script src="js/main.js"></script>
-
 	</body>
 </html>
 
