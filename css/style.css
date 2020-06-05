@@ -203,9 +203,9 @@ h1, h2, h3, h4, h5, h6, figure {
   .colorlib-nav .num, .colorlib-nav .loc {
     position: relative; }
     @media screen and (max-width: 768px) {
-      .colorlib-nav .num, .colorlib-nav .loc , .colorlib-nav .profile{
+      .colorlib-nav .num, .colorlib-nav .loc , .colorlib-nav .profile , .notification{
         display: none; } }
-    .colorlib-nav .num .icon, .colorlib-nav .loc .icon,  .colorlib-nav .profile .icon {
+    .colorlib-nav .num .icon, .colorlib-nav .loc .icon,  .colorlib-nav .profile .icon, .notification {
       position: absolute;
       top: 0;
       right: 0;
@@ -219,7 +219,7 @@ h1, h2, h3, h4, h5, h6, figure {
       -ms-border-radius: 50%;
       border-radius: 50%; }
 
-      .colorlib-nav .num .icon i, .colorlib-nav .loc .icon i, .colorlib-nav .profile .icon i{
+      .colorlib-nav .num .icon i, .colorlib-nav .loc .icon i, .colorlib-nav .profile .icon i , .notification .icon i{
         display: table-cell;
         vertical-align: middle;
         height: 40px;
@@ -1867,12 +1867,24 @@ h1, h2, h3, h4, h5, h6, figure {
    width: 300px; 
    margin: 0 auto;
 }
+.changepasswordform
+{
+  margin-top: 40px;
+}
+.changepasswordform label
+{
+  font-size: 18px;
+  font-family: monsterrat;
+}
+.changepasswordform input[type = "password"]
+{
+   width: 300px; 
+   margin: 0 auto;
+}
 .blogsection
 {
   padding: 5em 0;
 }
-
-
 /* css for mobile and tablet view */
 .tab-btn
 {
