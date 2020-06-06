@@ -23,7 +23,7 @@
 }
 #ask-here form button{
     margin-top: 10px;
-    width: 40%;
+    width: 20%;
     padding: 7px;
     background-color: red;
     color: white;
@@ -37,7 +37,7 @@
     color: red;
 }
 #ask-here form textarea{
-    height: 200px;
+    height: 100px;
     width: 100%;
     padding: 8px;
     color: grey;
