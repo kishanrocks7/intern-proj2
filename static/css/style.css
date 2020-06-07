@@ -1861,11 +1861,11 @@ h1, h2, h3, h4, h5, h6, figure {
 {
   font-size: 18px;
   font-family: monsterrat;
+  
 }
 .editprofileform input[type = "text"]
 {
    width: 300px; 
-   margin: 0 auto;
 }
 .changepasswordform
 {

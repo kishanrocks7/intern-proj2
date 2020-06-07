@@ -21,30 +21,32 @@
 	<meta name="twitter:card" content="" />
 
 	<link href="https://fonts.googleapis.com/css?family=Montserrant:300,400,500,600,700" rel="stylesheet">
-	
+<!-- Bootstrap css       -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">	
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="../css/animate.css">
+	<link rel="stylesheet" href="../static/css/animate.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="../css/icomoon.css">
+	<link rel="stylesheet" href="../static/css/icomoon.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../static/css/bootstrap.css">
 	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="../css/magnific-popup.css">
+	<link rel="stylesheet" href="../static/css/magnific-popup.css">
 	<!-- Owl Carousel  -->
-	<link rel="stylesheet" href="../css/owl.carousel.min.css">
-	<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="../static/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../static/css/owl.theme.default.min.css">
 	<!-- Flexslider  -->
-	<link rel="stylesheet" href="../css/flexslider.css">
+	<link rel="stylesheet" href="../static/css/flexslider.css">
 	<!-- Flaticons  -->
-	<link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="../static/fonts/flaticon/font/flaticon.css">
 	<!-- Theme style  -->
-	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../static/css/style.css">
+	<link rel="stylesheet" href="../static/css/curd.css">
 
 	<!-- Modernizr JS -->
-	<script src="../js/modernizr-2.6.2.min.js"></script>
+	<script src="../static/js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
-	<script src="../js/respond.min.js"></script>
+	<script src="../static/js/respond.min.js"></script>
 	<![endif]-->
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -63,7 +65,7 @@
 						<div class="top">
 							<div class="row">
 								<div class="col-md-2">
-									<div id="colorlib-logo"><a href="../index.html">Red<span>Positive</span></a></div>
+									<div id="colorlib-logo"><a href="{{ url_for('home') }}">Red<span>Positive</span></a></div>
 								</div>
 								<div class="col-md-3">
 									<div class="num">
@@ -84,8 +86,8 @@
 											<p style="padding-top: 4%;"><a href="#" >User name</a></p>
 											<div class="dropdown-menu" id="profilecontent" style="margin-top: 20px; margin-left:80px;">
 												<ul></ul>
-												<li class="dropdown-item"><a  href="./user_profile.html">My Account</a></li>	
-												<li class="dropdown-item"><a  href="../index.html">Logout</a></li>
+												<li class="dropdown-item"><a  href="{{ url_for('user_profile') }}">My Account</a></li>	
+												<li class="dropdown-item"><a  href="{{ url_for('home') }}">Logout</a></li>
 											</div>
 										</div>
 									</div>
@@ -111,11 +113,11 @@
 						<div class="col-xs-8">
 							<div class="menu-1">
 								<ul>
-									<li class="active"><a href="../index.html">Home</a></li>
-									<li><a href="../index.html#colorlib-about">About Us</a></li>
-									<li><a href="blog.html">Blog</a></li>
+									<li class="active"><a href="{{ url_for('home') }}">Home</a></li>
+									<li><a href="{{ url_for('home') }}#colorlib-about">About Us</a></li>
+									<li><a href="{{ url_for('blogs') }}">Blog</a></li>
 									<li><a href="#colorlib-footer">Contact Us</a></li>
-									<li><a href="faq.html">FAQ</a></li>
+									<li><a href="{{ url_for('faqs') }}">FAQ</a></li>
                                 </ul>
 							</div>
                         </div>
@@ -124,13 +126,14 @@
 			</div>
 		</div>
 	</nav>
-	
+
+{% block slider %}
 <!-- flex and slider-1  -->
 
 	<aside id="colorlib-hero">
 		<div class="flexslider">
 			<ul class="slides">
-		   	<li style="background-image: url(../images/img_1.jpg);">
+		   	<li style="background-image: url(../static/images/img_1.jpg);">
 		   		<div class="overlay"></div>
 		   		<div class="container">
 		   			<div class="row">
@@ -143,7 +146,7 @@
 			   		</div>
 		   		</div>
 		   	</li>
-		   	<li style="background-image: url(../images/img_5.jpg);">
+		   	<li style="background-image: url(../static/images/img_5.jpg);">
 		   		<div class="overlay"></div>
 		   		<div class="container">
 		   			<div class="row">
@@ -156,7 +159,7 @@
 			   		</div>
 		   		</div>
 		   	</li>
-		   	<li style="background-image: url(../images/img_1.webp);">
+		   	<li style="background-image: url(../static/images/img_1.webp);">
 		   		<div class="overlay"></div>
 		   		<div class="container">
 		   			<div class="row">
@@ -169,7 +172,7 @@
 			   		</div>
 		   		</div>
 		   	</li>
-		   	<li style="background-image: url(../images/img_2.jpg);">
+		   	<li style="background-image: url(../static/images/img_2.jpg);">
 		   		<div class="overlay"></div>
 		   		<div class="container">
 		   			<div class="row">
@@ -186,14 +189,16 @@
 	  	</div>
 	</aside>
 <br><br><br>
+{% endblock %}
 
+{% block content %}
    <!-- Farmers Button -->
 	<div class="services">
 		<div class="container">
 			<br><br><br><br>
 			<div class="card">
 				<div class="col-md-4">
-					<img class="card-img-top img-thumbnail img-responsive" src="../images/img_2.jpg">
+					<img class="card-img-top img-thumbnail img-responsive" src="../static/images/img_2.jpg">
 				</div>
 				<div class="col-md-8 px-3">
 					<div class="card-block px-3">
@@ -203,7 +208,7 @@
 					  <p class="card-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 					  <br><br>
 					  <div class="float-right">
-						  <a href="producers.html">
+						  <a href="{{ url_for('producer') }}">
 					  <button class="main_button float-right" onclick="window.location.href='producers.html';">Producers/Farmers<b><i class="icon-arrow-right" style="font-size: 1.5em;"></i></b></button></a>
 					  </div>
 					</div>
@@ -212,7 +217,7 @@
 		</div><br><br><br><br><br><br>
 	</div>
 
-
+{% endblock %}
 <!-- footer -->
 
 	<footer id="colorlib-footer" role="contentinfo">
@@ -305,28 +310,28 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>	
 	<!-- jQuery -->
-	<script src="../js/jquery.min.js"></script>
+	<script src="../static/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
-	<script src="../js/jquery.easing.1.3.js"></script>
+	<script src="../static/js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="../js/bootstrap.min.js"></script>
+	<script src="../static/js/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script src="../js/jquery.waypoints.min.js"></script>
+	<script src="../static/js/jquery.waypoints.min.js"></script>
 	<!-- Stellar Parallax -->
-	<script src="../js/jquery.stellar.min.js"></script>
+	<script src="../static/js/jquery.stellar.min.js"></script>
 	<!-- Carousel -->
-	<script src="../js/owl.carousel.min.js"></script>
+	<script src="../static/js/owl.carousel.min.js"></script>
 	<!-- Flexslider -->
-	<script src="../js/jquery.flexslider-min.js"></script>
+	<script src="../static/js/jquery.flexslider-min.js"></script>
 	<!-- countTo -->
-	<script src="../js/jquery.countTo.js"></script>
+	<script src="../static/js/jquery.countTo.js"></script>
 	<!-- Magnific Popup -->
-	<script src="../js/jquery.magnific-popup.min.js"></script>
-	<script src="../js/magnific-popup-options.js"></script>
+	<script src="../static/js/jquery.magnific-popup.min.js"></script>
+	<script src="../static/js/magnific-popup-options.js"></script>
 	<!-- Sticky Kit -->
-	<script src="../js/sticky-kit.min.js"></script>
+	<script src="../static/js/sticky-kit.min.js"></script>
 	<!-- Main -->
-	<script src="../js/main.js"></script>
+	<script src="../static/js/main.js"></script>
 	<script>
 		$(document).ready(function(e) {
           $("#profilebutton").click(function(e) {
