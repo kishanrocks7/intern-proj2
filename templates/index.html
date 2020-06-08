@@ -1,6 +1,7 @@
 <!DOCTYPE HTML>
 <html style="scroll-behavior: smooth;">
 	<head>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Red Positive</title>
@@ -23,8 +24,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrant:300,400,500,600,700" rel="stylesheet">
 
 <!-- Theme style  -->
-<link rel="stylesheet" href="../css/loginstyle.css">
-	
+<link rel="stylesheet" href="../static/css/loginstyle.css">
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="../static/css/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -69,6 +69,8 @@
 			}
 		}
 	</style>
+
+
 	</head>
 	<body >
 	<div id="tablet">
@@ -277,7 +279,7 @@
 					<h3 class="card-title">Outlets</h3>
 					<p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 				  </div>
-				  <a href="{{ url_for('outletlogin') }}">
+				  <a href="{{ url_for('outlet_login') }}">
 				  <button class="main_button" >Outlet</button>
 				</a>
 				</div>
@@ -289,7 +291,7 @@
 					<h3 class="card-title">Warehouses</h3>
 					<p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
 				</div>
-				<a href="{{ url_for('warehouselogin') }}">
+				<a href="{{ url_for('warehouse_login') }}">
 				<button class="main_button" >warehouses</button>
 			    </a>  
 				</div>
@@ -755,6 +757,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 		<a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
 	</div>
 </div>	
+
+
 	<!-- jQuery -->
 	<script src="../static/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -778,6 +782,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	<script src="../static/js/sticky-kit.min.js"></script>
 	<!-- Main -->
 	<script src="../static/js/main.js"></script>
+
 	</body>
 </html>
 

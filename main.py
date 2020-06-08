@@ -15,18 +15,26 @@ def home():
 def warehouselogin():
     return render_template('outletlogin.html')
 
-@app.route('/outletlogin')
-def outletlogin():
-    return render_template('warehouselogin.html')
+@app.route('/outlet_login')
+def outlet_login():
+    return render_template('outletlogin.html')
 
 
-@app.route('/outletregister')
-def outletregister():
+@app.route('/outlet_register')
+def outlet_register():
     return render_template('outletregister.html')
 
-@app.route('/warehouseregister')
-def warehouseregister():
+@app.route('/warehouse_register')
+def warehouse_register():
     return render_template('warehouseregister.html')
+
+@app.route('/warehouse_login')
+def warehouse_login():
+    return render_template('warehouselogin.html')
+
+@app.route('/forgot_password')
+def forgot_password():
+    return render_template('forgot_password.html')
 
 @app.route('/producer')
 def producer():
@@ -56,9 +64,30 @@ def blog_post():
 def faqs():
     return render_template('faq.html')
 
+@app.route('/warehouse_products')
+def warehouse_products():
+    return render_template('warehouse_products.html')
+
+@app.route('/nearest_warehouses')
+def nearest_warehouses():
+    return render_template('nearestwarehouses.html')
+
 @app.route('/database_crud')
 def database_crud():
     return render_template('databasecrud.html')
+
+@app.route('/staff_crud')
+def staff_crud():
+    return render_template('staffcrud.html')
+
+@app.route('/warehouse_dashboard')
+def warehouse_dashboard():
+    return render_template('warehouse_dashboard.html')
+
+@app.route('/outlet_dashboard')
+def outlet_dashboard():
+    return render_template('outlet_home_1.html')
+
 
     # Run from here
 if __name__ == "__main__":
