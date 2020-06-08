@@ -16,21 +16,34 @@
 								<div style="width: 50%; margin: 25px auto;font-family: 'Montserrat', sans-serif;">
 									<form action="{{ url_for('warehouse_register') }}" method="post">
 										<div class="form-group">
-											<label for="fname">First Name <span class="star">&#9733;</span></label>
-											<input id="fname" type="text" name="fname" class="form-control" placeholder="First name.." required>
+											<label for="warehouseName">Warehouse Name <span class="star">&#9733;</span></label>
+											<input id="warehouseName" type="text" name="warehouseName" class="form-control" placeholder="Warehouse Name.." required>
 										</div>
 										<div class="form-group">
-											<label for="lname">Last Name <span class="star">&#9733;</span></label>
-											<input id="lname"  type="text" name="lname" class="form-control" placeholder="Last name.." required>
+											<label for="managerName">Manager Name <span class="star">&#9733;</span></label>
+											<input id="managerName"  type="text" name="managerName" class="form-control" placeholder="Warehouse Manager Name.." required>
 										</div>
 										<div class="form-group">
 											<label for="email">Email <span class="star">&#9733;</span></label>
-											<input id="email"  type="email" name="email" class="form-control" placeholder="Your email.." required>
+											<input id="email"  type="email" name="email" class="form-control"  placeholder="E-mail.." required>
 										</div>
+										<div class="form-group">
+											<label for="companyNumber">Company Number <span class="star">&#9733;</span></label>
+											<input id="companyNumber"  type="text" name="companyNumber" class="form-control" maxlength="10" placeholder="Company Contact Number.." required>
+										</div>
+										<div class="form-group">
+											<label for="phoneNumber">Phone Number <span class="star">&#9733;</span></label>
+											<input id="phoneNumber"  type="text" name="phoneNumber" class="form-control" maxlength="10" placeholder="Phone Number.." required>
+										</div>
+										<div class="form-group">
+											<label for="address">Address <span class="star">&#9733;</span></label>
+											<textarea id="address"  type="text" name="address" class="form-control" rows="3" placeholder="Warehouse Address.." required></textarea>
+										</div>
+
 										<div class="form-group">
 											<label for="password">Password <span class="star">&#9733;</span></label>
 											<input id="password"  type="password" name="password" class="form-control" placeholder="Enter a strong password.." required>
-											<small id="passwordHelp" class="form-text text-muted">Minimum 10 characters long; include small, capital letters, & atleast 1 digit & 1 special character.</small>
+										
 										</div>
 										<div class="form-group">
 											<label for="confirmpassword">Confirm Password <span class="star">&#9733;</span></label>
@@ -46,6 +59,10 @@
 											<h5 class="have">Have an account? <a class="red" href="{{ url_for('warehouse_login') }}">Sign In</a></h5>
 										</div>
 									</form>
+
+																{% if failuremsg %}
+																<h1>{{failuremsg}}</h1>
+																{% endif %}
 								</div>
 							</div>
 						</div>

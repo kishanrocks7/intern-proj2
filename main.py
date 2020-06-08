@@ -1,9 +1,14 @@
+from werkzeug.security import generate_password_hash,check_password_hash 
 #importing neccessary libraries
 from flask import Flask,render_template,request,session,redirect,url_for,flash
+#importing database library
+import uuid
+
+from databaselibrary import getdbcur
 
 # This is main app point
 app = Flask(__name__)
-
+app.secret_key = 'testRedPositive'
 #ROUTES
 
 #Home Route
@@ -19,13 +24,31 @@ def warehouselogin():
 def outlet_login():
     return render_template('outletlogin.html')
 
-
 @app.route('/outlet_register')
 def outlet_register():
     return render_template('outletregister.html')
 
-@app.route('/warehouse_register')
+@app.route('/warehouse_register',methods = ['GET','POST'])
 def warehouse_register():
+    if request.method =='POST':
+        fullkey = uuid.uuid4()
+        uid = fullkey.time
+        wname = request.form['warehouseName']
+        mname = request.form['managerName']
+        email = request.form['email']
+        compno = request.form['companyNumber']
+        pno = request.form['phoneNumber']
+        address = request.form['address']
+        password  = request.form['password']
+        cur = getdbcur()
+        sql = 'insert into warehouse(id,warehouseName,managerName,companyNumber,phoneNumber,email,address,password) values (%s,%s,%s,%s,%s,%s,%s,%s) '
+        cur.execute(sql,(uid,wname,mname,compno,pno,email,address,password))
+        rc = cur.rowcount
+        if rc >= 1 :
+            flash('You have suucesfully registerd!')
+            return redirect(url_for('warehouselogin'))
+        else:
+            return render_template('warehouseregister.html',failuremsg = "There is error!")
     return render_template('warehouseregister.html')
 
 @app.route('/warehouse_login')
