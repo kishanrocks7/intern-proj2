@@ -59,7 +59,7 @@ def wdashboard():
         sql = "select managerName from warehouse where (id = %s  AND (email = %s OR phoneNumber = %s ) AND managerName=%s AND password= %s ) "
         cur.execute(sql,(user_id, em_or_num, em_or_num , mname, passwd))
         sqlres = cur.rowcount
-        mname = cur.fetchone
+        mname = cur.fetchone()
         print(mname)
         if sqlres == 1 :
             session['user_id'] = user_id 
@@ -93,18 +93,24 @@ def wareforget():
             return render_template('forgot_password.html', fmsg ="Either unique Id or email is incorrect..try again!")
     return render_template('forgot_password.html')
 
-def wreset():
+def respass():
     if request.method == 'POST':
         user_id =  request.form['id']
         verifcode =  request.form['verifcode']
         passwd = str(pybase64.b64encode((request.form['pass']).encode("utf-8")),"utf-8")
-        sql = ' update warehouse set password = %s  where (id = %s  AND passwordResetCode = %s) '
         cur = getdbcur()
-        cur.execute(sql,(passwd, user_id, verifcode))
-        n = cur.rowcount
-        if n == 1 :
-            flash('Your password is Changed ..You can now Login!')
-            return redirect(url_for('warehouse_login'))
+        idquery = 'select managerName from warehouse where id= "'+user_id+'" AND passwordResetCode = "'+verifcode+'"  '
+        cur.execute(idquery)
+        m =cur.rowcount
+        if m == 1:
+            resquery = ' update warehouse set password = %s  where (id = %s  AND passwordResetCode = %s) '
+            cur.execute(resquery,(passwd, user_id, verifcode))
+            n = cur.rowcount
+            if n ==1 :
+                flash('Your password is Changed ..You can now Login!')
+                return redirect(url_for('warehouse_login'))
+            else:
+                return render_template('reset_password.html', samepassmsg ="You password is same as previous One..login from below")
         else:
-            return render_template('forgot_password.html', fmsg ="Either unique Id or email is incorrect..try again!")
+                return render_template('reset_password.html', rmsg ="Either unique Id or verification code is incorrect.. please try again!")
     return render_template('reset_password.html')

@@ -24,7 +24,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 #warehouse functions
-from warehouse import wdashboard,wreg,wareforget  #,wresest
+from warehouse import wdashboard,wreg,wareforget,respass
 
 app.secret_key= 'secret4key'
 #ROUTES
@@ -60,26 +60,7 @@ def forgot_password():
 
 @app.route('/reset_password',methods = ['GET','POST'])
 def reset_password():
-    if request.method == 'POST':
-        user_id =  request.form['id']
-        verifcode =  request.form['verifcode']
-        passwd = str(pybase64.b64encode((request.form['pass']).encode("utf-8")),"utf-8")
-        cur = getdbcur()
-        idquery = 'select managerName from warehouse where id= "'+user_id+'" AND passwordResetCode = "'+verifcode+'"  '
-        cur.execute(idquery)
-        m =cur.rowcount
-        if m == 1:
-            resquery = ' update warehouse set password = %s  where (id = %s  AND passwordResetCode = %s) '
-            cur.execute(resquery,(passwd, user_id, verifcode))
-            n = cur.rowcount
-            if n ==1 :
-                flash('Your password is Changed ..You can now Login!')
-                return redirect(url_for('warehouse_login'))
-            else:
-                return render_template('reset_password.html', samepassmsg ="You password is same as previous One..login from below")
-        else:
-                return render_template('reset_password.html', rmsg ="Either unique Id or verification code is incorrect.. please try again!")
-    return render_template('reset_password.html')
+    return respass()
 
 @app.route('/producer')
 def producer():
