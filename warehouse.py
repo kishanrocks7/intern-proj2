@@ -1,4 +1,5 @@
 import uuid,pybase64
+from random import randint
 from databaselibrary import getdbcur
 from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
 from flask_mail import Mail, Message
@@ -9,6 +10,12 @@ def wreg():
         fullkey = uuid.uuid4()
         uid = fullkey.time
         em = request.form['email']
+        passwd = request.form['password']
+        cpasswd = request.form['confirmpassword']
+        if(passwd!=cpasswd):
+            #flash msg
+            flash('Password and Confirm Password does not match')
+            return redirect(url_for('warehouse_register'))
         wname = str(pybase64.b64encode((request.form['warehouseName']).encode("utf-8")),"utf-8")
         mname = str(pybase64.b64encode((request.form['managerName']).encode("utf-8")),"utf-8")
         email = str(pybase64.b64encode((request.form['email']).encode("utf-8")),"utf-8")
@@ -62,4 +69,42 @@ def wdashboard():
             return redirect(url_for('warehouse_login'))
     return redirect(url_for('warehouse_login'))
 
-    
+def wareforget():
+    if request.method == 'POST':
+        user_id =  request.form['id']
+        em = request.form['email']
+        email = str(pybase64.b64encode((em).encode("utf-8")),"utf-8")
+        randcode = randint(100000,999999)   #Generating 6 digit random int
+        sql = ' update warehouse set passwordResetcode = %s where (id = %s  AND email = %s) '
+        cur = getdbcur()
+        cur.execute(sql,(randcode, user_id, email))
+        n = cur.rowcount
+        if n == 1 :
+        #getting mail app with app
+            app = current_app._get_current_object()
+            mail = Mail(app)
+            subject = "verification code for account"
+            msg = Message(subject, sender = 'codewithash99@gmail.com', recipients = [str(em)])
+            msg.body = "Your verification code for change password is " + str(randcode) 
+            mail.send(msg) 
+            flash('Check your verification code in your email')
+            return  redirect(url_for('reset_password'))
+        else:
+            return render_template('forgot_password.html', fmsg ="Either unique Id or email is incorrect..try again!")
+    return render_template('forgot_password.html')
+
+def wreset():
+    if request.method == 'POST':
+        user_id =  request.form['id']
+        verifcode =  request.form['verifcode']
+        passwd = str(pybase64.b64encode((request.form['pass']).encode("utf-8")),"utf-8")
+        sql = ' update warehouse set password = %s  where (id = %s  AND passwordResetCode = %s) '
+        cur = getdbcur()
+        cur.execute(sql,(passwd, user_id, verifcode))
+        n = cur.rowcount
+        if n == 1 :
+            flash('Your password is Changed ..You can now Login!')
+            return redirect(url_for('warehouse_login'))
+        else:
+            return render_template('forgot_password.html', fmsg ="Either unique Id or email is incorrect..try again!")
+    return render_template('reset_password.html')
