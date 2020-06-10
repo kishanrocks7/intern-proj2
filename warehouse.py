@@ -1,7 +1,8 @@
 import uuid,pybase64
 from databaselibrary import getdbcur
-from flask import Flask,render_template,request,session,redirect,url_for,flash
+from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
 from flask_mail import Mail, Message
+
 
 def wreg():
     if request.method =='POST':
@@ -24,9 +25,12 @@ def wreg():
             cur.execute(insertusersql,(uid,wname,mname,compno,pno,email,address,password))
             insertcount = cur.rowcount
             if insertcount >= 1 :
+                #getting mail app with app
+                app = current_app._get_current_object()
+                mail = Mail(app)
                 subject = "Your registration successful !"
                 msg = Message(subject, sender = 'codewithash99@gmail.com', recipients = [str(em)])
-                msg.body = "Hey ! you are registered with us. \n Your unique id to access the dashboard is" + str(uid) + "\n Save this key for your future reference !!"
+                msg.body = "Hey ! you are registered with us. \n Your unique id to access the dashboard is " + str(uid) + "\n Save this key for your future reference !!"
                 mail.send(msg) 
                 flash('You have succesfully register, You can now login!')
                 return redirect(url_for('warehouse_login'))
