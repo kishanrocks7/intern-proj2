@@ -63,6 +63,7 @@ def wdashboard():
         print(mname)
         if sqlres == 1 :
             session['user_id'] = user_id 
+            session['user_name'] = manager_name
             return render_template('warehouse_dashboard.html', m_name = manager_name)
         else:
             flash("Incorrect credentials!")
@@ -96,8 +97,11 @@ def wareforget():
 def respass():
     if request.method == 'POST':
         user_id =  request.form['id']
-        verifcode =  request.form['verifcode']
+        verifcode =  request.form['verifcode'] 
         passwd = str(pybase64.b64encode((request.form['pass']).encode("utf-8")),"utf-8")
+        if(verifcode == None):
+            flash("please fill out the verification code")
+            return redirect(url_for('reset_password'))
         cur = getdbcur()
         idquery = 'select managerName from warehouse where id= "'+user_id+'" AND passwordResetCode = "'+verifcode+'"  '
         cur.execute(idquery)
@@ -107,6 +111,8 @@ def respass():
             cur.execute(resquery,(passwd, user_id, verifcode))
             n = cur.rowcount
             if n ==1 :
+                delquery = ' update warehouse set passwordResetCode = %s  where id = %s '
+                cur.execute(delquery,(uuid.uuid4().hex,user_id))
                 flash('Your password is Changed ..You can now Login!')
                 return redirect(url_for('warehouse_login'))
             else:

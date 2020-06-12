@@ -25,6 +25,8 @@ app.config['MAIL_USE_SSL'] = True
 
 #warehouse functions
 from warehouse import wdashboard,wreg,wareforget,respass
+# producer functions
+from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
 
 app.secret_key= 'secret4key'
 #ROUTES
@@ -64,7 +66,24 @@ def reset_password():
 
 @app.route('/producer')
 def producer():
-    return render_template('producers.html')
+    return producerhome()
+
+
+@app.route('/change_producer_details',methods = ['GET','POST'])
+def change_producer_details():
+    return changeproducer()
+
+@app.route('/delete_producer_details',methods = ['GET','POST'])
+def delete_producer_details():
+    return deleteproducer()
+
+@app.route('/search_producer',methods = ['GET','POST'])
+def search_producer():
+    return searchproducer()
+
+@app.route('/add_producer', methods = ['GET','POST'])
+def add_producer():
+    return addproducer()
 
 @app.route('/blogs')
 def blogs():

@@ -83,7 +83,7 @@
 									<div class="profile loc">
 										<div class="dropdown">
 											<a href="#"  id="profilebutton"><span class="icon"><i class="icon-user"></i></span></a>
-											<p style="padding-top: 4%;"><a href="#" >{{ m_name }}</a></p> 
+											<p style="padding-top: 4%;"><a href="#" >{% if 'user_name' in session %}{{ session['user_name'] }}{% endif %}</a></p> 
 											<div class="dropdown-menu" id="profilecontent" style="margin-top: 20px; margin-left:80px;">
 												<ul></ul>
 												<li class="dropdown-item"><a  href="{{ url_for('user_profile') }}">My Account</a></li>	
@@ -337,7 +337,28 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           $("#profilebutton").click(function(e) {
           $("#profilecontent").toggle();
           });
-      });
+	  });
+	  
+
+	  $(document).ready(function(e) {
+		$('.editproducerinfo').click(function(){
+			$('.saveproducerinfo').show();
+			$('.producername, .produceremail, .producernumber, .commoditytype, .commodityunits ').removeAttr('readonly');
+          });
+  
+          $('.addcart').click(function(){
+          $('.category').attr('action', 'addtocart');
+          });
+  
+          $('.saveproducerinfo').click(function(){
+          $('.producerinfoform').attr('action', 'change_producer_details');
+          });
+          $('.deleteproducerinfo').click(function(){
+          $('.producerinfoform').attr('action', 'delete_producer_details');
+          });
+    });
+
+
 	</script>
 	</body>
 </html>
