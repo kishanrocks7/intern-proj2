@@ -13,7 +13,8 @@ from flask_mail import Mail, Message
 # This is main app point
 app = Flask(__name__)
 
-
+#upload Folder config
+app.config['UPLOAD_FOLDER']='./static/photos'
 # mail configs
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
@@ -24,7 +25,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 #warehouse functions
-from warehouse import wdashboard,wreg,wareforget,respass
+from warehouse import wdashboard,wreg,wareforget,respass,wareprofile
 # producer functions
 from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
 
@@ -97,9 +98,9 @@ def change_password():
 def edit_profile():
     return render_template('edit_profile.html')
 
-@app.route('/user_profile')
-def user_profile():
-    return render_template('user_profile.html')
+@app.route('/warehouse_profile', methods = ['GET','POST'])
+def warehouse_profile():
+    return wareprofile()
 
 @app.route('/blog_post')
 def blog_post():

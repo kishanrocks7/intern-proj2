@@ -86,7 +86,7 @@
 											<p style="padding-top: 4%;"><a href="#" >{% if 'user_name' in session %}{{ session['user_name'] }}{% endif %}</a></p> 
 											<div class="dropdown-menu" id="profilecontent" style="margin-top: 20px; margin-left:80px;">
 												<ul></ul>
-												<li class="dropdown-item"><a  href="{{ url_for('user_profile') }}">My Account</a></li>	
+												<li class="dropdown-item"><a  href="{{ url_for('warehouse_profile') }}">My Account</a></li>	
 												<li class="dropdown-item"><a  href="{{ url_for('home') }}">Logout</a></li>
 											</div>
 										</div>
@@ -346,10 +346,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			$('.producername, .produceremail, .producernumber, .commoditytype, .commodityunits ').removeAttr('readonly');
           });
   
-          $('.addcart').click(function(){
-          $('.category').attr('action', 'addtocart');
-          });
-  
           $('.saveproducerinfo').click(function(){
           $('.producerinfoform').attr('action', 'change_producer_details');
           });
@@ -358,6 +354,13 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           });
     });
 
+	$(document).ready(function(e) {
+		$('.editwarehouseprofile').click(function(){
+			$('.savewarehouseprofile').show();
+			$('.warename,.manname,.manemail,.compno,.contactno,.wareaddress,.wareimgupload,.isonum').removeAttr('readonly');
+			$('.warename,.manname,.manemail,.compno,.contactno,.wareaddress,.wareimgupload,.isonum').removeAttr('style');
+          });
+    });
 
 	</script>
 	</body>

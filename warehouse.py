@@ -1,9 +1,9 @@
-import uuid,pybase64
+import uuid,pybase64,os
 from random import randint
 from databaselibrary import getdbcur
 from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
 from flask_mail import Mail, Message
-
+from werkzeug.utils import secure_filename
 
 def wreg():
     if request.method =='POST':
@@ -120,3 +120,66 @@ def respass():
         else:
                 return render_template('reset_password.html', rmsg ="Either unique Id or verification code is incorrect.. please try again!")
     return render_template('reset_password.html')
+
+def wareprofile():
+    if 'user_id' in session:
+        id = session['user_id']
+        cur = getdbcur()
+        if request.method == 'POST':
+            wareimg = request.files['wareimg']
+            if wareimg:
+                    checkphoto = "select warehouseImage from warehouse where id='"+id+"'"
+                    cur.execute(checkphoto)
+                    n=cur.rowcount
+                    if n == 1:
+                        prevphoto=cur.fetchone()
+                        photo=prevphoto[0]
+                        if photo != None:
+                            os.remove("./static/photos/"+photo)
+                    path=os.path.basename(wareimg.filename)
+                    file_ext=os.path.splitext(path)[1][1:]
+                    imgfilename=str(uuid.uuid4())+'.'+file_ext
+                    wimgname = secure_filename(imgfilename)
+                    app = current_app._get_current_object()
+                    wareimg.save(os.path.join(app.config['UPLOAD_FOLDER'],wimgname))
+            warename = str(pybase64.b64encode((request.form['warename']).encode("utf-8")),"utf-8")
+            manname = str(pybase64.b64encode((request.form['manname']).encode("utf-8")),"utf-8")
+            manemail = str(pybase64.b64encode((request.form['manemail']).encode("utf-8")),"utf-8")
+            compno = str(pybase64.b64encode((request.form['compno']).encode("utf-8")),"utf-8")
+            manno = str(pybase64.b64encode((request.form['manno']).encode("utf-8")),"utf-8")
+            wareaddress = str(pybase64.b64encode((request.form['wareaddress']).encode("utf-8")),"utf-8")
+            isonum = request.form['isonum']
+            editprofsql = ' update warehouse set warehouseName = %s,  managerName = %s, companyNumber = %s,  phoneNumber = %s, email = %s,  address = %s, warehouseImage = %s, isoNumber = %s  where id = %s '
+            viewprofsql = 'select * from warehouse where id ="'+id+'"  '
+            try:
+                cur.execute(editprofsql,(warename,manname,compno,manno,manemail,wareaddress,wimgname,isonum,id))
+            except:
+                editprofsql = ' update warehouse set warehouseName = %s,  managerName = %s, companyNumber = %s,  phoneNumber = %s, email = %s,  address = %s, isoNumber = %s  where id = %s '
+                cur.execute(editprofsql,(warename,manname,compno,manno,manemail,wareaddress,isonum,id))
+            n = cur.rowcount
+            cur.execute(viewprofsql)
+            m = cur.rowcount
+            if m==1:
+                data = cur.fetchall()
+                cd = [list(i) for i in data]
+                for i in range(0,len(cd)):
+                    for j in range(1,len(cd[i])-3):
+                        cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+                td = tuple(tuple(i) for i in cd)
+                return render_template('warehouse_profile.html',profmsg = "Profile Updated !",pdata = td)
+            return render_template('warehouse_profile.html',profmsg = "There is error while changing data !",pdata = td) 
+        viewprofsql = 'select * from warehouse where id ="'+id+'"  '
+        cur.execute(viewprofsql)
+        n = cur.rowcount
+        if n == 1:
+            data = cur.fetchall()
+            cd = [list(i) for i in data]
+            for i in range(0,len(cd)):
+                for j in range(1,len(cd[i])-3):
+                    cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+            td = tuple(tuple(i) for i in cd)
+            print(td)
+            return render_template('warehouse_profile.html',pdata = td)
+        return render_template('warehouse_profile.html',profmsg = "There is error in displaying profile msg")
+    flash('Direct access to this page is Not allowed ..Login First!')
+    return redirect(url_for('warehouse_login'))

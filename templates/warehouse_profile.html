@@ -1,0 +1,95 @@
+{% extends 'warehouse_dashboard.html' %}
+{% block slider %}
+{% endblock %}
+{% block content %}
+
+<!--profile-->
+<div id="colorlib-choose">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="choose">
+				<div class="half img-bg" style="background-image: url(../static/images/latest_2.jpg);"></div>
+				<div class="half features-wrap">
+					<div class="features-services animate-box">
+						<div class="row">							
+							<div style="width: 50%; margin: 25px auto;font-family: 'Montserrat', sans-serif;">
+								{% if profmsg %}
+							<h5 style="text-align: center;color: #ff2121; margin-bottom: 30px;">{{profmsg}}</h5>
+							{% endif %}
+								<h1 style="text-align: center;color: #ff2121; margin-bottom: 50px;">Profile</h1>
+							{% if pdata %}
+							{% for profdata in pdata%}
+								<form action="{{url_for('warehouse_profile')}}" method="post"class="warehouseprofileform" enctype="multipart/form-data">
+									{% if profdata[9] %}
+									<div class="form-group">
+										<img class=" img-fluid" src="../static/photos/{{profdata[9]}}" style="max-height: 240px; max-width: 320px;"  >
+									</div>
+									{% endif %}
+									<div class="form-group" style="margin-bottom: 30px;">
+												<input  type="file" class="wareimgupload" name="wareimg" style="display: none;" readonly>
+									</div>
+									
+									<div class="form-group">
+										<label for="warename">Warehouse Name <span
+												class="star">&#9733;</span></label>
+										<input value="{{profdata[1]}}"  class="warename form-control" type="text" name="warename" 
+										style="border: none; background-color: white;" readonly required>
+									</div>
+									<div class="form-group">
+										<label for="manname">Manager Name <span class="star">&#9733;</span></label>
+										<input value="{{profdata[2]}}"  class="manname form-control" type="text" name="manname" 
+											 style="border: none; background-color: white;" readonly required>
+									</div>
+									<div class="form-group">
+										<label for="manemail">Manager Email <span class="star">&#9733;</span></label>
+										<input value="{{profdata[5]}}"  class="manemail form-control" type="manemail" name="manemail" 
+											  style="border: none;background-color: white;" readonly required >
+									</div>
+									<div class="form-group">
+										<label for="compno">Company Number <span
+												class="star">&#9733;</span></label>
+										<input value="{{profdata[3]}}"  type="text" name="compno" pattern="[6789][0-9]{9}" class="compno form-control" maxlength="10"  style="border: none; background-color: white;" required  readonly>
+									</div>
+									<div class="form-group">
+										<label for="contactno">Phone Number <span class="star">&#9733;</span></label>
+										<input value="{{profdata[4]}}"  class="contactno form-control" type="text" name="manno" pattern="[6789][0-9]{9}"  maxlength="10" style="border: none; background-color: white;"   required  readonly>
+									</div>
+									<div class="form-group">
+										<label for="wareaddress">Warehouse Address <span class="star">&#9733;</span></label>
+										<textarea   class="wareaddress form-control" type="text" name="wareaddress"  rows="3"
+											style="border: none; background-color: white;"  required readonly>{{profdata[6]}}</textarea>
+									</div>
+									<div class="form-group">
+										<label for="warename">ISO number<span
+												class="star">&#9733;</span></label>
+										<input  class="isonum form-control" type="text" name="isonum" 
+										style="border: none; background-color: white;" readonly {% if profdata[10] %} value="{{profdata[10]}}" {% endif %}>
+									</div>
+									
+									<div class="form-group text-center">
+										<button class="savewarehouseprofile btn btn-block "
+												style="text-align: center;color:white; padding: 10px; background-color: #ff2121; display: none; margin-top: 40px;">Save edited Profile
+											</button>
+											<button class="editwarehouseprofile btn btn-block " type="button"
+												style="text-align: center;color:white; padding: 10px; background-color: #ff2121; margin-top: 40px;" >Edit profile
+											</button>
+											<a><button class="changewarehousePassword btn btn-block " type="button"
+												style="text-align: center;color:white; padding: 10px; background-color: #ff2121; margin-top: 40px;">Change Password
+											</button> </a>
+		
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<br><br><br>
+{% endfor %}
+{% endif %}
+
+{% endblock %}
