@@ -97,12 +97,12 @@ def deleteproducer():
 def searchproducer():
     if 'user_id' in session:
         if request.method == 'POST':
-            si = str(pybase64.b64encode((request.form['searchinput']).encode("utf-8")),"utf-8")
+            si = str(pybase64.b64encode((request.form['searchinp']).encode("utf-8")),"utf-8")
             searchquery = "select * from producer where (name like  '%"+si+"%'  OR commodityType like   '%"+si+"%' )  "
             cur =getdbcur()
             cur.execute(searchquery)
             n =cur.rowcount
-            if n == 1:
+            if n >= 1:
                 data = cur.fetchall()
                 cd = [list(i) for i in data]
                 for i in range(0,len(cd)):
@@ -113,7 +113,7 @@ def searchproducer():
                 flash('Results For your search !')
                 return redirect(url_for('producer'))
             else:
-                flash('There is error in searching producers details !')
+                flash('Result Not found ..try Different key.!')
                 return redirect(url_for('producer'))
         return redirect(url_for('producer'))
     flash('Direct access to this page is Not Allowed Login first To view this page!')
