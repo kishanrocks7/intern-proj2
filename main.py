@@ -25,7 +25,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
 #warehouse functions
-from warehouse import wdashboard,wreg,wareforget,respass,wareprofile
+from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass
 # producer functions
 from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
 
@@ -90,9 +90,6 @@ def add_producer():
 def blogs():
     return render_template('blog.html')
 
-@app.route('/change_password')
-def change_password():
-    return render_template('change_password.html')
 
 @app.route('/edit_profile')
 def edit_profile():
@@ -131,6 +128,14 @@ def staff_crud():
 @app.route('/outlet_dashboard')
 def outlet_dashboard():
     return render_template('outlet_home_1.html')
+
+@app.route('/change_password',methods = ['GET','POST'])
+def change_password():
+    return changepass()
+
+@app.route('/logout')
+def logout():
+    return lgout()
 
 
     # Run from here

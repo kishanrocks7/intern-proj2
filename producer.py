@@ -116,5 +116,5 @@ def searchproducer():
                 flash('There is error in searching producers details !')
                 return redirect(url_for('producer'))
         return redirect(url_for('producer'))
-    flash('Direct access to this page is Not Alloed Login first To view this page!')
+    flash('Direct access to this page is Not Allowed Login first To view this page!')
     return redirect(url_for('warehouse_login'))

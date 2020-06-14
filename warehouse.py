@@ -60,7 +60,6 @@ def wdashboard():
         cur.execute(sql,(user_id, em_or_num, em_or_num , mname, passwd))
         sqlres = cur.rowcount
         mname = cur.fetchone()
-        print(mname)
         if sqlres == 1 :
             session['user_id'] = user_id 
             session['user_name'] = manager_name
@@ -121,6 +120,7 @@ def respass():
                 return render_template('reset_password.html', rmsg ="Either unique Id or verification code is incorrect.. please try again!")
     return render_template('reset_password.html')
 
+######################### Warehouse profile Part ###################################
 def wareprofile():
     if 'user_id' in session:
         id = session['user_id']
@@ -178,8 +178,41 @@ def wareprofile():
                 for j in range(1,len(cd[i])-3):
                     cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
             td = tuple(tuple(i) for i in cd)
-            print(td)
             return render_template('warehouse_profile.html',pdata = td)
         return render_template('warehouse_profile.html',profmsg = "There is error in displaying profile msg")
     flash('Direct access to this page is Not allowed ..Login First!')
+    return redirect(url_for('warehouse_login'))
+
+    ############################# WareHouse profile part End ####################################
+
+def changepass():
+    if 'user_id' in session:
+        usid = session['user_id']
+        if request.method == 'POST':
+            oldpass = str(pybase64.b64encode((request.form['oldPassword']).encode("utf-8")),"utf-8")
+            newpass = str(pybase64.b64encode((request.form['newPassword']).encode("utf-8")),"utf-8")
+            cpass = str(pybase64.b64encode((request.form['conirmPassword']).encode("utf-8")),"utf-8")
+            if(newpass != cpass):
+                return render_template('change_password.html',passmsg = "new password and confirm password doesn't match..")
+            cur = getdbcur()
+            cpasssql = "update warehouse set password='"+newpass+"' where id = '"+usid+"' "
+            cur.execute(cpasssql)
+            n = cur.rowcount
+            if n == 1:
+                flash("password changed successfully !")
+                session.pop('user_id',None)
+                session.pop('user_name',None)
+                return redirect(url_for('warehouse_login'))
+            return render_template('change_password.html',passmsg = "New password is same as Confirm password")
+        return render_template('change_password.html')
+    flash('Direct access to this page is Not allowed ..Login First!')
+    return redirect(url_for('warehouse_login'))
+
+def lgout():
+    if 'user_id' in session:
+        session.pop('user_id',None)
+        session.pop('user_name',None)
+        flash('Logged Out..Login again to Open your account!')
+        return redirect(url_for('warehouse_login'))
+    flash('You are not Logged in to your account!')
     return redirect(url_for('warehouse_login'))
