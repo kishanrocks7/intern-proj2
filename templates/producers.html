@@ -190,7 +190,18 @@
       <input value="{{producersearchdata[4]}}" type="text" pattern="[6789][0-9]{9}" class="producernumber" name="producernumber" readonly style="border: none;">
     </div>
     <div class="col item-area items-data" style="width: 12%">
-      <input value="{{producersearchdata[7]}}" type="text" class="commoditytype" name="commoditytype" readonly style="border: none;">
+      <select class="commoditytype " name="commoditytype" readonly disabled style="border: none; text-decoration: none;" >
+        <option value="{{producersearchdata[7]}}" class="form-control">{{producersearchdata[7]}}</option>
+        {% for i in ["Black Pepper","Turmeric","Cinnamon","Red Chilly","Mustard","Clove","Cumin","Chick Pea"] %}
+        <option value="{{i}}" class="form-control">{{i}}</option>
+        {% endfor %}
+      </select>
+      <style>
+        select:disabled
+        {
+          opacity: 1;
+        }
+      </style>
     </div>
     <div class="col item-area items-data" style="width: 12%">
       <input value="{{producersearchdata[8]}}" type="number" class="commodityunits" name="commodityunits" readonly style="border: none;">
@@ -346,8 +357,19 @@
             <input value="{{producerdata[4]}}" type="text" pattern="[6789][0-9]{9}" class="producernumber" name="producernumber" readonly style="border: none;">
           </div>
           <div class="col item-area items-data" style="width: 12%">
-            <input value="{{producerdata[7]}}" type="text" class="commoditytype" name="commoditytype" readonly style="border: none;">
-          </div>
+            <select class="commoditytype " name="commoditytype" readonly disabled style="border: none;">
+              <option value="{{producerdata[7]}}" class="form-control">{{producerdata[7]}}</option>
+              {% for i in ["Black Pepper","Turmeric","Cinnamon","Red Chilly","Mustard","Clove","Cumin","Chick Pea"] %}
+              <option value="{{i}}" class="form-control">{{i}}</option>
+              {% endfor %}
+            </select>
+            <style>
+              select:disabled
+              {
+                opacity: 1;
+              }
+            </style>         
+           </div>
           <div class="col item-area items-data" style="width: 12%">
             <input value="{{producerdata[8]}}" type="number" class="commodityunits" name="commodityunits" readonly style="border: none;">
           </div>
@@ -428,7 +450,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Add New Customer</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Add New Producer</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -436,16 +458,16 @@
       <div class="modal-body mx-3">
         <form action="add_producer" method="post">
           <div class="form-group">
-            <label for="Name">Name <span class="star">&#9733;</span></label>
+            <label for="Name">Name</label>
             <input id="Name" type="text" name="name" class="form-control" placeholder="Customer Name.." required>
           </div>
           <div class="form-group">
-            <label for="phoneNumber">Phone Number <span class="star">&#9733;</span></label>
+            <label for="phoneNumber">Phone Number</label>
             <input id="phoneNumber" type="text" name="phoneNumber" pattern="[6789][0-9]{9}" class="form-control"
               maxlength="10" placeholder="Phone Number.." required>
           </div>
           <div class="form-group">
-            <label for="email">Email <span class="star">&#9733;</span></label>
+            <label for="email">Email</label>
             <input id="email" type="email" name="email" class="form-control" placeholder="E-mail.." required>
           </div>
           <div class="form-group">
@@ -457,21 +479,30 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="Age">Age <span class="star">&#9733;</span></label>
-            <input id="Age" type="number" name="age" class="form-control" placeholder="Customer Age.." required>
+            <label for="Age">Age</label>
+            <select class="form-control" name="age" id="Age">
+              <option value=select>select</option>
+              {% for i in range(1,100) %}
+              <option value="{{i}}">{{i}}</option>
+              {% endfor %}
+            </select>
           </div>
           <div class="form-group">
-            <label for="address">Address <span class="star">&#9733;</span></label>
+            <label for="address">Address</label>
             <textarea id="address" type="text" name="address" class="form-control" rows="3"
               placeholder="Warehouse Address.." required></textarea>
           </div>
           <div class="form-group">
-            <label for="commodityType">Commodity Type <span class="star">&#9733;</span></label>
-            <input id="commodityType" type="text" name="commodityType" class="form-control"
-              placeholder="Commodity Typee.." required>
+            <label for="commodityType">Commodity Type</label>
+            <select class="form-control" name="commodityType" id="commodityType">
+              <option value=select>select</option>
+              {% for i in ["Black Pepper","Turmeric","Cinnamon","Red Chilly","Mustard","Clove","Cumin","Chick Pea"] %}
+              <option value="{{i}}">{{i}}</option>
+              {% endfor %}
+            </select>
           </div>
           <div class="form-group">
-            <label for="commodityUnits">Commodity Units<span class="star">&#9733;</span></label>
+            <label for="commodityUnits">Commodity Units</label>
             <input id="commodityUnits" type="number" name="commodityUnits" class="form-control"
               placeholder="Commodity Units.." required>
           </div>
