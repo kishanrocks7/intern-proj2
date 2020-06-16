@@ -1,0 +1,52 @@
+{% extends 'warehouse_dashboard.html' %}
+
+{% block content %}
+   <!-- nearby warehouses Button -->
+   <div id="colorlib-blog">
+	<div class="container">
+		<div class="row animate-box">
+            <div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
+                <h2 style="color: black; ;"><B>UTILITIES</B></h2>
+                
+            </div>
+        </div>
+		
+		<div class="row">
+			<div class="col-md-4 animate-box">
+				<div class="blog-entry">
+					<a class="blog-img" style="background-image: url(../static/images/img102.jpg); box-shadow: 0px 11px 40px -13px #0A0819"></a>
+					<div class="text-center">
+						<a href="{{ url_for('staff_crud') }}">
+						<button class="b_center"  > Staff </button>
+					</a>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 animate-box">
+				<div class="blog-entry">
+					<a class="blog-img" style="background-image: url(../static/images/img101.jpg); box-shadow: 0px 11px 40px -13px #0A0819"></a>
+					<div class="text-center">
+						<a href="{{ url_for('nearest_warehouses') }}">
+						<button class="b_center"  > Nearest warehouses </button>
+					</a>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 animate-box">
+				<div class="blog-entry">
+					<a  class="blog-img" style="background-image: url(https://www.futurenet.in/images/clients/clients-mobi.jpg); box-shadow: 0px 11px 40px -13px #0A0819"></a>
+					<div class="text-center">
+						<a href="{{ url_for('database_crud') }}">
+						<button class="b_center"  > Clients </button>
+					</a>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

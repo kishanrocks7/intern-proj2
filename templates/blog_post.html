@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% block slider %}
+{% endblock %}
+{% block content %}
+<!-- Blog Post-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 style="font-family: monsterrat;">Time travel</h1>
+            <!-- Author -->
+            <p class="lead">
+            by
+            <a href="#">Unknown</a>
+            </p>
+            <!-- Date/Time -->
+            <p>Posted on June 3, 2020 </p>
+            <hr>
+            <!-- Preview Image -->
+            <img class="img-fluid rounded" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Spacetime_lattice_analogy.svg/1920px-Spacetime_lattice_analogy.svg.png" alt="" style="max-width: 900px; max-height: 400px;" >
+            <hr>
+            <h3>Wormholes</h3>
+            <hr>
+            <p>A wormhole (or Einstein–Rosen bridge or Einstein–Rosen wormhole) is a speculative structure linking disparate points in spacetime, and is based on a special solution of the Einstein field equations.
+                 A wormhole can be visualized as a tunnel with two ends at separate points in spacetime (i.e., different locations, or different points in time, or both).
+
+                Wormholes are consistent with the general theory of relativity, but whether wormholes actually exist remains to be seen. 
+                Many scientists postulate wormholes are merely a projection of a fourth spatial dimension, analogous to how a two-dimensional (2D) being could experience only part of a three-dimensional (3D) object.
+                
+                A wormhole could connect extremely long distances such as a billion light years or more, short distances such as a few meters, different universes, or different points in time.
+            </p>
+            <a href="{{ url_for('blogs') }}" style="color:white; text-decoration: none;"><button class="b_center" style="margin-top: 30px; ">Browse other blogs</button></a>
+        </div>
+    </div>
+</div>
+
+	
+{% endblock %}
+
+{% block organisation %}
+{% endblock %}
+{% block blogs %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<!-- register form -->
+	<div id="colorlib-choose">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="choose">
+					<div class="half img-bg" style="background-image: url(../static/images/latest_2.jpg);"></div>
+					<div class="half features-wrap">
+						<div class="features-services animate-box">
+							<div class="row">
+								<h1 style="text-align: center;color: #ff2121;">Login</h1>
+								<div style="width: 50%; margin: 25px auto;font-family: 'Montserrat', sans-serif;">
+									<form action="{{ url_for('outlet_dashboard')}}" method="get">
+										<div class="form-group">
+											<label for="email">Email</label>
+											<input type="email" name="email" class="form-control" placeholder="Enter email.." required >
+										</div>
+										<div class="form-group">
+											<label for="password">Password</label>
+											<input type="password" name="password" class="form-control" placeholder="Enter password.." required autocomplete="off">
+										</div>
+										<div class="form-group text-center">
+											<a href="{{ url_for('outlet_dashboard')}}">
+                                                                                            <button class="button button-login btn-block register_button">Login</button>
+                                                                                        </a>
+										</div>
+										<div class="text-center">
+											<h5 class="have">New User? <a class="green" href="{{ url_for('outlet_register') }}">Sign Up</a></h5>
+										</div>
+										<div class="text-center top">
+											<h6><a class="red" href="{{ url_for('forgot_password') }}" style="cursor:pointer"  >Forgot Password?</a></h6>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><br><br><br>
+
+	<!-- Forgot password POP UP(Modal)-->
+<div class="modal fade" id="forgetpass" tabindex="-1" role="dialog" aria-labelledby="heading" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h3 class="modal-title text-center" id="heading" style="font-family: monsterrat;">Forgot password</h3>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<form class="forgotpasswordform" id="forgotpasswordform" action="" method="">
+				<div class="form-group">
+				  <label for="forgotpasswordemail" style="font-size: medium;">Enter your email</label>
+				  <input style="width:570px;" type="email" class="form-control" id="forgotpasswordemail" aria-describedby="forgotpasswordemail" value="" required>
+				</div>
+			  </form>
+			  </div>
+		<div class="modal-footer">
+			<button type="button" class="btn " form="forgotpasswordform" style="color: white; background: #228B22;">Send password</button>
+		  <button type="button" class="btn " data-dismiss="modal" style="color: white; background: #FF2121;">Cancel</button> 
+		</div>
+	  </div>
+	</div>
+  </div>
+
+{% endblock %}
+

@@ -1,0 +1,581 @@
+{% extends 'warehouse_dashboard.html' %}
+{% block slider %}
+{% endblock %}
+{% block content %}
+<!--products -->
+<!--head-->
+<div class="container" style="margin-bottom: 50px;">
+	<h1 class="text-center" style="font-family: monsterrat;">products</h1>
+	<div class="row" style="height: 40px;  color: white; background-color: #ff2121; box-shadow: 0 0 3px black; margin-top: 30px;">
+		<div class="col-md-2 text-center">
+			<h4 >Product Name</h4>
+		</div>
+		<div class="col-md-4 text-center">
+			<h4>Description</h4>
+		</div>
+		<div class="col-md-1">
+			<h4>Stocks </h4>
+		</div>
+		<div class="col-md-3 text-center">
+			<h4>Quantity</h4>
+		</div>
+		<div class="col-md-2 text-center">
+		</div>
+	</div>
+	<!--product1-->
+	<div class="row" style="height: 40px; margin-top: 10px; box-shadow: 0 0 3px black;">
+		<div class="col-md-2 text-center">
+			<p class="circle">BP</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<p class="text-center" style="margin:5px auto;" >Black pepper</p>
+		</div>
+		<div class="col-md-1">
+			<p style="margin:5px auto;">55</p>
+		</div>
+		<div class="col-md-3 text-center">
+			<input style="margin:5px auto;" type="number">
+		</div>
+		<div class="col-md-2 text-center">
+			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#BP">Buy</button>
+		</div>
+	</div>
+	<!--product2-->
+	<div class="row" style="height: 40px; margin-top: 10px; box-shadow: 0 0 3px black;">
+		<div class="col-md-2 text-center">
+			<p class="circle">TM</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<p class="text-center" style="margin:5px auto;" >Turmeric </p>
+		</div>
+		<div class="col-md-1">
+			<p style="margin:5px auto;">67</p>
+		</div>
+		<div class="col-md-3 text-center">
+			<input style="margin:5px auto;" type="number">
+		</div>
+		<div class="col-md-2 text-center">
+			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#TM">Buy</button>
+		</div>
+	</div>
+	<!--product3-->
+	<div class="row" style="height: 40px; margin-top: 10px; box-shadow: 0 0 3px black;">
+		<div class="col-md-2 text-center">
+			<p class="circle">CM</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<p class="text-center" style="margin:5px auto;" >Cinnamon </p>
+		</div>
+		<div class="col-md-1">
+			<p style="margin:5px auto;">98</p>
+		</div>
+		<div class="col-md-3 text-center">
+			<input style="margin:5px auto;" type="number">
+		</div>
+		<div class="col-md-2 text-center">
+			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto; " data-toggle="modal" data-target="#CM">Buy</button>
+		</div>
+	</div>
+	<!--product4-->
+	<div class="row" style="height: 40px; margin-top: 10px; box-shadow: 0 0 3px black;">
+		<div class="col-md-2 text-center">
+			<p class="circle">RC</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<p class="text-center" style="margin:5px auto;" >Red chilly </p>
+		</div>
+		<div class="col-md-1">
+			<p style="margin:5px auto;">125</p>
+		</div>
+		<div class="col-md-3 text-center">
+			<input style="margin:5px auto;" type="number">
+		</div>
+		<div class="col-md-2 text-center">
+			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#RC">Buy</button>
+		</div>
+	</div>
+	<!--product5-->
+	<div class="row" style="height: 40px; margin-top: 10px; box-shadow: 0 0 3px black;">
+		<div class="col-md-2 text-center">
+			<p class="circle">M</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<p class="text-center" style="margin:5px auto;" >Mustard</p>
+		</div>
+		<div class="col-md-1">
+			<p style="margin:5px auto;">225</p>
+		</div>
+		<div class="col-md-3 text-center">
+			<input style="margin:5px auto;" type="number">
+		</div>
+		<div class="col-md-2 text-center">
+			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#M">Buy</button>
+		</div>
+	</div>
+	<!--product6-->
+	<div class="row" style="height: 40px; margin-top: 10px; box-shadow: 0 0 3px black;">
+		<div class="col-md-2 text-center">
+			<p class="circle">CL</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<p class="text-center" style="margin:5px auto;" >Clove </p>
+		</div>
+		<div class="col-md-1">
+			<p style="margin:5px auto;">171</p>
+		</div>
+		<div class="col-md-3 text-center">
+			<input style="margin:5px auto;" type="number">
+		</div>
+		<div class="col-md-2 text-center">
+			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#CL">Buy</button>
+		</div>
+	</div>
+	<!--product7-->
+	<div class="row" style="height: 40px; margin-top: 10px; box-shadow: 0 0 3px black;">
+		<div class="col-md-2 text-center">
+			<p class="circle">CU</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<p class="text-center" style="margin:5px auto;" >Cumin</p>
+		</div>
+		<div class="col-md-1">
+			<p style="margin:5px auto;">123</p>
+		</div>
+		<div class="col-md-3 text-center">
+			<input style="margin:5px auto;" type="number">
+		</div>
+		<div class="col-md-2 text-center">
+			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#CU">Buy</button>
+		</div>
+	</div>
+	<!--product8-->
+	<div class="row" style="height: 40px; margin-top: 10px; box-shadow: 0 0 3px black;">
+		<div class="col-md-2 text-center">
+			<p class="circle">CP</p>
+		</div>
+		<div class="col-md-4 text-center">
+			<p class="text-center" style="margin:5px auto;" >Chickpea</p>
+		</div>
+		<div class="col-md-1">
+			<p style="margin:5px auto;">547</p>
+		</div>
+		<div class="col-md-3 text-center">
+			<input style="margin:5px auto;" type="number">
+		</div>
+		<div class="col-md-2 text-center">
+			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#CP">Buy</button>
+		</div>
+	</div>
+	
+
+	<!-- block ends-->
+
+<!-- Modal BP -->
+<div class="modal fade" id="BP" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+		<center><h4 class="modal-title" style="">Orders</h4></center>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+          
+          <center>
+        <div class="modal-body">
+        
+          <div class="row">
+              <div class="col col-lg-4">
+                  <p class="fontstyle">Black pepper</p>
+
+              </div>
+              
+              <div class="col col-lg-4">
+                  <p class="fontstyle">3 units</p>
+              </div>
+              
+          </div>
+               
+        </div>
+              </center>
+        
+         
+        <div class="modal-footer"><!--class="btn btn-default"-->
+            <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            
+          
+       </div>
+         </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal TM -->
+<div class="modal fade" id="TM" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+		  <center><h4 class="modal-title">Orders</h4></center>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+          
+          <center>
+        <div class="modal-body">
+        
+          <div class="row">
+              <div class="col col-lg-4">
+                  <p class="fontstyle">Turmeric</p>
+
+              </div>
+              
+              <div class="col col-lg-4">
+                  <p class="fontstyle">3 units</p>
+              </div>
+              
+          </div>
+               
+        </div>
+              </center>
+        
+         
+        <div class="modal-footer"><!--class="btn btn-default"-->
+            <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            
+          
+       </div>
+         </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal CM -->
+<div class="modal fade" id="CM" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+		  <center><h4 class="modal-title">Orders</h4></center>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+          
+          <center>
+        <div class="modal-body">
+        
+          <div class="row">
+              <div class="col col-lg-4">
+                  <p class="fontstyle">Cinnamon</p>
+
+              </div>
+              
+              <div class="col col-lg-4">
+                  <p class="fontstyle">3 units</p>
+              </div>
+              
+          </div>
+               
+        </div>
+              </center>
+        
+         
+        <div class="modal-footer"><!--class="btn btn-default"-->
+            <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            
+          
+       </div>
+         </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal RC -->
+<div class="modal fade" id="RC" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+		  <center><h4 class="modal-title">Orders</h4></center>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+          
+          <center>
+        <div class="modal-body">
+        
+          <div class="row">
+              <div class="col col-lg-4">
+                  <p class="fontstyle">Red Chilly</p>
+
+              </div>
+              
+              <div class="col col-lg-4">
+                  <p class="fontstyle">3 units</p>
+              </div>
+              
+          </div>
+               
+        </div>
+              </center>
+        
+         
+        <div class="modal-footer"><!--class="btn btn-default"-->
+            <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            
+          
+       </div>
+         </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal M -->
+<div class="modal fade" id="M" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+		  <center><h4 class="modal-title">Orders</h4></center>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+          
+          <center>
+        <div class="modal-body">
+        
+          <div class="row">
+              <div class="col col-lg-4">
+                  <p class="fontstyle">Mustard</p>
+
+              </div>
+              
+              <div class="col col-lg-4">
+                  <p class="fontstyle">3 units</p>
+              </div>
+              
+          </div>
+               
+        </div>
+              </center>
+        
+         
+        <div class="modal-footer"><!--class="btn btn-default"-->
+            <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            
+          
+       </div>
+         </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal CL -->
+<div class="modal fade" id="CL" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+		  <center><h4 class="modal-title">Orders</h4></center>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+          
+          <center>
+        <div class="modal-body">
+        
+          <div class="row">
+              <div class="col col-lg-4">
+                  <p class="fontstyle">Clove</p>
+
+              </div>
+              
+              <div class="col col-lg-4">
+                  <p class="fontstyle">3 units</p>
+              </div>
+              
+          </div>
+               
+        </div>
+              </center>
+        
+         
+        <div class="modal-footer"><!--class="btn btn-default"-->
+            <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            
+          
+       </div>
+         </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal CU -->
+<div class="modal fade" id="CU" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+		  <center><h4 class="modal-title">Orders</h4></center>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+          
+          <center>
+        <div class="modal-body">
+        
+          <div class="row">
+              <div class="col col-lg-4">
+                  <p class="fontstyle">Cumin</p>
+
+              </div>
+              
+              <div class="col col-lg-4">
+                  <p class="fontstyle">3 units</p>
+              </div>
+              
+          </div>
+               
+        </div>
+              </center>
+        
+         
+        <div class="modal-footer"><!--class="btn btn-default"-->
+            <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            
+          
+       </div>
+         </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal BP -->
+<div class="modal fade" id="CP" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+		  <center><h4 class="modal-title">Orders</h4></center>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          
+        </div>
+          
+          <center>
+        <div class="modal-body">
+        
+          <div class="row">
+              <div class="col col-lg-4">
+                  <p class="fontstyle">Chick pea</p>
+
+              </div>
+              
+              <div class="col col-lg-4">
+                  <p class="fontstyle">3 units</p>
+              </div>
+              
+          </div>
+               
+        </div>
+              </center>
+        
+         
+        <div class="modal-footer"><!--class="btn btn-default"-->
+            <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
+            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            
+          
+       </div>
+         </div>
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+
+<style>
+.circle {
+  width:36px;
+  height: 36px;
+  padding-top: 6px;
+  border-radius: 50%;
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  background: #ff2121;
+  margin: 1px auto;
+}
+    
+    .buttonStyle1 {
+  background-color: #ff2121; /* Red */
+  border: none;
+  color: white;
+  padding: 12px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+
+.buttonStyle2 {
+  background-color: #228B22; /* Green */
+  border: none;
+  color: white;
+  padding: 12px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+ 
+.fontstyle{
+    font-size:17px;
+    font-family: sans-serif;
+    color: black;
+}
+
+ .modal-title
+ {
+	 margin-top: 40px;
+ }        
+
+</style>
+
+
+{% endblock %}
