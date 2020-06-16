@@ -4,9 +4,12 @@ from flask import Flask,render_template,request,session,redirect,url_for,flash,c
 #importing database library
 from databaselibrary import getdbcur
 
+<<<<<<< HEAD
 #importing smtplib for mail
 import smtplib
 
+=======
+>>>>>>> ab42f48b0de6974b2dd4b146cb63ad4ee949e4fc
 
 
 #universal unique ID package
@@ -27,7 +30,10 @@ app.config['MAIL_PASSWORD'] = '12345@aB'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ab42f48b0de6974b2dd4b146cb63ad4ee949e4fc
 #warehouse functions
 from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass
 # producer functions
@@ -57,6 +63,7 @@ def outlet_login():
 def outlet_register():
     return render_template('outletregister.html')
 
+<<<<<<< HEAD
 @app.route('/form',methods=["post"])
 def form():
     name= request.form.get("name")
@@ -74,6 +81,8 @@ def form():
 
     
 
+=======
+>>>>>>> ab42f48b0de6974b2dd4b146cb63ad4ee949e4fc
 @app.route('/warehouse_register',methods = ['GET','POST'])
 def warehouse_register():
     return wreg()
