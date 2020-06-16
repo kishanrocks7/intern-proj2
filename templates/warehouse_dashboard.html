@@ -341,22 +341,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
           });
 	  });
 	  
-
-	  $(document).ready(function(e) {
-		$('.editproducerinfo').click(function(){
-			$('.saveproducerinfo').show();
-			$('.producername, .produceremail, .producernumber, .commodityunits ').removeAttr('readonly');
-			$('.commoditytype').removeAttr('disabled');
-          });
-  
-          $('.saveproducerinfo').click(function(){
-          $('.producerinfoform').attr('action', 'change_producer_details');
-          });
-          $('.deleteproducerinfo').click(function(){
-          $('.producerinfoform').attr('action', 'delete_producer_details');
-          });
-    });
-
 	$(document).ready(function(e) {
 		$('.editwarehouseprofile').click(function(){
 			$('.savewarehouseprofile').show();
