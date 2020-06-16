@@ -7,7 +7,9 @@ from databaselibrary import getdbcur
 
 
 #universal unique ID package
-import uuid,pybase64
+import uuid,pybase64,os
+#secure Filename
+from werkzeug.utils import secure_filename
 
 from flask_mail import Mail, Message
 # This is main app point
@@ -35,6 +37,14 @@ app.secret_key= 'secret4key'
 #Home Route
 @app.route('/')
 def home():
+    cur = getdbcur()
+    sql = 'select * from team'
+    cur.execute(sql)
+    n = cur.rowcount
+    if n >= 1:
+        data = cur.fetchall()
+        print(data)
+        return render_template('index.html',teamdata = data)
     return render_template('index.html')
 
 @app.route('/warehouse_login')
@@ -136,6 +146,32 @@ def change_password():
 @app.route('/logout')
 def logout():
     return lgout()
+
+@app.route('/add_member',methods = ['GET','POST'])
+def add_member():
+    cur =getdbcur()
+    if request.method == 'POST':
+        if 'user_id' in session:
+            name = request.form['name']
+            position = request.form['position']
+            msg = request.form['msg'].replace('\r\n','<br>')
+            img = request.files['memberimg']
+            path=os.path.basename(img.filename)
+            file_ext=os.path.splitext(path)[1][1:]
+            imgfilename=str(uuid.uuid4())+'.'+file_ext
+            memberimg = secure_filename(imgfilename)
+            addquery ='insert into team values (%s,%s,%s,%s) '
+            cur.execute(addquery,(name,position,msg,memberimg))
+            n = cur.rowcount
+            if n == 1:
+                img.save(os.path.join(app.config['UPLOAD_FOLDER'],memberimg))
+                flash('Member Added Successully !')
+                return redirect(url_for('add_member'))
+            flash('There is error while adding Member !')
+            return redirect(url_for('add_member'))
+        flash('You must Login first to add Team Member !')
+        return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
+    return render_template('add_teammember.html')
 
 
     # Run from here

@@ -16,12 +16,12 @@ def wreg():
             #flash msg
             flash('Password and Confirm Password does not match')
             return redirect(url_for('warehouse_register'))
-        wname = str(pybase64.b64encode((request.form['warehouseName']).encode("utf-8")),"utf-8")
-        mname = str(pybase64.b64encode((request.form['managerName']).encode("utf-8")),"utf-8")
-        email = str(pybase64.b64encode((request.form['email']).encode("utf-8")),"utf-8")
-        compno = str(pybase64.b64encode((request.form['companyNumber']).encode("utf-8")),"utf-8")
-        pno = str(pybase64.b64encode((request.form['phoneNumber']).encode("utf-8")),"utf-8")
-        address = str(pybase64.b64encode((request.form['address']).encode("utf-8")),"utf-8")
+        wname = str(pybase64.b64encode((request.form['warehouseName'].lower()).encode("utf-8")),"utf-8")
+        mname = str(pybase64.b64encode((request.form['managerName'].lower()).encode("utf-8")),"utf-8")
+        email = str(pybase64.b64encode((request.form['email'].lower()).encode("utf-8")),"utf-8")
+        compno = str(pybase64.b64encode((request.form['companyNumber'].lower()).encode("utf-8")),"utf-8")
+        pno = str(pybase64.b64encode((request.form['phoneNumber'].lower()).encode("utf-8")),"utf-8")
+        address = str(pybase64.b64encode((request.form['address'].lower()).encode("utf-8")),"utf-8")
         password  = str(pybase64.b64encode((request.form['password']).encode("utf-8")),"utf-8")
         cur = getdbcur()
         checkusersql = "select * from warehouse where (email = %s OR phoneNumber = %s )"
@@ -51,9 +51,9 @@ def wreg():
 def wdashboard():
     if request.method == "POST":
         user_id = request.form['userid']
-        em_or_num = str(pybase64.b64encode((request.form['em_or_num']).encode("utf-8")),"utf-8")
+        em_or_num = str(pybase64.b64encode((request.form['em_or_num'].lower()).encode("utf-8")),"utf-8")
         manager_name = request.form['manager_name']
-        mname = str(pybase64.b64encode((request.form['manager_name']).encode("utf-8")),"utf-8")
+        mname = str(pybase64.b64encode((request.form['manager_name'].lower()).encode("utf-8")),"utf-8")
         passwd = str(pybase64.b64encode((request.form['password']).encode("utf-8")),"utf-8")
         cur = getdbcur()
         sql = "select managerName from warehouse where (id = %s  AND (email = %s OR phoneNumber = %s ) AND managerName=%s AND password= %s ) "
@@ -142,12 +142,12 @@ def wareprofile():
                     wimgname = secure_filename(imgfilename)
                     app = current_app._get_current_object()
                     wareimg.save(os.path.join(app.config['UPLOAD_FOLDER'],wimgname))
-            warename = str(pybase64.b64encode((request.form['warename']).encode("utf-8")),"utf-8")
-            manname = str(pybase64.b64encode((request.form['manname']).encode("utf-8")),"utf-8")
-            manemail = str(pybase64.b64encode((request.form['manemail']).encode("utf-8")),"utf-8")
-            compno = str(pybase64.b64encode((request.form['compno']).encode("utf-8")),"utf-8")
-            manno = str(pybase64.b64encode((request.form['manno']).encode("utf-8")),"utf-8")
-            wareaddress = str(pybase64.b64encode((request.form['wareaddress']).encode("utf-8")),"utf-8")
+            warename = str(pybase64.b64encode((request.form['warename'].lower()).encode("utf-8")),"utf-8")
+            manname = str(pybase64.b64encode((request.form['manname'].lower()).encode("utf-8")),"utf-8")
+            manemail = str(pybase64.b64encode((request.form['manemail'].lower()).encode("utf-8")),"utf-8")
+            compno = str(pybase64.b64encode((request.form['compno'].lower()).encode("utf-8")),"utf-8")
+            manno = str(pybase64.b64encode((request.form['manno'].lower()).encode("utf-8")),"utf-8")
+            wareaddress = str(pybase64.b64encode((request.form['wareaddress'].lower()).encode("utf-8")),"utf-8")
             isonum = request.form['isonum']
             editprofsql = ' update warehouse set warehouseName = %s,  managerName = %s, companyNumber = %s,  phoneNumber = %s, email = %s,  address = %s, warehouseImage = %s, isoNumber = %s  where id = %s '
             viewprofsql = 'select * from warehouse where id ="'+id+'"  '
