@@ -41,14 +41,16 @@ def home():
     sql = 'select * from team'
     cur.execute(sql)
     n = cur.rowcount
-    if n >= 1 :
-        data = cur.fetchall()
-        cur = getdbcur()
-        sql = 'select * from flex'
-        cur.execute(sql)
-        flexdata = cur.fetchall()
-        return render_template('index.html',teamdata = data,flexdata = flexdata)
-    return render_template('index.html')
+    teamdata = cur.fetchall()
+    cur = getdbcur()
+    sql = 'select * from flex'
+    cur.execute(sql)
+    flexdata = cur.fetchall()
+    sql = 'select * from testimonial'
+    cur.execute(sql)
+    reviewdata = cur.fetchall()
+    return render_template('index.html',teamdata = teamdata,flexdata = flexdata, reviewdata = reviewdata)
+    
 
 @app.route('/warehouse_login')
 def warehouse_login():
@@ -201,6 +203,39 @@ def add_flex():
         #flash('You must Login first to add image !')
         #return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
     return render_template('flex.html')
+
+@app.route('/client_review',methods = ['GET','POST'])
+def client_review():
+    if 'user_id' in session:
+        id = session['user_id']
+        checksql = "select name from testimonial where clientId='"+id+"'  "
+        cur =getdbcur()
+        cur.execute(checksql)
+        m = cur.rowcount
+        if m == 0:
+            if request.method == 'POST':
+                name = request.form['name']
+                review = request.form['review'].replace('\r\n','<br>')
+                rating = request.form['rating']
+                img = request.files['img']
+                path=os.path.basename(img.filename)
+                file_ext=os.path.splitext(path)[1][1:]
+                imgfilename=str(uuid.uuid4())+'.'+file_ext
+                clientimg = secure_filename(imgfilename)
+                addquery ='insert into testimonial values (%s,%s,%s,%s,%s) '
+                cur.execute(addquery,(id,name,clientimg,rating,review))
+                n = cur.rowcount
+                if n == 1:
+                    img.save(os.path.join(app.config['UPLOAD_FOLDER'],clientimg))
+                    flash('Review added Successfully..Thankyou for using Our services!')
+                    return render_template('client_review.html')
+                flash('There is error while adding review Please!')
+                return redirect(url_for('add_member'))
+            return render_template('client_review.html')
+        flash('You have already give your review..!')
+        return render_template('client_review.html')
+    flash('You must Login first to give your review !')
+    return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
 
     # Run from here
 if __name__ == "__main__":
