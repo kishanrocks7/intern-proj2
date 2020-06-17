@@ -41,10 +41,13 @@ def home():
     sql = 'select * from team'
     cur.execute(sql)
     n = cur.rowcount
-    if n >= 1:
+    if n >= 1 :
         data = cur.fetchall()
-        print(data)
-        return render_template('index.html',teamdata = data)
+        cur = getdbcur()
+        sql = 'select * from flex'
+        cur.execute(sql)
+        flexdata = cur.fetchall()
+        return render_template('index.html',teamdata = data,flexdata = flexdata)
     return render_template('index.html')
 
 @app.route('/warehouse_login')
@@ -173,6 +176,31 @@ def add_member():
         return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
     return render_template('add_teammember.html')
 
+@app.route('/add_flex',methods = ['GET','POST'])
+def add_flex():
+    cur =getdbcur()
+    if request.method == 'POST':
+        
+            imageno = int(request.form['imageno'])
+            heading = request.form['heading']
+            body = request.form['body']
+            img = request.files['fleximg']
+            path=os.path.basename(img.filename)
+            file_ext=os.path.splitext(path)[1][1:]
+            imgfilename=str(uuid.uuid4())+'.'+file_ext
+            fleximg = secure_filename(imgfilename)
+            addquery = "update flex SET heading = %s , body = %s , image = %s WHERE id = %s"
+            cur.execute(addquery,(heading,body,fleximg,imageno))
+            n = cur.rowcount
+            if n == 1:
+                img.save(os.path.join(app.config['UPLOAD_FOLDER'],fleximg))
+                flash('Image Added Successully !')
+                return redirect(url_for('add_flex'))
+            flash('There is error while adding image !')
+            return redirect(url_for('add_flex'))
+        #flash('You must Login first to add image !')
+        #return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
+    return render_template('flex.html')
 
     # Run from here
 if __name__ == "__main__":
