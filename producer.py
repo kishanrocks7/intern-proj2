@@ -4,9 +4,42 @@ from databaselibrary import getdbcur
 from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
 from flask_mail import Mail, Message
 
-
+def countbar():
+    sql = 'SELECT commodityType , commodityUnits FROM producer;'
+    cur = getdbcur()
+    cur.execute(sql)
+    n = cur.rowcount
+    cbar=[0,0,0,0,0,0,0,0]
+    if n >= 1:
+        data = cur.fetchall()
+        cd = [list(i) for i in data]
+        for i in range(0,len(cd)):
+            for j in range(0,len(cd[i])):
+                cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+        td = list(list(i) for i in cd)
+        for i in td:
+            if i[0] == 'black Pepper':
+                cbar[0] = cbar[0]+ int(i[1])
+            elif i[0] == 'turmeric':
+                cbar[1] = cbar[1]+int(i[1])
+            elif i[0] == 'cinnamon':
+                cbar[2] = cbar[2]+int(i[1])
+            elif i[0] == 'red chilly':
+                cbar[3] = cbar[3]+int(i[1])
+            elif i[0] == 'mustard':
+                cbar[4] = cbar[4]+int(i[1])
+            elif i[0] == 'clove':
+                cbar[5] = cbar[5]+int(i[1])
+            elif i[0] == 'cumin':
+                cbar[6] = cbar[6]+int(i[1])
+            elif i[0] == 'chick Pea':
+                cbar[7] = cbar[7]+int(i[1])
+            else:
+                continue
+    return cbar
 def producerhome():
     if 'user_id' in session:
+        cbar = countbar()
         sql = 'select * from producer'
         cur = getdbcur()
         cur.execute(sql)
@@ -18,35 +51,37 @@ def producerhome():
                 for j in range(1,len(cd[i])):
                     cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
             td = tuple(tuple(i) for i in cd)
-            return render_template('producers.html',pdata = td)
+            return render_template('producers.html',pdata = td,cbar = cbar)
         else:
-            return render_template('producers.html', pmsg = "currently there is Producer information !")
+            return render_template('producers.html', pmsg = "currently there is NO Producer information !",cbar = cbar)
     flash('You must login first to view Producers!')
     return redirect(url_for('warehouse_login'))
 
 def addproducer():
     if 'user_id' in session:
+        cbar = countbar()
         if request.method == 'POST':
             fullkey = uuid.uuid4()
             uid = fullkey.time
-            name = str(pybase64.b64encode((request.form['name']).encode("utf-8")),"utf-8")
-            phoneNumber = str(pybase64.b64encode((request.form['phoneNumber']).encode("utf-8")),"utf-8")
-            email = str(pybase64.b64encode((request.form['email']).encode("utf-8")),"utf-8")
-            gender = str(pybase64.b64encode((request.form['gender']).encode("utf-8")),"utf-8")
-            age = str(pybase64.b64encode((request.form['age']).encode("utf-8")),"utf-8")
-            address = str(pybase64.b64encode((request.form['address']).encode("utf-8")),"utf-8")
-            commodityType = str(pybase64.b64encode((request.form['commodityType']).encode("utf-8")),"utf-8")
-            commodityUnits = str(pybase64.b64encode((request.form['commodityUnits']).encode("utf-8")),"utf-8")
-            addquery ='insert into producer values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+            name = str(pybase64.b64encode((request.form['name'].lower()).encode("utf-8")),"utf-8")
+            phoneNumber = str(pybase64.b64encode((request.form['phoneNumber'].lower()).encode("utf-8")),"utf-8")
+            email = str(pybase64.b64encode((request.form['email'].lower()).encode("utf-8")),"utf-8")
+            gender = str(pybase64.b64encode((request.form['gender'].lower()).encode("utf-8")),"utf-8")
+            age = str(pybase64.b64encode((request.form['age'].lower()).encode("utf-8")),"utf-8")
+            address = str(pybase64.b64encode((request.form['address'].lower()).encode("utf-8")),"utf-8")
+            commodityType = str(pybase64.b64encode((request.form['commodityType'].lower()).encode("utf-8")),"utf-8")
+            commodityUnits = str(pybase64.b64encode((request.form['commodityUnits'].lower()).encode("utf-8")),"utf-8")
+            aadharNumber = str(pybase64.b64encode((request.form['aadharNumber'].lower()).encode("utf-8")),"utf-8")
+            addquery ='insert into producer values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
             cur = getdbcur()
-            cur.execute(addquery,( uid,name,age,gender,phoneNumber,email,address,commodityType,commodityUnits ))
+            cur.execute(addquery,( uid,name,age,gender,phoneNumber,email,address,commodityType,commodityUnits,aadharNumber ))
             n = cur.rowcount
             if (n == 1):
                 flash(' New Producer details added!')
                 return redirect(url_for('producer'))
             else:
-                return render_template('producers.html', pmsg = 'Adding new producer details failed!')
-        return render_template('producers.html')
+                return render_template('producers.html', pmsg = 'Adding new producer details failed!',cbar = cbar)
+        return render_template('producers.html',cbar = cbar)
     flash('Direct access to this page is Not allowed !')
     return redirect(url_for('warehouse_login'))
     
@@ -57,20 +92,24 @@ def changeproducer():
     if 'user_id' in session:
         if request.method == 'POST':
             id =request.form['id']
-            name = str(pybase64.b64encode((request.form['producername']).encode("utf-8")),"utf-8")
-            email = str(pybase64.b64encode((request.form['produceremail']).encode("utf-8")),"utf-8")
-            number = str(pybase64.b64encode((request.form['producernumber']).encode("utf-8")),"utf-8")
-            commoditytype = str(pybase64.b64encode((request.form['commoditytype']).encode("utf-8")),"utf-8")
-            commodityunits = str(pybase64.b64encode((request.form['commodityunits']).encode("utf-8")),"utf-8")
-            editquery = 'update producer set name =%s,emailId=%s,contactNumber=%s,commodityType=%s,commodityUnits=%s  where unique_key=%s '
+            name = str(pybase64.b64encode((request.form['name'].lower()).encode("utf-8")),"utf-8")
+            email = str(pybase64.b64encode((request.form['email'].lower()).encode("utf-8")),"utf-8")
+            number = str(pybase64.b64encode((request.form['phoneNumber'].lower()).encode("utf-8")),"utf-8")
+            gender = str(pybase64.b64encode((request.form['gender'].lower()).encode("utf-8")),"utf-8")
+            age = str(pybase64.b64encode((request.form['age'].lower()).encode("utf-8")),"utf-8")
+            address = str(pybase64.b64encode((request.form['address'].lower()).encode("utf-8")),"utf-8")
+            commoditytype = str(pybase64.b64encode((request.form['commodityType'].lower()).encode("utf-8")),"utf-8")
+            commodityunits = str(pybase64.b64encode((request.form['commodityUnits'].lower()).encode("utf-8")),"utf-8")
+            aadharNumber = str(pybase64.b64encode((request.form['aadharNumber'].lower()).encode("utf-8")),"utf-8")
+            editquery = 'update producer set name =%s,emailId=%s,contactNumber=%s,commodityType=%s,commodityUnits=%s, age=%s, gender=%s, address=%s,aadharNumber=%s where unique_key=%s '
             cur =getdbcur()
-            cur.execute(editquery,(name,email,number,commoditytype,commodityunits,id))
+            cur.execute(editquery,(name,email,number,commoditytype,commodityunits,age,gender,address,aadharNumber,id))
             n =cur.rowcount
             if n == 1:
                 flash('producers Details changed Successfully !')
                 return redirect(url_for('producer'))
             else:
-                flash('There is error in changing producers details !')
+                flash('Nothing will be changed in producers details !')
                 return redirect(url_for('producer'))
         return redirect(url_for('producer'))
     flash('Direct access to this page is Not Alloed Login first To view this page!')
@@ -96,8 +135,9 @@ def deleteproducer():
 
 def searchproducer():
     if 'user_id' in session:
+        cbar = countbar()
         if request.method == 'POST':
-            si = str(pybase64.b64encode((request.form['searchinp']).encode("utf-8")),"utf-8")
+            si = str(pybase64.b64encode((request.form['searchinp'].lower()).encode("utf-8")),"utf-8")
             searchquery = "select * from producer where (name like  '%"+si+"%'  OR commodityType like   '%"+si+"%' )  "
             cur =getdbcur()
             cur.execute(searchquery)
@@ -109,12 +149,10 @@ def searchproducer():
                     for j in range(1,len(cd[i])):
                         cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
                 td = tuple(tuple(i) for i in cd)
-                session['searchdata'] = td
-                flash('Results For your search !')
-                return redirect(url_for('producer'))
+                return render_template('producers.html',pdata = td,pmsg="Search Results!",cbar = cbar)
             else:
-                flash('Result Not found ..try Different key.!')
-                return redirect(url_for('producer'))
-        return redirect(url_for('producer'))
-    flash('Direct access to this page is Not Allowed Login first To view this page!')
+                return render_template('producers.html', pmsg = "No results for search..try different key!",cbar = cbar)
+        else:
+            return render_template('producers.html', pmsg = "Enter something to search!",cbar = cbar)
+    flash('You must login first to view Producers!')
     return redirect(url_for('warehouse_login'))

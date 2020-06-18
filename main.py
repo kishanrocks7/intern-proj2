@@ -4,16 +4,12 @@ from flask import Flask,render_template,request,session,redirect,url_for,flash,c
 #importing database library
 from databaselibrary import getdbcur
 
-<<<<<<< HEAD
-#importing smtplib for mail
-import smtplib
-
-=======
->>>>>>> ab42f48b0de6974b2dd4b146cb63ad4ee949e4fc
 
 
 #universal unique ID package
-import uuid,pybase64
+import uuid,pybase64,os
+#secure Filename
+from werkzeug.utils import secure_filename
 
 from flask_mail import Mail, Message
 # This is main app point
@@ -30,10 +26,6 @@ app.config['MAIL_PASSWORD'] = '12345@aB'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ab42f48b0de6974b2dd4b146cb63ad4ee949e4fc
 #warehouse functions
 from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass
 # producer functions
@@ -45,7 +37,20 @@ app.secret_key= 'secret4key'
 #Home Route
 @app.route('/')
 def home():
-    return render_template('index.html')
+    cur = getdbcur()
+    sql = 'select * from team'
+    cur.execute(sql)
+    n = cur.rowcount
+    teamdata = cur.fetchall()
+    cur = getdbcur()
+    sql = 'select * from flex'
+    cur.execute(sql)
+    flexdata = cur.fetchall()
+    sql = 'select * from testimonial'
+    cur.execute(sql)
+    reviewdata = cur.fetchall()
+    return render_template('index.html',teamdata = teamdata,flexdata = flexdata, reviewdata = reviewdata)
+    
 
 @app.route('/warehouse_login')
 def warehouse_login():
@@ -63,26 +68,6 @@ def outlet_login():
 def outlet_register():
     return render_template('outletregister.html')
 
-<<<<<<< HEAD
-@app.route('/form',methods=["post"])
-def form():
-    name= request.form.get("name")
-    email= request.form.get("email")
-    message=request.form.get("message")
-
-    server=smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login("kratitiwari5034@gmail.com","krishiv@123")
-    server.sendmail("kratitiwari5034@gmail.com" ,  "kishanpandey5034@gmail.com" , message)
-    flash("THANK YOU " + name + "WE WILL CONTACT YOU SHORTLY" ) 
-    return render_template('index.html')
-
-
-
-    
-
-=======
->>>>>>> ab42f48b0de6974b2dd4b146cb63ad4ee949e4fc
 @app.route('/warehouse_register',methods = ['GET','POST'])
 def warehouse_register():
     return wreg()
@@ -167,6 +152,90 @@ def change_password():
 def logout():
     return lgout()
 
+@app.route('/add_member',methods = ['GET','POST'])
+def add_member():
+    cur =getdbcur()
+    if request.method == 'POST':
+        if 'user_id' in session:
+            name = request.form['name']
+            position = request.form['position']
+            msg = request.form['msg'].replace('\r\n','<br>')
+            img = request.files['memberimg']
+            path=os.path.basename(img.filename)
+            file_ext=os.path.splitext(path)[1][1:]
+            imgfilename=str(uuid.uuid4())+'.'+file_ext
+            memberimg = secure_filename(imgfilename)
+            addquery ='insert into team values (%s,%s,%s,%s) '
+            cur.execute(addquery,(name,position,msg,memberimg))
+            n = cur.rowcount
+            if n == 1:
+                img.save(os.path.join(app.config['UPLOAD_FOLDER'],memberimg))
+                flash('Member Added Successully !')
+                return redirect(url_for('add_member'))
+            flash('There is error while adding Member !')
+            return redirect(url_for('add_member'))
+        flash('You must Login first to add Team Member !')
+        return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
+    return render_template('add_teammember.html')
+
+@app.route('/add_flex',methods = ['GET','POST'])
+def add_flex():
+    cur =getdbcur()
+    if request.method == 'POST':
+        
+            imageno = int(request.form['imageno'])
+            heading = request.form['heading']
+            body = request.form['body']
+            img = request.files['fleximg']
+            path=os.path.basename(img.filename)
+            file_ext=os.path.splitext(path)[1][1:]
+            imgfilename=str(uuid.uuid4())+'.'+file_ext
+            fleximg = secure_filename(imgfilename)
+            addquery = "update flex SET heading = %s , body = %s , image = %s WHERE id = %s"
+            cur.execute(addquery,(heading,body,fleximg,imageno))
+            n = cur.rowcount
+            if n == 1:
+                img.save(os.path.join(app.config['UPLOAD_FOLDER'],fleximg))
+                flash('Image Added Successully !')
+                return redirect(url_for('add_flex'))
+            flash('There is error while adding image !')
+            return redirect(url_for('add_flex'))
+        #flash('You must Login first to add image !')
+        #return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
+    return render_template('flex.html')
+
+@app.route('/client_review',methods = ['GET','POST'])
+def client_review():
+    if 'user_id' in session:
+        id = session['user_id']
+        checksql = "select name from testimonial where clientId='"+id+"'  "
+        cur =getdbcur()
+        cur.execute(checksql)
+        m = cur.rowcount
+        if m == 0:
+            if request.method == 'POST':
+                name = request.form['name']
+                review = request.form['review'].replace('\r\n','<br>')
+                rating = request.form['rating']
+                img = request.files['img']
+                path=os.path.basename(img.filename)
+                file_ext=os.path.splitext(path)[1][1:]
+                imgfilename=str(uuid.uuid4())+'.'+file_ext
+                clientimg = secure_filename(imgfilename)
+                addquery ='insert into testimonial values (%s,%s,%s,%s,%s) '
+                cur.execute(addquery,(id,name,clientimg,rating,review))
+                n = cur.rowcount
+                if n == 1:
+                    img.save(os.path.join(app.config['UPLOAD_FOLDER'],clientimg))
+                    flash('Review added Successfully..Thankyou for using Our services!')
+                    return render_template('client_review.html')
+                flash('There is error while adding review Please!')
+                return redirect(url_for('add_member'))
+            return render_template('client_review.html')
+        flash('You have already give your review..!')
+        return render_template('client_review.html')
+    flash('You must Login first to give your review !')
+    return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
 
     # Run from here
 if __name__ == "__main__":
