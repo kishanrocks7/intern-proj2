@@ -214,5 +214,10 @@ def lgout():
         session.pop('user_name',None)
         flash('Logged Out..Login again to Open your account!')
         return redirect(url_for('warehouse_login'))
+    if 'blogger_id' in session:
+        session.pop('blogger_id',None)
+        session.pop('blogger_name',None)
+        flash('Logged Out..Login again to Open your account!')
+        return redirect(url_for('blogger_login'))
     flash('You are not Logged in to your account!')
-    return redirect(url_for('warehouse_login'))
+    return redirect(url_for('home'))

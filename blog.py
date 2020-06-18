@@ -57,6 +57,7 @@ def bloggerlogin():
         cur.execute(sql,(email, passwd))
         sqlres = cur.rowcount
         logindata= cur.fetchone()
+        print(logindata)
         if sqlres == 1 :
             session['blogger_id'] = logindata[0]
             session['blogger_name'] = logindata[1]

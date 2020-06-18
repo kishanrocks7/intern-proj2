@@ -1,5 +1,42 @@
 {% extends 'index.html' %}
+{% block headextra %}
+{% if 'blogger_id' in session %}
+<div class="col-md-2">
+    <div class="profile loc">
+        <div class="dropdown">
+            <a href="#" id="profilebutton"><span class="icon"><i
+                        class="icon-user"></i></span></a>
+            <p style="padding-top: 4%;"><a
+                    href="#">{% if 'blogger_name' in session %}{{ session['blogger_name'] }}{% endif %}</a>
+            </p>
+            <div class="dropdown-menu" id="profilecontent"
+                style="margin-top: 20px; margin-left:80px;">
+                <ul></ul>
+                <li class="dropdown-item"><a
+                        href="blogger_profile">My Account</a>
+                </li>
+                <li class="dropdown-item"><a
+                        href="{{ url_for('logout') }}">Logout</a></li>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-2">
+    <p style="padding-top: 4%; margin-left: 60px;">Add Blog</p>
+    <div class="notification">
+        <span class="icon"><i class="icon-file-add"></i></span>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}
 {% block countingbar %}
+{% endblock %}
+{% block menuextra %}
+{% if 'blogger_id' is not in session %}
+<li style="float: right;"><a href="{{ url_for('blogger_register') }}"></a>Register as Blogger</li>
+<li style="float: right;"><a href="{{ url_for('blogger_login') }}">Login as Blogger</a></li>
+{% endif %}
 {% endblock %}
 {% block slider %}
 {% endblock %}
