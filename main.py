@@ -29,7 +29,10 @@ app.config['MAIL_USE_SSL'] = True
 #warehouse functions
 from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass
 # producer functions
-from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
+from producer import producerhome,addproducer,changeproducer,deleteproducer
+
+#blogger Functions
+from blog import bloggerlogin,bloggerregister
 
 app.secret_key= 'secret4key'
 #ROUTES
@@ -237,6 +240,14 @@ def client_review():
     flash('You must Login first to give your review !')
     return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
 
+#######################################BLOGGER PART #######################################
+@app.route('/blogger_register',methods=['GET','POST'])
+def blogger_register():
+    return bloggerregister() #return mein function return kiya OK ok
+
+@app.route('/blogger_login',methods=['GET','POST'])
+def blogger_login():
+    return bloggerlogin()
     # Run from here
 if __name__ == "__main__":
     app.run(debug=True)
