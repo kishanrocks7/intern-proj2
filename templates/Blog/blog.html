@@ -1,9 +1,23 @@
-{% extends 'index.html' %}
+{% extends 'warehouse_dashboard.html' %}
 
 {% block content %}
 <!-- Blog -->
 
 <!-- row1-->
+
+
+
+<div class=" form-inline">
+    <button id="add-button" class="add_producer_btn" type="button" data-toggle="modal"
+      data-target="#addproducerform">
+      Add New Blog
+    </button>
+    <!-- Search form -->
+    
+  </div>
+
+
+
 <div id="blogsection">
     <div class="container">
         <div class="row animate-box">
@@ -167,6 +181,51 @@
         </div>
     </div>
 </div>
+
+
+<!-- modal form (pop up) for add producer -->
+
+<div class="modal fade"   id="addproducerform" tabindex="-1" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Add New blog</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="add_producer" method="post">
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input id="Name" type="text" name="name" class="form-control" placeholder="Customer Name.." required>
+              </div>
+          <div class="form-group">
+            <label for="Name">Blog title</label>
+            <input id="title" type="text" name="title" class="form-control" placeholder="enter title....." required>
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">image</label>
+            <input type="file" id="myFile" name="filename">
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Content</label>
+            <textarea type="file" id="myFile"></textarea>
+          </div>
+      </div>
+      <div class="form-group text-center">
+
+        <button class="btn " style="text-align: center;color:white; padding: 10px; background-color: #ff2121;">Add new
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 {% endblock %}
 
 {% block organisation %}

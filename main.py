@@ -4,8 +4,7 @@ from flask import Flask,render_template,request,session,redirect,url_for,flash,c
 #importing database library
 from databaselibrary import getdbcur
 
-#importing smtplib for mail
-import smtplib
+
 
 #universal unique ID package
 import uuid,pybase64,os
@@ -30,7 +29,10 @@ app.config['MAIL_USE_SSL'] = True
 #warehouse functions
 from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass
 # producer functions
-from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
+from producer import producerhome,addproducer,changeproducer,deleteproducer
+
+#blogger Functions
+from blog import bloggerlogin,bloggerregister
 
 app.secret_key= 'secret4key'
 #ROUTES
@@ -69,21 +71,6 @@ def outlet_login():
 def outlet_register():
     return render_template('outletregister.html')
 
-@app.route('/form',methods=["post"])
-def form():
-    name= request.form.get("name")
-    email= request.form.get("email")
-    message=request.form.get("message")
-    server=smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login("kratitiwari5034@gmail.com","krishiv@123")
-    server.sendmail("kratitiwari5034@gmail.com" ,  "kishanpandey5034@gmail.com" , 
-    "SOMEONE IS TRYING TO REACH YOU THROUGH THE WEBSITE" +' \n' +
-    "name = " + name + '\n' +
-     "email = " + email + '\n' +
-     "message = "+ message   )
-    return render_template('index.html')
-
 @app.route('/warehouse_register',methods = ['GET','POST'])
 def warehouse_register():
     return wreg()
@@ -117,9 +104,7 @@ def search_producer():
 def add_producer():
     return addproducer()
 
-@app.route('/blogs')
-def blogs():
-    return render_template('blog.html')
+
 
 
 @app.route('/edit_profile')
@@ -130,9 +115,7 @@ def edit_profile():
 def warehouse_profile():
     return wareprofile()
 
-@app.route('/blog_post')
-def blog_post():
-    return render_template('blog_post.html')
+
 
 @app.route('/faqs')
 def faqs():
@@ -253,6 +236,22 @@ def client_review():
     flash('You must Login first to give your review !')
     return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
 
+#######################################BLOGGER PART #######################################
+@app.route('/blogs')
+def blogs():
+    return render_template('Blog/blog.html')
+
+@app.route('/blog_post')
+def blog_post():
+    return render_template('Blog/blog_post.html')
+
+@app.route('/blogger_register',methods=['GET','POST'])
+def blogger_register():
+    return bloggerregister() #return mein function return kiya OK ok
+
+@app.route('/blogger_login',methods=['GET','POST'])
+def blogger_login():
+    return bloggerlogin()
     # Run from here
 if __name__ == "__main__":
     app.run(debug=True)

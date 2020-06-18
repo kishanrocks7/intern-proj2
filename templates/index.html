@@ -3,67 +3,6 @@
 
 <head>
 
-
-	<style>
-		/* Popup container - can be anything you want */
-		.popup {
-		  position: relative;
-		  display: inline-block;
-		  cursor: pointer;
-		  -webkit-user-select: none;
-		  -moz-user-select: none;
-		  -ms-user-select: none;
-		  user-select: none;
-		}
-		
-		/* The actual popup */
-		.popup .popuptext {
-		  visibility: hidden;
-		  width: 160px;
-		  background-color: #555;
-		  color: #fff;
-		  text-align: center;
-		  border-radius: 6px;
-		  padding: 8px 0;
-		  position: absolute;
-		  z-index: 1;
-		  bottom: 125%;
-		  left: 50%;
-		  margin-left: -80px;
-		}
-		
-		/* Popup arrow */
-		.popup .popuptext::after {
-		  content: "";
-		  position: absolute;
-		  top: 100%;
-		  left: 50%;
-		  margin-left: -5px;
-		  border-width: 5px;
-		  border-style: solid;
-		  border-color: #555 transparent transparent transparent;
-		}
-		
-		/* Toggle this class - hide and show the popup */
-		.popup .show {
-		  visibility: visible;
-		  -webkit-animation: fadeIn 1s;
-		  animation: fadeIn 1s;
-		}
-		
-		/* Add animation (fade in the popup) */
-		@-webkit-keyframes fadeIn {
-		  from {opacity: 0;} 
-		  to {opacity: 1;}
-		}
-		
-		@keyframes fadeIn {
-		  from {opacity: 0;}
-		  to {opacity:1 ;}
-		}
-		</style>
-
-
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Red Positive</title>
@@ -192,6 +131,7 @@
 								</div>
 							</div>
 						</div>
+					{% block countingbar %}
 						<!-- counting bar -->
 						<div id="colorlib-counter" class="colorlib-counters">
 							<div class="overlay"></div>
@@ -248,6 +188,7 @@
 								</div>
 							</div>
 						</div>
+					{% endblock %}
 						<!-- menu -->
 
 						<div class="menu-wrap">
@@ -532,7 +473,6 @@
 			</div>
 		{% endif %}
 			<!-- testimonial-->
-			{% if reviewdata %}
 			<div id="colorlib-testimonial" class="colorlib-bg-section">
 				<div class="container">
 					<div class="row animate-box">
@@ -543,34 +483,100 @@
 					<div class="row">
 						<div class="col-md-12 animate-box">
 							<div class="owl-carousel">
-								{% for data in reviewdata %}
 								<div class="item">
 									<div class="testimony">
 										<span class="img-user"
-											style="background-image: url(../static/photos/{{data[2]}});"></span>
-										<span class="user">{{data[1]}}</span>
+											style="background-image: url(../static/images/person1.jpg);"></span>
+										<span class="user">Edward Tom</span>
 										<blockquote>
-											<p>"{{data[4] | safe }}"</p>
-											<p class="color">
-												{% for j in range(5) %}
-												{% if j is lt (data[3] |int) %}
-												<span><i class="icon-star3"></i></span>
-												{% else %}
-												<span><i class="icon-star3 " style="color: white;"></i></span>
-												{% endif %}
-												{% endfor %}
-											</p>
+											<p>"Even the all-powerful Pointing has no control about the blind texts it
+												is an almost unorthographic life One day however a small line of blind
+												text by the name of Lorem Ipsum decided to leave for the far World of
+												Grammar."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
 										</blockquote>
 									</div>
 								</div>
-							{% endfor %}
-							
+								<div class="item">
+									<div class="testimony">
+										<span class="img-user"
+											style="background-image: url(../static/images/person2.jpg);"></span>
+										<span class="user">Carl Bean</span>
+										<blockquote>
+											<p>"Even the all-powerful Pointing has no control about the blind texts it
+												is an almost unorthographic life One day however a small line of blind
+												text by the name of Lorem Ipsum decided to leave for the far World of
+												Grammar."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
+										</blockquote>
+									</div>
+								</div>
+								<div class="item">
+									<div class="testimony">
+										<span class="img-user"
+											style="background-image: url(../static/images/person3.jpg);"></span>
+										<span class="user">John Bay</span>
+										<blockquote>
+											<p>"The Big Oxmox advised her not to do so, because there were thousands of
+												bad Commas, wild Question Marks and devious Semikoli."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
+										</blockquote>
+									</div>
+								</div>
+								<div class="item">
+									<div class="testimony">
+										<span class="img-user"
+											style="background-image: url(../static/images/person1.jpg);"></span>
+										<span class="user">Ronald Duck</span>
+										<blockquote>
+											<p>"Even the all-powerful Pointing has no control about the blind texts it
+												is an almost unorthographic life One day however a small line of blind
+												text by the name of Lorem Ipsum decided to leave for the far World of
+												Grammar."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
+										</blockquote>
+									</div>
+								</div>
+								<div class="item">
+									<div class="testimony">
+										<span class="img-user"
+											style="background-image: url(../static/images/person2.jpg);"></span>
+										<span class="user">Justine Mill</span>
+										<blockquote>
+											<p>"Even the all-powerful Pointing has no control about the blind texts it
+												is an almost unorthographic life One day however a small line of blind
+												text by the name of Lorem Ipsum decided to leave for the far World of
+												Grammar."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
+										</blockquote>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			{% endif %}
+
 			{% endblock %}
 
 			{% block blogs %}
@@ -702,36 +708,25 @@
 						</div>
 
 						<div class="col-md-3 colorlib-widget">
-							<div class="badge badge-pill badge-success">
-		
-							  </div>
-							<h3>Make an Appointment to Contact Us</h3>
-							<form class="contact-form" action="/form" method="POST">
+							<h3>Make an Appointment</h3>
+							<form class="contact-form">
 								<div class="form-group">
 									<label for="name" class="sr-only">Name</label>
-									<input type="name" class="form-control" id="name" placeholder="Name" name="name">
+									<input type="name" class="form-control" id="name" placeholder="Name">
 								</div>
 								<div class="form-group">
 									<label for="email" class="sr-only">Email</label>
-									<input type="email" class="form-control" id="email" placeholder="Email" name="email">
+									<input type="email" class="form-control" id="email" placeholder="Email">
 								</div>
 								<div class="form-group">
 									<label for="message" class="sr-only">Message</label>
-									<textarea class="form-control" id="message" rows="3" placeholder="Message" name="message"></textarea>
+									<textarea class="form-control" id="message" rows="3"
+										placeholder="Message"></textarea>
 								</div>
-		
-		
-		
-		
-		
-								<div class="popup" onclick="myFunction()"><div class="form-group">
-									<input type="submit" id="btn-submit" class="btn btn-primary btn-send-message btn-md"  value="Send Message" style="background-color: #ff2121;">
+								<div class="form-group">
+									<input type="submit" id="btn-submit" class="btn btn-primary btn-send-message btn-md"
+										value="Send Message">
 								</div>
-									<span class="popuptext" id="myPopup">Thank you sir ,we will contact you soon !</span>
-								  </div>
-		
-		
-								
 							</form>
 						</div>
 					</div>
