@@ -58,8 +58,8 @@ def bloggerlogin():
         sqlres = cur.rowcount
         logindata= cur.fetchone()
         if sqlres == 1 :
-            session['user_id'] = logindata[0]
-            session['user_name'] = logindata[1]
+            session['blogger_id'] = logindata[0]
+            session['blogger_name'] = logindata[1]
             return redirect(url_for('blogs'))
         else:
             flash("Incorrect credentials!")

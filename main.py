@@ -104,9 +104,7 @@ def search_producer():
 def add_producer():
     return addproducer()
 
-@app.route('/blogs')
-def blogs():
-    return render_template('blog.html')
+
 
 
 @app.route('/edit_profile')
@@ -117,9 +115,7 @@ def edit_profile():
 def warehouse_profile():
     return wareprofile()
 
-@app.route('/blog_post')
-def blog_post():
-    return render_template('blog_post.html')
+
 
 @app.route('/faqs')
 def faqs():
@@ -241,6 +237,14 @@ def client_review():
     return redirect(url_for('warehouse_login')) #Tempo put this until Admin Dash is created
 
 #######################################BLOGGER PART #######################################
+@app.route('/blogs')
+def blogs():
+    return render_template('Blog/blog.html')
+
+@app.route('/blog_post')
+def blog_post():
+    return render_template('Blog/blog_post.html')
+
 @app.route('/blogger_register',methods=['GET','POST'])
 def blogger_register():
     return bloggerregister() #return mein function return kiya OK ok
