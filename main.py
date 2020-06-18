@@ -4,7 +4,8 @@ from flask import Flask,render_template,request,session,redirect,url_for,flash,c
 #importing database library
 from databaselibrary import getdbcur
 
-
+#importing smtplib for mail
+import smtplib
 
 #universal unique ID package
 import uuid,pybase64,os
@@ -67,6 +68,21 @@ def outlet_login():
 @app.route('/outlet_register')
 def outlet_register():
     return render_template('outletregister.html')
+
+@app.route('/form',methods=["post"])
+def form():
+    name= request.form.get("name")
+    email= request.form.get("email")
+    message=request.form.get("message")
+    server=smtplib.SMTP("smtp.gmail.com", 587)
+    server.starttls()
+    server.login("kratitiwari5034@gmail.com","krishiv@123")
+    server.sendmail("kratitiwari5034@gmail.com" ,  "kishanpandey5034@gmail.com" , 
+    "SOMEONE IS TRYING TO REACH YOU THROUGH THE WEBSITE" +' \n' +
+    "name = " + name + '\n' +
+     "email = " + email + '\n' +
+     "message = "+ message   )
+    return render_template('index.html')
 
 @app.route('/warehouse_register',methods = ['GET','POST'])
 def warehouse_register():

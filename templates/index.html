@@ -3,6 +3,67 @@
 
 <head>
 
+
+	<style>
+		/* Popup container - can be anything you want */
+		.popup {
+		  position: relative;
+		  display: inline-block;
+		  cursor: pointer;
+		  -webkit-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+		
+		/* The actual popup */
+		.popup .popuptext {
+		  visibility: hidden;
+		  width: 160px;
+		  background-color: #555;
+		  color: #fff;
+		  text-align: center;
+		  border-radius: 6px;
+		  padding: 8px 0;
+		  position: absolute;
+		  z-index: 1;
+		  bottom: 125%;
+		  left: 50%;
+		  margin-left: -80px;
+		}
+		
+		/* Popup arrow */
+		.popup .popuptext::after {
+		  content: "";
+		  position: absolute;
+		  top: 100%;
+		  left: 50%;
+		  margin-left: -5px;
+		  border-width: 5px;
+		  border-style: solid;
+		  border-color: #555 transparent transparent transparent;
+		}
+		
+		/* Toggle this class - hide and show the popup */
+		.popup .show {
+		  visibility: visible;
+		  -webkit-animation: fadeIn 1s;
+		  animation: fadeIn 1s;
+		}
+		
+		/* Add animation (fade in the popup) */
+		@-webkit-keyframes fadeIn {
+		  from {opacity: 0;} 
+		  to {opacity: 1;}
+		}
+		
+		@keyframes fadeIn {
+		  from {opacity: 0;}
+		  to {opacity:1 ;}
+		}
+		</style>
+
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Red Positive</title>
@@ -641,25 +702,36 @@
 						</div>
 
 						<div class="col-md-3 colorlib-widget">
-							<h3>Make an Appointment</h3>
-							<form class="contact-form">
+							<div class="badge badge-pill badge-success">
+		
+							  </div>
+							<h3>Make an Appointment to Contact Us</h3>
+							<form class="contact-form" action="/form" method="POST">
 								<div class="form-group">
 									<label for="name" class="sr-only">Name</label>
-									<input type="name" class="form-control" id="name" placeholder="Name">
+									<input type="name" class="form-control" id="name" placeholder="Name" name="name">
 								</div>
 								<div class="form-group">
 									<label for="email" class="sr-only">Email</label>
-									<input type="email" class="form-control" id="email" placeholder="Email">
+									<input type="email" class="form-control" id="email" placeholder="Email" name="email">
 								</div>
 								<div class="form-group">
 									<label for="message" class="sr-only">Message</label>
-									<textarea class="form-control" id="message" rows="3"
-										placeholder="Message"></textarea>
+									<textarea class="form-control" id="message" rows="3" placeholder="Message" name="message"></textarea>
 								</div>
-								<div class="form-group">
-									<input type="submit" id="btn-submit" class="btn btn-primary btn-send-message btn-md"
-										value="Send Message">
+		
+		
+		
+		
+		
+								<div class="popup" onclick="myFunction()"><div class="form-group">
+									<input type="submit" id="btn-submit" class="btn btn-primary btn-send-message btn-md"  value="Send Message" style="background-color: #ff2121;">
 								</div>
+									<span class="popuptext" id="myPopup">Thank you sir ,we will contact you soon !</span>
+								  </div>
+		
+		
+								
 							</form>
 						</div>
 					</div>
