@@ -131,6 +131,7 @@
 								</div>
 							</div>
 						</div>
+					{% block countingbar %}
 						<!-- counting bar -->
 						<div id="colorlib-counter" class="colorlib-counters">
 							<div class="overlay"></div>
@@ -187,6 +188,7 @@
 								</div>
 							</div>
 						</div>
+					{% endblock %}
 						<!-- menu -->
 
 						<div class="menu-wrap">
@@ -471,7 +473,6 @@
 			</div>
 		{% endif %}
 			<!-- testimonial-->
-			{% if reviewdata %}
 			<div id="colorlib-testimonial" class="colorlib-bg-section">
 				<div class="container">
 					<div class="row animate-box">
@@ -482,34 +483,100 @@
 					<div class="row">
 						<div class="col-md-12 animate-box">
 							<div class="owl-carousel">
-								{% for data in reviewdata %}
 								<div class="item">
 									<div class="testimony">
 										<span class="img-user"
-											style="background-image: url(../static/photos/{{data[2]}});"></span>
-										<span class="user">{{data[1]}}</span>
+											style="background-image: url(../static/images/person1.jpg);"></span>
+										<span class="user">Edward Tom</span>
 										<blockquote>
-											<p>"{{data[4] | safe }}"</p>
-											<p class="color">
-												{% for j in range(5) %}
-												{% if j is lt (data[3] |int) %}
-												<span><i class="icon-star3"></i></span>
-												{% else %}
-												<span><i class="icon-star3 " style="color: white;"></i></span>
-												{% endif %}
-												{% endfor %}
-											</p>
+											<p>"Even the all-powerful Pointing has no control about the blind texts it
+												is an almost unorthographic life One day however a small line of blind
+												text by the name of Lorem Ipsum decided to leave for the far World of
+												Grammar."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
 										</blockquote>
 									</div>
 								</div>
-							{% endfor %}
-							
+								<div class="item">
+									<div class="testimony">
+										<span class="img-user"
+											style="background-image: url(../static/images/person2.jpg);"></span>
+										<span class="user">Carl Bean</span>
+										<blockquote>
+											<p>"Even the all-powerful Pointing has no control about the blind texts it
+												is an almost unorthographic life One day however a small line of blind
+												text by the name of Lorem Ipsum decided to leave for the far World of
+												Grammar."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
+										</blockquote>
+									</div>
+								</div>
+								<div class="item">
+									<div class="testimony">
+										<span class="img-user"
+											style="background-image: url(../static/images/person3.jpg);"></span>
+										<span class="user">John Bay</span>
+										<blockquote>
+											<p>"The Big Oxmox advised her not to do so, because there were thousands of
+												bad Commas, wild Question Marks and devious Semikoli."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
+										</blockquote>
+									</div>
+								</div>
+								<div class="item">
+									<div class="testimony">
+										<span class="img-user"
+											style="background-image: url(../static/images/person1.jpg);"></span>
+										<span class="user">Ronald Duck</span>
+										<blockquote>
+											<p>"Even the all-powerful Pointing has no control about the blind texts it
+												is an almost unorthographic life One day however a small line of blind
+												text by the name of Lorem Ipsum decided to leave for the far World of
+												Grammar."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
+										</blockquote>
+									</div>
+								</div>
+								<div class="item">
+									<div class="testimony">
+										<span class="img-user"
+											style="background-image: url(../static/images/person2.jpg);"></span>
+										<span class="user">Justine Mill</span>
+										<blockquote>
+											<p>"Even the all-powerful Pointing has no control about the blind texts it
+												is an almost unorthographic life One day however a small line of blind
+												text by the name of Lorem Ipsum decided to leave for the far World of
+												Grammar."</p>
+											<p class="color"><span><i class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span><span><i
+														class="icon-star3"></i></span></p>
+										</blockquote>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			{% endif %}
+
 			{% endblock %}
 
 			{% block blogs %}
