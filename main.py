@@ -32,7 +32,7 @@ from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,chang
 from producer import producerhome,addproducer,changeproducer,deleteproducer
 
 #blogger Functions
-from blog import bloggerlogin,bloggerregister
+from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass
 
 app.secret_key= 'secret4key'
 #ROUTES
@@ -252,6 +252,19 @@ def blogger_register():
 @app.route('/blogger_login',methods=['GET','POST'])
 def blogger_login():
     return bloggerlogin()
+
+@app.route('/blogger_forgot_password',methods=['GET','POST'])
+def blogger_forgot_password():
+    return bloggerforgot()
+    
+@app.route('/blogger_profile',methods=['GET','POST'])
+def blogger_profile():
+    return bloggerprofile()
+
+@app.route('/change_blogger_password',methods = ['GET','POST'])
+def change_blogger_password():
+    return changebloggerpass()
+
     # Run from here
 if __name__ == "__main__":
     app.run(debug=True)

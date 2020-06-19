@@ -191,7 +191,7 @@ def changepass():
         if request.method == 'POST':
             oldpass = str(pybase64.b64encode((request.form['oldPassword']).encode("utf-8")),"utf-8")
             newpass = str(pybase64.b64encode((request.form['newPassword']).encode("utf-8")),"utf-8")
-            cpass = str(pybase64.b64encode((request.form['conirmPassword']).encode("utf-8")),"utf-8")
+            cpass = str(pybase64.b64encode((request.form['confirmPassword']).encode("utf-8")),"utf-8")
             if(newpass != cpass):
                 return render_template('change_password.html',passmsg = "new password and confirm password doesn't match..")
             cur = getdbcur()

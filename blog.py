@@ -60,9 +60,130 @@ def bloggerlogin():
         print(logindata)
         if sqlres == 1 :
             session['blogger_id'] = logindata[0]
-            session['blogger_name'] = logindata[1]
+            session['blogger_name'] = str(pybase64.b64decode(logindata[1]),"utf-8")
             return redirect(url_for('blogs'))
         else:
             flash("Incorrect credentials!")
             return redirect(url_for('blogger_login'))
     return render_template('Blog/bloggerlogin.html')
+
+def sendforgotpassmail(email):
+    fullkey = uuid.uuid4()
+    password = (fullkey.time)//10000000000
+    passwd = str(pybase64.b64encode((str(password)).encode("utf-8")),"utf-8")
+    cur = getblogcur()
+    sql = "update blogger set password = %s where email = %s"
+    cur.execute(sql,(passwd,email))
+    n = cur.rowcount
+    if n == 1:
+        app = current_app._get_current_object()
+        mail = Mail(app)
+        subject = "Password Reset !"
+        msg = Message(subject, sender = 'codewithash99@gmail.com', recipients = [str(email)])
+        msg.body = "Hey ! you are requested to reset your password for your Login Account !!!" + "\n We are sending you a temporary Password . \n Change this after your first login under the profile section ." + "\n\n\n\n Password - "+str(password) 
+        mail.send(msg) 
+    else:
+        flash("There is a problem with mail server !!")
+        return redirect(url_for('blogger_forgot_password'))
+
+def bloggerforgot():
+    if request.method == "POST":
+        email = request.form['email'].lower()
+        cur = getblogcur()
+        sql = "select * from blogger where (email = %s) "
+        cur.execute(sql,(email))
+        sqlres = cur.rowcount
+        logindata= cur.fetchone()
+        if sqlres == 1:
+            sendforgotpassmail(email)
+            flash("A Mail has been sent to you with further instructions !!")
+            return redirect(url_for('blogger_login'))
+        else:
+            flash("You are not Registered with us as a Blogger !!")
+            return redirect(url_for('blogger_forgot_password'))
+    return render_template('Blog/bloggerforgotpass.html')
+
+def bloggerprofile():
+    if 'blogger_id' in session:
+        id = session['blogger_id']
+        cur = getblogcur()
+        if request.method == 'POST':
+            bloggerimg = request.files['bloggerimg']
+            if bloggerimg:
+                    checkphoto = "select image from blogger where id='"+id+"'"
+                    cur.execute(checkphoto)
+                    n=cur.rowcount
+                    if n == 1:
+                        prevphoto=cur.fetchone()
+                        photo=prevphoto[0]
+                        if photo != None:
+                            os.remove("./static/photos/"+photo)
+                    path=os.path.basename(bloggerimg.filename)
+                    file_ext=os.path.splitext(path)[1][1:]
+                    imgfilename=str(uuid.uuid4())+'.'+file_ext
+                    bloggerimgname = secure_filename(imgfilename)
+                    app = current_app._get_current_object()
+                    bloggerimg.save(os.path.join(app.config['UPLOAD_FOLDER'],bloggerimgname))
+            name = str(pybase64.b64encode((request.form['name']).encode("utf-8")),"utf-8")
+            phone = str(pybase64.b64encode((request.form['phone']).encode("utf-8")),"utf-8")
+            dob = str(pybase64.b64encode((request.form['dob']).encode("utf-8")),"utf-8")
+            profession = str(pybase64.b64encode((request.form['profession']).encode("utf-8")),"utf-8")
+            address = str(pybase64.b64encode((request.form['address']).encode("utf-8")),"utf-8")
+            editprofsql = ' update blogger set name = %s,  phone = %s, dob = %s,  address = %s, profession = %s,   image = %s  where id = %s '
+            viewprofsql = 'select * from blogger where id ="'+id+'"  '
+            try:
+                cur.execute(editprofsql,(name,phone,dob,address,profession,bloggerimgname,id))
+            except:
+                editprofsql = ' update blogger set name = %s,  phone = %s, dob = %s,  address = %s, profession = %s where id = %s '
+                cur.execute(editprofsql,(name,phone,dob,address,profession,id))
+            n = cur.rowcount
+            cur.execute(viewprofsql)
+            m = cur.rowcount
+            if m==1:
+                data = cur.fetchall()
+                cd = [list(i) for i in data]
+                for i in range(0,len(cd)):
+                    for j in range(1,len(cd[i])-1):
+                        if(j!=2):
+                            cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+                td = tuple(tuple(i) for i in cd)
+                return render_template('Blog/blogger_profile.html',profmsg = "Profile Updated !",pdata = td)
+            return render_template('Blog/blogger_profile.html',profmsg = "There is error while changing data !",pdata = td) 
+        viewprofsql = 'select * from blogger where id ="'+id+'"  '
+        cur.execute(viewprofsql)
+        n = cur.rowcount
+        if n == 1:
+            data = cur.fetchall()
+            cd = [list(i) for i in data]
+            for i in range(0,len(cd)):
+                for j in range(1,len(cd[i])-1):
+                    if(j!=2):
+                        cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+            td = tuple(tuple(i) for i in cd)
+            return render_template('Blog/blogger_profile.html',pdata = td)
+        return render_template('Blog/blogger_profile.html',profmsg = "There is error in displaying profile msg")
+    flash('Direct access to this page is Not allowed !! Login First!')
+    return redirect(url_for('blogger_login'))
+
+def changebloggerpass():
+    if 'blogger_id' in session:
+        usid = session['blogger_id']
+        if request.method == 'POST':
+            oldpass = str(pybase64.b64encode((request.form['oldPassword']).encode("utf-8")),"utf-8")
+            newpass = str(pybase64.b64encode((request.form['newPassword']).encode("utf-8")),"utf-8")
+            cpass = str(pybase64.b64encode((request.form['confirmPassword']).encode("utf-8")),"utf-8")
+            if(newpass != cpass):
+                return render_template('Blog/changebloggerpassword.html',passmsg = "new password and confirm password doesn't match..")
+            cur = getblogcur()
+            cpasssql = "update blogger set password='"+newpass+"' where id = '"+usid+"' "
+            cur.execute(cpasssql)
+            n = cur.rowcount
+            if n == 1:
+                flash("password changed successfully !")
+                session.pop('blogger_id',None)
+                session.pop('blogger_name',None)
+                return redirect(url_for('blogger_login'))
+            return render_template('Blog/changebloggerpassword.html',passmsg = "New password is same as Confirm password")
+        return render_template('Blog/changebloggerpassword.html')
+    flash('Direct access to this page is Not allowed ..Login First!')
+    return redirect(url_for('blogger_login'))
