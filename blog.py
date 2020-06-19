@@ -149,6 +149,7 @@ def bloggerprofile():
                 td = tuple(tuple(i) for i in cd)
                 return render_template('Blog/blogger_profile.html',profmsg = "Profile Updated !",pdata = td)
             return render_template('Blog/blogger_profile.html',profmsg = "There is error while changing data !",pdata = td) 
+            #########GET##############################
         viewprofsql = 'select * from blogger where id ="'+id+'"  '
         cur.execute(viewprofsql)
         n = cur.rowcount
