@@ -4,7 +4,7 @@ from blogdb import getblogcur
 from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
-
+from datetime import date
 def bloggerregister():
     if request.method  == "POST":
         fullkey = uuid.uuid4()
@@ -188,3 +188,51 @@ def changebloggerpass():
         return render_template('Blog/changebloggerpassword.html')
     flash('Direct access to this page is Not allowed ..Login First!')
     return redirect(url_for('blogger_login'))
+
+def addblog():
+    if 'blogger_id' in session:
+        ownerid = session['blogger_id']
+        if request.method == 'POST': 
+            ownername = str(pybase64.b64encode((session['blogger_name']).encode("utf-8")),"utf-8")
+            d = str(pybase64.b64encode((str(date.today())).encode("utf-8")),"utf-8")
+            fullkey = uuid.uuid4()
+            blogId = fullkey.time
+            title = str(pybase64.b64encode((request.form['title'].replace('\r\n','<br>')).encode("utf-8")),"utf-8")
+            content = str(pybase64.b64encode((request.form['content'].replace('\r\n','<br>')).encode("utf-8")),"utf-8")
+            img = request.files['blogimg']
+            path=os.path.basename(img.filename)
+            file_ext=os.path.splitext(path)[1][1:]
+            imgfilename=str(uuid.uuid4())+'.'+file_ext
+            blogimg = secure_filename(imgfilename)
+            cur = getblogcur()
+            insertblogsql = 'insert into blogs(blogId,ownerId,blogImage,title,content,ownerName,date) values (%s,%s,%s,%s,%s,%s,%s) '
+            cur.execute(insertblogsql,(blogId,ownerid,blogimg,title,content,ownername,d))
+            n = cur.rowcount
+            if n == 1:
+                app = current_app._get_current_object()
+                img.save(os.path.join(app.config['UPLOAD_FOLDER'],blogimg))
+                flash('Blog Added Successully !')
+                return redirect(url_for('blogs'))
+            flash('There is a problem while adding the Blog. Try again Later !!')
+            return redirect(url_for('blogs'))
+        return redirect(url_for('blogs'))
+    flash('Direct access to this page is Not allowed ..Login First!')
+    return redirect(url_for('blogger_login'))
+
+def displayallblogs():
+    cur = getblogcur()
+    sql = 'select * from blogs'
+    cur.execute(sql)
+    n = cur.rowcount
+    if n >= 1:
+        data = cur.fetchall()
+        print(data)
+        cd = [list(i) for i in data]
+        print(cd)
+        for i in range(0,len(cd)):
+            for j in range(3,len(cd[i])):
+                cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+        td = tuple(tuple(i) for i in cd)
+        return render_template('Blog/blog.html',bdata = td)
+    flash('There is no blogs . Add some blogs here !!')
+    return render_template('Blog/blog.html')    

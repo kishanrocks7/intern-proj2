@@ -188,7 +188,44 @@
 </div>
 {% endfor %}
 {% endif %}
+<!-- modal form (pop up) for add producer -->
 
+
+<div class="modal fade" id="addnewblog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Add New Blog</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <form action="{{url_for('add_new_blog')}}" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="title">Blog Title</label>
+            <textarea id="title" type="text" name="title" class="form-control" rows="3"
+              placeholder="Blog Title.." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="content">Blog Content</label>
+            <textarea id="content" type="text" name="content" class="form-control" rows="15"
+              placeholder="Blog content.." required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="blogimage">Select Image</label>
+            <input id="blogimg" type="file" name="blogimg" required>
+          </div>
+      </div>
+      <div class="form-group text-center">
+
+        <button class="btn " style="text-align: center; width: 40%; color:white; padding: 10px; background-color: #ff2121;">Add new Blog</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 {% block blogs %}
 {% endblock %}
@@ -201,6 +238,12 @@
 				$("#profilecontent").toggle();
 			});
 	});
+	$('#addnewblog').on('shown.bs.modal', function() {
+            //To relate the z-index make sure backdrop and modal are siblings
+            $(this).before($('.modal-backdrop'));
+            //Now set z-index of modal greater than backdrop
+            $(this).css("z-index", parseInt($('.modal-backdrop').css('z-index')) + 1);
+        });
     $(document).ready(function (e) {
 			$('.editbloggerprofile').click(function () {
 				$('.savebloggerprofile').show();

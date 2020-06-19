@@ -50,12 +50,20 @@
 
 
 
+
 <div id="blogsection">
     <div class="container">
         <div class="row animate-box">
             <div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
                 <h2 style="color: black; font-family: monsterrat;">Blogs</h2>
                 <p>These are the some blogs</p>
+            </div>
+            <div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
+                {% with msg = get_flashed_messages() %}
+			        {% if msg %}
+						<h5 style="text-align: center;color: #ff2121; margin-bottom: 30px;">{{ msg[0] }}</h5>
+					{% endif %}
+				{% endwith %}
             </div>
         </div>
         <div class="row">
@@ -113,7 +121,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 animate-box">
-                <div class="blog-entry">
+                 <div class="blog-entry">
                     <a href="#" class="blog-img" style="background-image: url(../static/images/blog-6.jpg);"></a>
                     <div class="desc">
                         <p class="date">
@@ -228,7 +236,7 @@
         </button>
       </div>
       <div class="modal-body mx-3">
-        <form action="#" method="post" enctype="multipart/form-data">
+        <form action="{{url_for('add_new_blog')}}" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label for="title">Blog Title</label>
             <textarea id="title" type="text" name="title" class="form-control" rows="3"
