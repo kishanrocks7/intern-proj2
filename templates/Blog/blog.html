@@ -67,160 +67,29 @@
             </div>
         </div>
         <div class="row">
+            {% if bdata %}
+            {% for data in bdata %}
             <div class="col-md-4 animate-box">
                 <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Spacetime_lattice_analogy.svg/1920px-Spacetime_lattice_analogy.svg.png);"></a>
+                    <a href="#" class="blog-img" style="background-image: url(../static/photos/{{data[2]}});"></a>
                     <div class="desc">
                         <p class="date">
-                            <span><a href="#">Unkown</a></span>
-                            <span>June 3 ,2020</span>
+                            <span><a href="#">{{data[5]}}</a></span>
+                            <span>{{data[6]}}</span>
                             <span><a href="#">8 <i class="icon-speech-bubble"></i></a></span>
                         </p>
-                        <h3><a href="{{ url_for('blog_post') }}">Time travel(how a person is travel through time)</a></h3>
-                        <p>A wormhole (or Einstein–Rosen bridge or Einstein–Rosen wormhole) is a speculative structure...</p>
+                        <h3><a href="{{ url_for('blog_post') }}">{{data[3]}}</a></h3>
+                        <p>{{'%.20s'|format(data[4]) |safe}}</p>
                         <a style="color: #ff2121;" href="{{ url_for('blog_post') }}">Read more <i class="icon-arrow-right3"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 animate-box">
-                <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(../static/images/index_hero.jpg);"></a>
-                    <div class="desc">
-                        <p class="date">
-                            <span><a href="#">Admin</a></span>
-                            <span>may 30 2020</span>
-                            <span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
-                        </p>
-                        <h3><a href="#">live better get to know your medical technology</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 animate-box">
-                <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(../static/images/latest_3.jpg);"></a>
-                    <div class="desc">
-                        <p class="date">
-                            <span><a href="#">Admin</a></span>
-                            <span>may 30 2020</span>
-                            <span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
-                        </p>
-                        <h3><a href="#">Eating apple is the source of energy</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 </div>
 
-<!-- row 2-->
-<div class="blogsection">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 animate-box">
-                 <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(../static/images/blog-6.jpg);"></a>
-                    <div class="desc">
-                        <p class="date">
-                            <span><a href="#">Admin</a></span>
-                            <span>may 30 2020</span>
-                            <span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
-                        </p>
-                        <h3><a href="#">Here's why yoga is best for your health</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 animate-box">
-                <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(../static/images/index_hero.jpg);"></a>
-                    <div class="desc">
-                        <p class="date">
-                            <span><a href="#">Admin</a></span>
-                            <span>may 30 2020</span>
-                            <span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
-                        </p>
-                        <h3><a href="#">live better get to know your medical technology</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 animate-box">
-                <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(../static/images/latest_3.jpg);"></a>
-                    <div class="desc">
-                        <p class="date">
-                            <span><a href="#">Admin</a></span>
-                            <span>may 30 2020</span>
-                            <span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
-                        </p>
-                        <h3><a href="#">Eating apple is the source of energy</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- row 3-->
-<div id="blogsection">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 animate-box">
-                <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(../static/images/blog-6.jpg);"></a>
-                    <div class="desc">
-                        <p class="date">
-                            <span><a href="#">Admin</a></span>
-                            <span>may 30 2020</span>
-                            <span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
-                        </p>
-                        <h3><a href="#">Here's why yoga is best for your health</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 animate-box">
-                <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(../static/images/index_hero.jpg);"></a>
-                    <div class="desc">
-                        <p class="date">
-                            <span><a href="#">Admin</a></span>
-                            <span>may 30 2020</span>
-                            <span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
-                        </p>
-                        <h3><a href="#">live better get to know your medical technology</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 animate-box">
-                <div class="blog-entry">
-                    <a href="#" class="blog-img" style="background-image: url(../static/images/latest_3.jpg);"></a>
-                    <div class="desc">
-                        <p class="date">
-                            <span><a href="#">Admin</a></span>
-                            <span>may 30 2020</span>
-                            <span><a href="#">4 <i class="icon-speech-bubble"></i></a></span>
-                        </p>
-                        <h3><a href="#">Eating apple is the source of energy</a></h3>
-                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                        <a style="color: #ff2121;" href="#">Read more <i class="icon-arrow-right3"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- modal form (pop up) for add producer -->
 

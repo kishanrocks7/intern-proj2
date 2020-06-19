@@ -226,9 +226,7 @@ def displayallblogs():
     n = cur.rowcount
     if n >= 1:
         data = cur.fetchall()
-        print(data)
         cd = [list(i) for i in data]
-        print(cd)
         for i in range(0,len(cd)):
             for j in range(3,len(cd[i])):
                 cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
