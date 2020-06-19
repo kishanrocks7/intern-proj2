@@ -183,7 +183,7 @@ def changebloggerpass():
                 session.pop('blogger_id',None)
                 session.pop('blogger_name',None)
                 return redirect(url_for('blogger_login'))
-            return render_template('Blog/changebloggerpassword.html',passmsg = "New password is same as Confirm password")
+            return render_template('Blog/changebloggerpassword.html',passmsg = "New password is same as Old password")
         return render_template('Blog/changebloggerpassword.html')
     flash('Direct access to this page is Not allowed ..Login First!')
     return redirect(url_for('blogger_login'))
