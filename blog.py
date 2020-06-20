@@ -231,10 +231,7 @@ def displayallblogs():
             countcomments = 'select blogId from comments where blogId = "'+cd[i][0]+'"  '
             cur.execute(countcomments)
             k = cur.rowcount
-            if k > 0 :
-                cd[i].append(k)
-            else:
-                cd[i].append(0)
+            cd[i].append(k)
             for j in range(3,len(cd[i])-1):
                 cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
         td = tuple(tuple(i) for i in cd)
