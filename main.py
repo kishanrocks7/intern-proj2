@@ -23,6 +23,8 @@ from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,chang
 from producer import producerhome,addproducer,changeproducer,deleteproducer
 #blogger Functions
 from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog
+#Outlet Functions 
+from outlet import outletregister,outletforget,resoutletpass,outletdash
 #Other Funcions
 from others import getthreeblogs,homedata,addmember,addflex,clientreview
 
@@ -43,13 +45,6 @@ def warehouse_login():
 def warehouse_dashboard():
     return wdashboard()
 
-@app.route('/outlet_login')
-def outlet_login():
-    return render_template('outletlogin.html')
-
-@app.route('/outlet_register')
-def outlet_register():
-    return render_template('outletregister.html')
 
 @app.route('/warehouse_register',methods = ['GET','POST'])
 def warehouse_register():
@@ -110,10 +105,6 @@ def database_crud():
 @app.route('/staff_crud')
 def staff_crud():
     return render_template('staffcrud.html')
-
-@app.route('/outlet_dashboard')
-def outlet_dashboard():
-    return render_template('outlet_home_1.html')
 
 @app.route('/change_password',methods = ['GET','POST'])
 def change_password():
@@ -183,6 +174,28 @@ def delete_blog(blogid):
 @app.route('/edit_blog/<blogid>',methods = ['GET','POST'])
 def edit_blog(blogid):
     return editblog(blogid)
+
+########### OUTLET PART #################
+
+@app.route('/outlet_dashboard',methods=['GET','POST'])
+def outlet_dashboard():
+    return outletdash()
+
+@app.route('/outlet_login')
+def outlet_login():
+    return  render_template('Outlet/outletlogin.html')
+
+@app.route('/outlet_register',methods=['GET','POST'])
+def outlet_register():
+    return outletregister()
+
+@app.route('/forgot_outlet_password',methods = ['GET','POST'])
+def forgot_outlet_password():
+    return outletforget()
+
+@app.route('/reset_outlet_password',methods = ['GET','POST'])
+def reset_outlet_password():
+    return resoutletpass()
 
 #########################ROUTES END HERE #########################
 

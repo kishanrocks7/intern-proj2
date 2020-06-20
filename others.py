@@ -1,10 +1,7 @@
 #importing neccessary libraries
 from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
-#importing database library
-from databaselibrary import getdbcur
 #universal unique ID package
 import uuid,pybase64,os
-from blogdb import getblogcur
 from databaselibrary import getdbcur
 #secure Filename
 from werkzeug.utils import secure_filename
