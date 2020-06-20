@@ -234,3 +234,127 @@ def displayallblogs():
         return render_template('Blog/blog.html',bdata = td)
     flash('There is no blogs . Add some blogs here !!')
     return render_template('Blog/blog.html')    
+
+def viewblog(blogid):
+    cur = getblogcur()
+    sql = 'select * from blogs where blogId = %s'
+    cur.execute(sql,str(blogid))
+    n = cur.rowcount
+    if n == 1:
+        data = cur.fetchall()
+        cd = [list(i) for i in data]
+        for i in range(0,len(cd)):
+            for j in range(3,len(cd[i])):
+                cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+        td = tuple(tuple(i) for i in cd)
+        sql = 'select * from comments where blogId = %s'
+        cur.execute(sql,str(blogid))
+        data = cur.fetchall()
+        cd = [list(i) for i in data]
+        for i in range(0,len(cd)):
+            for j in range(3,len(cd[i])):
+                cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+        cod = tuple(tuple(i) for i in cd)
+        return render_template('Blog/blog_post.html',bdata = td,cdata = cod)
+    flash('There is no such blog !!')
+    return render_template('Blog/blog.html')
+
+def addcomment(blogid):
+    if 'blogger_id' in session:
+        userId = session['blogger_id']
+        if request.method == 'POST':
+            blogId = str(blogid)
+            fullkey = uuid.uuid4()
+            commentId = fullkey.time
+            userName = str(pybase64.b64encode((session['blogger_name']).encode("utf-8")),"utf-8") 
+            comment = str(pybase64.b64encode((request.form['comment']).encode("utf-8")),"utf-8")
+            cur = getblogcur()
+            sql = 'insert into comments(blogId,commentId,userId,userName,comment) values(%s,%s,%s,%s,%s)'
+            cur.execute(sql,(blogId,commentId,userId,userName,comment))
+            n = cur.rowcount
+            if n == 1:
+                flash('Thanks for commenting !!!')
+                return redirect(url_for('blog_post',blogid=blogId))
+            flash('There is a error in adding new comment !!!')
+            return redirect(url_for('blog_post',blogid=blogId))
+        return redirect(url_for('blog_post',blogid=blogId))
+    flash('You need to first login to add a comment !!')
+    return redirect(url_for('blogger_login'))
+
+def deletecomment(blogid,commentid):
+    cur = getblogcur()
+    sql = 'delete from comments where commentId = %s'
+    cur.execute(sql,str(commentid))
+    flash('Your comment is deleted')
+    return redirect(url_for('blog_post',blogid=str(blogid))) 
+
+def deleteblog(blogid):
+    cur = getblogcur()
+    sql = 'delete from blogs where blogid = %s'  
+    cur.execute(sql,str(blogid))
+    n = cur.rowcount
+    if n == 1:
+        sql = 'delete from comments where blogid = %s'
+        cur.execute(sql,str(blogid))
+        flash('Your blog is deleted !!')
+        return redirect(url_for('blogs')) 
+    flash('There is a problem . Try again Later !!')
+    return redirect(url_for('blogs'))
+
+def editblog(blogid):
+    if request.method == 'POST':
+        cur = getblogcur()
+        blogimg = request.files['blogimg']
+        if blogimg:
+            checkphoto = "select blogImage from blogs where blogId='"+str(blogid)+"'"
+            cur.execute(checkphoto)
+            n=cur.rowcount
+            if n == 1:
+                prevphoto=cur.fetchone()
+                photo=prevphoto[0]
+                if photo != None:
+                    os.remove("./static/photos/"+photo)
+            path=os.path.basename(blogimg.filename)
+            file_ext=os.path.splitext(path)[1][1:]
+            imgfilename=str(uuid.uuid4())+'.'+file_ext
+            blogimgname = secure_filename(imgfilename)
+            app = current_app._get_current_object()
+            blogimg.save(os.path.join(app.config['UPLOAD_FOLDER'],blogimgname))
+            title = str(pybase64.b64encode((request.form['title'].replace('\r\n','<br>')).encode("utf-8")),"utf-8")
+            content = str(pybase64.b64encode((request.form['content'].replace('\r\n','<br>')).encode("utf-8")),"utf-8")
+            sql = 'update blogs set blogImage = %s , title = %s , content = %s where blogId = %s'
+            cur.execute(sql,(blogimgname,title,content,str(blogid)))
+            n = cur.rowcount
+            if n == 1:
+                flash('Your blog is successfully edited !!')
+                return redirect(url_for('blog_post',blogid=str(blogid)))
+            flash('There is some problem. Try again Later !!')
+            return redirect(url_for('blog_post',blogid=str(blogid)))
+        else :
+            title = str(pybase64.b64encode((request.form['title'].replace('\r\n','<br>')).encode("utf-8")),"utf-8")
+            content = str(pybase64.b64encode((request.form['content'].replace('\r\n','<br>')).encode("utf-8")),"utf-8")
+            sql = 'update blogs set  title = %s , content = %s where blogId = %s'
+            cur.execute(sql,(title,content,str(blogid)))
+            n = cur.rowcount
+            if n == 1:
+                flash('Your blog is successfully edited !!')
+                return redirect(url_for('blog_post',blogid=str(blogid)))
+            flash('There is some problem. Try again Later !!')
+            return redirect(url_for('blog_post',blogid=str(blogid)))
+    return redirect(url_for('blog_post',blogid=str(blogid)))
+
+def getthreeblogs():
+    cur = getblogcur()
+    sql = 'select * from blogs limit 3'
+    cur.execute(sql)
+    n = cur.rowcount
+    if n >= 1:
+        data = cur.fetchall()
+        cd = [list(i) for i in data]
+        for i in range(0,len(cd)):
+            for j in range(3,len(cd[i])):
+                cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+        td = tuple(tuple(i) for i in cd)
+        return td
+    return None    
+        

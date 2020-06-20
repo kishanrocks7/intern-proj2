@@ -32,7 +32,7 @@ from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,chang
 from producer import producerhome,addproducer,changeproducer,deleteproducer
 
 #blogger Functions
-from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs
+from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog,getthreeblogs
 
 app.secret_key= 'secret4key'
 #ROUTES
@@ -52,7 +52,10 @@ def home():
     sql = 'select * from testimonial'
     cur.execute(sql)
     reviewdata = cur.fetchall()
-    return render_template('index.html',teamdata = teamdata,flexdata = flexdata, reviewdata = reviewdata)
+    ##Getting Blogs from the blogdb ##
+    blogdata = getthreeblogs()
+    #################################
+    return render_template('index.html',teamdata = teamdata,flexdata = flexdata, reviewdata = reviewdata,blogdata=blogdata)
     
 
 @app.route('/warehouse_login')
@@ -241,9 +244,9 @@ def client_review():
 def blogs():
     return displayallblogs()
 
-@app.route('/blog_post')
-def blog_post():
-    return render_template('Blog/blog_post.html')
+@app.route('/blog_post/<blogid>')
+def blog_post(blogid):
+    return viewblog(blogid)
 
 @app.route('/blogger_register',methods=['GET','POST'])
 def blogger_register():
@@ -268,6 +271,22 @@ def change_blogger_password():
 @app.route('/add_new_blog',methods = ['GET','POST'])
 def add_new_blog():
     return addblog()
+
+@app.route('/add_new_comment/<blogid>',methods = ['GET','POST'])
+def add_new_comment(blogid):
+    return addcomment(blogid)
+
+@app.route('/delete_comment/<blogid>/<commentid>',methods = ['GET','POST'])
+def delete_comment(blogid,commentid):
+    return deletecomment(blogid,commentid)
+
+@app.route('/delete_blog/<blogid>',methods = ['GET','POST'])
+def delete_blog(blogid):
+    return deleteblog(blogid)
+
+@app.route('/edit_blog/<blogid>',methods = ['GET','POST'])
+def edit_blog(blogid):
+    return editblog(blogid)
 
     # Run from here
 if __name__ == "__main__":
