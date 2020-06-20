@@ -1,10 +1,14 @@
+########## NECCESSARY IMPORTS###########
 import uuid,pybase64,os
 from random import randint
-from blogdb import getblogcur
 from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
 from datetime import date
+##################database libraries ##########
+from databaselibrary import getblogcur
+############Lib end ###########
+
 def bloggerregister():
     if request.method  == "POST":
         fullkey = uuid.uuid4()
@@ -48,6 +52,7 @@ def bloggerregister():
             return render_template('Blog/bloggerregister.html',failuremsg = "User is already registered with same Email !")
     return render_template('Blog/bloggerregister.html')
 
+
 def bloggerlogin():
     if request.method == "POST":
         email = request.form['email'].lower()
@@ -66,6 +71,7 @@ def bloggerlogin():
             flash("Incorrect credentials!")
             return redirect(url_for('blogger_login'))
     return render_template('Blog/bloggerlogin.html')
+
 
 def sendforgotpassmail(email):
     fullkey = uuid.uuid4()
@@ -86,6 +92,7 @@ def sendforgotpassmail(email):
         flash("There is a problem with mail server !!")
         return redirect(url_for('blogger_forgot_password'))
 
+
 def bloggerforgot():
     if request.method == "POST":
         email = request.form['email'].lower()
@@ -102,6 +109,7 @@ def bloggerforgot():
             flash("You are not Registered with us as a Blogger !!")
             return redirect(url_for('blogger_forgot_password'))
     return render_template('Blog/bloggerforgotpass.html')
+
 
 def bloggerprofile():
     if 'blogger_id' in session:
@@ -166,6 +174,7 @@ def bloggerprofile():
     flash('Direct access to this page is Not allowed !! Login First!')
     return redirect(url_for('blogger_login'))
 
+
 def changebloggerpass():
     if 'blogger_id' in session:
         usid = session['blogger_id']
@@ -188,6 +197,7 @@ def changebloggerpass():
         return render_template('Blog/changebloggerpassword.html')
     flash('Direct access to this page is Not allowed ..Login First!')
     return redirect(url_for('blogger_login'))
+
 
 def addblog():
     if 'blogger_id' in session:
@@ -219,6 +229,7 @@ def addblog():
     flash('Direct access to this page is Not allowed ..Login First!')
     return redirect(url_for('blogger_login'))
 
+
 def displayallblogs():
     cur = getblogcur()
     sql = 'select * from blogs'
@@ -239,6 +250,7 @@ def displayallblogs():
         return render_template('Blog/blog.html',bdata = td)
     flash('There is no blogs . Add some blogs here !!')
     return render_template('Blog/blog.html')    
+
 
 def viewblog(blogid):
     cur = getblogcur()
@@ -264,6 +276,7 @@ def viewblog(blogid):
     flash('There is no such blog !!')
     return render_template('Blog/blog.html')
 
+
 def addcomment(blogid):
     if 'blogger_id' in session:
         userId = session['blogger_id']
@@ -286,12 +299,14 @@ def addcomment(blogid):
     flash('You need to first login to add a comment !!')
     return redirect(url_for('blogger_login'))
 
+
 def deletecomment(blogid,commentid):
     cur = getblogcur()
     sql = 'delete from comments where commentId = %s'
     cur.execute(sql,str(commentid))
     flash('Your comment is deleted')
     return redirect(url_for('blog_post',blogid=str(blogid))) 
+
 
 def deleteblog(blogid):
     cur = getblogcur()
@@ -305,6 +320,7 @@ def deleteblog(blogid):
         return redirect(url_for('blogs')) 
     flash('There is a problem . Try again Later !!')
     return redirect(url_for('blogs'))
+
 
 def editblog(blogid):
     if request.method == 'POST':
@@ -348,18 +364,4 @@ def editblog(blogid):
             return redirect(url_for('blog_post',blogid=str(blogid)))
     return redirect(url_for('blog_post',blogid=str(blogid)))
 
-def getthreeblogs():
-    cur = getblogcur()
-    sql = 'select * from blogs limit 3'
-    cur.execute(sql)
-    n = cur.rowcount
-    if n >= 1:
-        data = cur.fetchall()
-        cd = [list(i) for i in data]
-        for i in range(0,len(cd)):
-            for j in range(3,len(cd[i])):
-                cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
-        td = tuple(tuple(i) for i in cd)
-        return td
-    return None    
         

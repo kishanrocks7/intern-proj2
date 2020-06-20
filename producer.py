@@ -1,8 +1,12 @@
+####################NECCESSARY IMPORTS ################
 import uuid,pybase64
 from random import randint
-from databaselibrary import getdbcur
 from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
 from flask_mail import Mail, Message
+
+############databaselib###################
+from databaselibrary import getdbcur
+
 
 def countbar():
     sql = 'SELECT commodityType , commodityUnits FROM producer;'
@@ -37,6 +41,8 @@ def countbar():
             else:
                 continue
     return cbar
+
+
 def producerhome():
     if 'user_id' in session:
         cbar = countbar()
@@ -56,6 +62,7 @@ def producerhome():
             return render_template('producers.html', pmsg = "currently there is NO Producer information !",cbar = cbar)
     flash('You must login first to view Producers!')
     return redirect(url_for('warehouse_login'))
+
 
 def addproducer():
     if 'user_id' in session:
@@ -86,8 +93,6 @@ def addproducer():
     return redirect(url_for('warehouse_login'))
     
 
-#change_producer_details' delete_producer_details
-
 def changeproducer():
     if 'user_id' in session:
         if request.method == 'POST':
@@ -115,6 +120,7 @@ def changeproducer():
     flash('Direct access to this page is Not Alloed Login first To view this page!')
     return redirect(url_for('warehouse_login'))
 
+
 def deleteproducer():
     if 'user_id' in session:
         if request.method == 'POST':
@@ -132,6 +138,7 @@ def deleteproducer():
         return redirect(url_for('producer'))
     flash('Direct access to this page is Not Alloed Login first To view this page!')
     return redirect(url_for('warehouse_login'))
+
 
 def searchproducer():
     if 'user_id' in session:

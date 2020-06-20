@@ -1,9 +1,13 @@
+###################NECCESSARY IMPORTS ######################
 import uuid,pybase64,os
 from random import randint
-from databaselibrary import getdbcur
 from flask import Flask,render_template,request,session,redirect,url_for,flash,current_app
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
+
+#################database library #################################
+from databaselibrary import getdbcur
+
 
 def wreg():
     if request.method =='POST':
@@ -69,6 +73,7 @@ def wdashboard():
             return redirect(url_for('warehouse_login'))
     return redirect(url_for('warehouse_login'))
 
+
 def wareforget():
     if request.method == 'POST':
         user_id =  request.form['id']
@@ -92,6 +97,7 @@ def wareforget():
         else:
             return render_template('forgot_password.html', fmsg ="Either unique Id or email is incorrect..try again!")
     return render_template('forgot_password.html')
+
 
 def respass():
     if request.method == 'POST':
@@ -120,7 +126,9 @@ def respass():
                 return render_template('reset_password.html', rmsg ="Either unique Id or verification code is incorrect.. please try again!")
     return render_template('reset_password.html')
 
+
 ######################### Warehouse profile Part ###################################
+
 def wareprofile():
     if 'user_id' in session:
         id = session['user_id']
@@ -183,7 +191,7 @@ def wareprofile():
     flash('Direct access to this page is Not allowed ..Login First!')
     return redirect(url_for('warehouse_login'))
 
-    ############################# WareHouse profile part End ####################################
+############################# WareHouse profile part End ####################################
 
 def changepass():
     if 'user_id' in session:
@@ -207,6 +215,7 @@ def changepass():
         return render_template('change_password.html')
     flash('Direct access to this page is Not allowed ..Login First!')
     return redirect(url_for('warehouse_login'))
+
 
 def lgout():
     if 'user_id' in session:
