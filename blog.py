@@ -228,9 +228,17 @@ def displayallblogs():
         data = cur.fetchall()
         cd = [list(i) for i in data]
         for i in range(0,len(cd)):
-            for j in range(3,len(cd[i])):
+            countcomments = 'select blogId from comments where blogId = "'+cd[i][0]+'"  '
+            cur.execute(countcomments)
+            k = cur.rowcount
+            if k > 0 :
+                cd[i].append(k)
+            else:
+                cd[i].append(0)
+            for j in range(3,len(cd[i])-1):
                 cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
         td = tuple(tuple(i) for i in cd)
+        print(td)
         return render_template('Blog/blog.html',bdata = td)
     flash('There is no blogs . Add some blogs here !!')
     return render_template('Blog/blog.html')    
