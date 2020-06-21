@@ -73,7 +73,6 @@ def outletdash():
         else:
             flash("Incorrect credentials!")
             return redirect(url_for('outlet_login'))
-    flash("You have to Login First!")
     return redirect(url_for('outlet_login'))
 
 def outletforget():
@@ -126,3 +125,65 @@ def resoutletpass():
         else:
                 return render_template('Outlet/reset_outlet_password.html', rmsg ="Either unique Id or verification code is incorrect.. please try again!")
     return render_template('Outlet/reset_outlet_password.html')
+
+
+def outletprofile():
+    if 'outlet_id' in session:
+        id = session['outlet_id']
+        cur = getoutletcur()
+        if request.method == 'POST':
+            outletimg = request.files['outletimg']
+            if outletimg:
+                    checkphoto = "select image from outlet where id='"+id+"'"
+                    cur.execute(checkphoto)
+                    n=cur.rowcount
+                    if n == 1:
+                        prevphoto=cur.fetchone()
+                        photo=prevphoto[0]
+                        if photo != None:
+                            os.remove("./static/photos/"+photo)
+                    path=os.path.basename(outletimg.filename)
+                    file_ext=os.path.splitext(path)[1][1:]
+                    imgfilename=str(uuid.uuid4())+'.'+file_ext
+                    oimgname = secure_filename(imgfilename)
+                    app = current_app._get_current_object()
+                    outletimg.save(os.path.join(app.config['UPLOAD_FOLDER'],oimgname))
+            otype = str(pybase64.b64encode((request.form['otype'].lower()).encode("utf-8")),"utf-8")
+            manname = str(pybase64.b64encode((request.form['manname'].lower()).encode("utf-8")),"utf-8")
+            manemail = str(pybase64.b64encode((request.form['manemail'].lower()).encode("utf-8")),"utf-8")
+            manno = str(pybase64.b64encode((request.form['manno'].lower()).encode("utf-8")),"utf-8")
+            address = str(pybase64.b64encode((request.form['address'].lower()).encode("utf-8")),"utf-8")
+            cinnum = str(pybase64.b64encode((request.form['cinnum']).encode("utf-8")),"utf-8")
+            editprofsql = ' update outlet set type = %s,  managerName = %s, contactNumber = %s,  email = %s,  address = %s, image = %s, CINnumber = %s  where id = %s '
+            viewprofsql = 'select * from outlet where id ="'+id+'"  '
+            try:
+                cur.execute(editprofsql,(otype,manname,manno,manemail,address,wimgname,cinnum,id))
+            except:
+                editprofsql = ' update outlet set type = %s,  managerName = %s, contactNumber = %s,  email = %s,  address = %s, CINnumber = %s  where id = %s '
+                cur.execute(editprofsql,(otype,manname,manno,manemail,address,cinnum,id))
+            n = cur.rowcount
+            cur.execute(viewprofsql)
+            m = cur.rowcount
+            if m==1:
+                data = cur.fetchall()
+                cd = [list(i) for i in data]
+                for i in range(0,len(cd)):
+                    for j in range(3,len(cd[i])):
+                        cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+                td = tuple(tuple(i) for i in cd)
+                return render_template('Outlet/outlet_profile.html',profmsg = "Profile Updated !",pdata = td)
+            return render_template('Outlet/outlet_profile.html',profmsg = "There is error while changing data !",pdata = td) 
+        viewprofsql = 'select * from outlet where id ="'+id+'"  '
+        cur.execute(viewprofsql)
+        n = cur.rowcount
+        if n == 1:
+            data = cur.fetchall()
+            cd = [list(i) for i in data]
+            for i in range(0,len(cd)):
+                for j in range(3,len(cd[i])):
+                    cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
+            td = tuple(tuple(i) for i in cd)
+            return render_template('Outlet/outlet_profile.html',pdata = td)
+        return render_template('Outlet/outlet_profile.html',profmsg = "There is error in displaying profile msg")
+    flash('Direct access to this page is Not allowed ..Login First!')
+    return redirect(url_for('outlet_login'))

@@ -24,7 +24,7 @@ from producer import producerhome,addproducer,changeproducer,deleteproducer
 #blogger Functions
 from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog
 #Outlet Functions 
-from outlet import outletregister,outletforget,resoutletpass,outletdash
+from outlet import outletregister,outletforget,resoutletpass,outletdash,outletprofile
 #Other Funcions
 from others import getthreeblogs,homedata,addmember,addflex,clientreview
 
@@ -196,6 +196,10 @@ def forgot_outlet_password():
 @app.route('/reset_outlet_password',methods = ['GET','POST'])
 def reset_outlet_password():
     return resoutletpass()
+
+@app.route('/outlet_profile',methods = ['GET','POST'])
+def outlet_profile():
+    return outletprofile()
 
 #########################ROUTES END HERE #########################
 
