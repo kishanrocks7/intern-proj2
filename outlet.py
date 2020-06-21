@@ -62,18 +62,25 @@ def outletdash():
         mname = str(pybase64.b64encode((request.form['manager_name'].lower()).encode("utf-8")),"utf-8")
         passwd = str(pybase64.b64encode((request.form['password']).encode("utf-8")),"utf-8")
         cur = getoutletcur()
-        sql = "select managerName from outlet where (id = %s  AND (email = %s OR contactNumber = %s ) AND managerName=%s AND password= %s ) "
+        sql = "select type from outlet where (id = %s  AND (email = %s OR contactNumber = %s ) AND managerName=%s AND password= %s ) "
         cur.execute(sql,(user_id, em_or_num, em_or_num , mname, passwd))
         sqlres = cur.rowcount
-        mname = cur.fetchone()
+        details = cur.fetchone()
+        outlettype = str(pybase64.b64decode(details[0]),"utf-8")
+        print(outlettype)
         if sqlres == 1 :
             session['outlet_id'] = user_id 
             session['user_name'] = manager_name
-            return render_template('Outlet/outlet_home.html', m_name = manager_name)
+            session['outlet_type'] = outlettype
+            return redirect(url_for('outlet_dashboard'))
         else:
             flash("Incorrect credentials!")
             return redirect(url_for('outlet_login'))
-    return redirect(url_for('outlet_login'))
+    if 'outlet_id' in session:
+        return render_template('Outlet/outlet_home.html')
+    else:
+        flash('You have to Login First to view Dashboard !!')
+        return redirect(url_for('outlet_login'))
 
 def outletforget():
     if request.method == 'POST':

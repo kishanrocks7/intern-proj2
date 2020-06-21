@@ -201,6 +201,10 @@ def reset_outlet_password():
 def outlet_profile():
     return outletprofile()
 
+@app.route('/outlet_clients',methods = ['GET','POST'])
+def outlet_clients():
+    return render_template()
+
 #########################ROUTES END HERE #########################
 
 ####################MAIN APP IS RUN FROM HERE #######################

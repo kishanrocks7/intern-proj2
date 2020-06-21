@@ -48,17 +48,6 @@
 		<div class="row">
 			<div class="col-md-4 animate-box">
 				<div class="blog-entry">
-					<a class="blog-img" style="background-image: url(../static/images/img102.jpg); box-shadow: 0px 11px 40px -13px #0A0819"></a>
-					<div class="text-center">
-						<a href="{{ url_for('staff_crud') }}">
-						<button class="b_center"  > Staff </button>
-					</a>
-
-					</div>
-				</div>
-			</div>
-			<div class="col-md-4 animate-box">
-				<div class="blog-entry">
 					<a class="blog-img" style="background-image: url(../static/images/img101.jpg); box-shadow: 0px 11px 40px -13px #0A0819"></a>
 					<div class="text-center">
 						<a href="{{ url_for('nearest_warehouses') }}">
@@ -68,11 +57,24 @@
 					</div>
 				</div>
 			</div>
+			{% if  session['outlet_type'] == 'individual' %}
 			<div class="col-md-4 animate-box">
+				<div class="blog-entry">
+					<a class="blog-img" style="background-image: url(../static/images/img102.jpg); box-shadow: 0px 11px 40px -13px #0A0819"></a>
+					<div class="text-center">
+						<a href="{{ url_for('staff_crud') }}">
+						<button class="b_center"  > Staff </button>
+					</a>
+
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			<div class="col-md-4 animate-box " style="float: right;">
 				<div class="blog-entry">
 					<a  class="blog-img" style="background-image: url(https://www.futurenet.in/images/clients/clients-mobi.jpg); box-shadow: 0px 11px 40px -13px #0A0819"></a>
 					<div class="text-center">
-						<a href="{{ url_for('database_crud') }}">
+						<a href="{{ url_for('outlet_clients') }}">
 						<button class="b_center"  > Clients </button>
 					</a>
 
