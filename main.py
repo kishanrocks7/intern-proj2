@@ -25,6 +25,10 @@ from producer import producerhome,addproducer,changeproducer,deleteproducer
 from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog
 #Outlet Functions 
 from outlet import outletregister,outletforget,resoutletpass,outletdash,outletprofile
+#Client Functions
+from clients import addclient,outletclients
+#Staff functions
+from staff import staffhome,addstaff,searchstaff,deletestaff,changestaff
 #Other Funcions
 from others import getthreeblogs,homedata,addmember,addflex,clientreview
 
@@ -102,9 +106,7 @@ def nearest_warehouses():
 def database_crud():
     return render_template('databasecrud.html')
 
-@app.route('/staff_crud')
-def staff_crud():
-    return render_template('staffcrud.html')
+
 
 @app.route('/change_password',methods = ['GET','POST'])
 def change_password():
@@ -203,9 +205,35 @@ def outlet_profile():
 
 @app.route('/outlet_clients',methods = ['GET','POST'])
 def outlet_clients():
-    return render_template()
+    return outletclients()
 
-#########################ROUTES END HERE #########################
+@app.route('/add_client',methods = ['GET','POST'])
+def add_client():
+    return addclient()
+
+######
+# staff section
+
+@app.route('/staff_crud')
+def staff_crud():
+    return staffhome()
+
+@app.route('/add_staff',methods = ['GET','POST'])
+def add_staff():
+    return addstaff()
+
+@app.route('/search_staff',methods = ['GET','POST'])
+def search_staff():
+    return searchstaff()
+
+@app.route('/delete_staff_details',methods = ['GET','POST'])
+def delete_staff_details():
+    return deletestaff()
+
+@app.route('/change_staff_details',methods = ['GET','POST'])
+def change_staff_details():
+    return changestaff()
+# ###################ROUTES END HERE #########################
 
 ####################MAIN APP IS RUN FROM HERE #######################
 

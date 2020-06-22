@@ -66,9 +66,9 @@ def outletdash():
         cur.execute(sql,(user_id, em_or_num, em_or_num , mname, passwd))
         sqlres = cur.rowcount
         details = cur.fetchone()
-        outlettype = str(pybase64.b64decode(details[0]),"utf-8")
-        print(outlettype)
+
         if sqlres == 1 :
+            outlettype = str(pybase64.b64decode(details[0]),"utf-8")
             session['outlet_id'] = user_id 
             session['user_name'] = manager_name
             session['outlet_type'] = outlettype
