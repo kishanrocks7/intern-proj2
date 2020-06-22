@@ -20,13 +20,13 @@ app.config['MAIL_USE_SSL'] = True
 #warehouse functions
 from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass
 # producer functions
-from producer import producerhome,addproducer,changeproducer,deleteproducer
+from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
 #blogger Functions
 from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog
 #Outlet Functions 
 from outlet import outletregister,outletforget,resoutletpass,outletdash,outletprofile
 #Client Functions
-from clients import addclient,outletclients
+from clients import addclient,outletclients,changeclient,deleteclient,searchclient
 #Staff functions
 from staff import staffhome,addstaff,searchstaff,deletestaff,changestaff
 #Other Funcions
@@ -211,8 +211,17 @@ def outlet_clients():
 def add_client():
     return addclient()
 
-######
-# staff section
+@app.route('/change_client_details',methods = ['GET','POST'])
+def change_client_details():
+    return changeclient()
+
+@app.route('/delete_client_details',methods = ['GET','POST'])
+def delete_client_details():
+    return deleteclient()
+
+@app.route('/search_client',methods = ['GET','POST'])
+def search_client():
+    return searchclient()
 
 @app.route('/staff_crud')
 def staff_crud():
@@ -233,6 +242,7 @@ def delete_staff_details():
 @app.route('/change_staff_details',methods = ['GET','POST'])
 def change_staff_details():
     return changestaff()
+
 # ###################ROUTES END HERE #########################
 
 ####################MAIN APP IS RUN FROM HERE #######################

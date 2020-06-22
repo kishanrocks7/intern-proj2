@@ -231,6 +231,7 @@ def lgout():
     if 'outlet_id' in session:
         session.pop('outlet_id',None)
         session.pop('user_name',None)
+        session.pop('outlet_type',None)
         flash('Logged Out..Login again to Open your account!')
         return redirect(url_for('outlet_login'))
     flash('You are not Logged in to your account!')

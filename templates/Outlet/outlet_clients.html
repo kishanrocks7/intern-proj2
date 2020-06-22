@@ -56,7 +56,7 @@
             Add client
           </button>
           <!-- Search form -->
-          <form action="" method="post" class="form-inline d-flex justify-content-center md-form form-sm active-pink-2 mt-2"style="margin-left: 500px;" >
+          <form action="{{url_for('search_client')}}" method="post" class="form-inline d-flex justify-content-center md-form form-sm active-pink-2 mt-2"style="margin-left: 500px;" >
             <input class="form-control form-control-sm mr-3 w-25" type="text" placeholder="Search client" aria-label="Search" pattern="([a-zA-Z]).{2,}" Title="Atleast Two characters are required" name="searchinp" >
             <button style="background-color: #ff2121; color: white; padding: 5px 10px;"><i class="fas fa-search"></i></button>
           </form>
@@ -146,8 +146,8 @@
      {% for clientdata in pdata %}
       <div class="container-fluid all-data-item">
         <div class="row">
-            <form class="clientinfoform form-inline" method="post" action="">
-            <input value="{{clientdata[0]}}" type="text" class="clientid"  style="border: none; width: 0px; display: none;">
+            <form class="clientinfoform form-inline" method="post" action="{{url_for('delete_client_details')}}">
+            <input value="{{clientdata[0]}}" type="text" name="id" class="clientid"  style="border: none; width: 0px; display: none;">
           <div class="l item-area items-data" style="width: 15%">
             <input value="{{clientdata[1]}}" type="text" class="clientname"  pattern="([A-Za-z]).{3,}" title="must be of at least 3 character"  readonly style="border: none;">
           </div>
@@ -209,7 +209,7 @@ aria-hidden="true">
       </button>
     </div>
     <div class="modal-body mx-3">
-      <form action="" method="post">
+      <form action="{{url_for('change_client_details')}}" method="post">
         <input value="{{clientdata[0]}}" type="text" class="clientid" name="id" style="border: none; width: 0px; display: none;">
         <div class="form-group">
           <label for="Name">Name</label>
