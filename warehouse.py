@@ -39,8 +39,8 @@ def wreg():
         cur.execute(checkusersql,(email,pno))
         checkusercount = cur.rowcount
         if checkusercount == 0 :
-            insertusersql = 'insert into warehouse(id,warehouseName,managerName,companyNumber,phoneNumber,email,address,password) values (%s,%s,%s,%s,%s,%s,%s,%s) '
-            cur.execute(insertusersql,(uid,wname,mname,compno,pno,email,address,password))
+            insertusersql = 'insert into warehouse(id,warehouseName,managerName,companyNumber,phoneNumber,email,address,password,longitude,latitude) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) '
+            cur.execute(insertusersql,(uid,wname,mname,compno,pno,email,address,password,longitude,latitude))
             insertcount = cur.rowcount
             if insertcount >= 1 :
                 #getting mail app with app
@@ -190,7 +190,7 @@ def wareprofile():
             data = cur.fetchall()
             cd = [list(i) for i in data]
             for i in range(0,len(cd)):
-                for j in range(1,len(cd[i])-3):
+                for j in range(1,len(cd[i])-5):
                     cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
             td = tuple(tuple(i) for i in cd)
             return render_template('warehouse_profile.html',pdata = td)

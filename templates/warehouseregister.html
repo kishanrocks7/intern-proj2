@@ -60,23 +60,24 @@
 											<small id="confirmpasswordHelp" class="form-text text-muted"></small>
 										</div>
 										<div class="form-group">
-											<input id="longitude"  type="text" name="longitude" class="form-control" style="display: none;" required>
+											<input id="longitude"  type="text" name="longitude" class="form-control" style="display: none;">
 										</div>
 										<div class="form-group">
-											<input id="latitude"  type="text" name="latitude" class="form-control" style="display: none;"  required>
+											<input id="latitude"  type="text" name="latitude" class="form-control" style="display: none;">
 										</div>
 									
 										<div class="form-group text-center">
 										
                                              <button class="btn btn-block " style="text-align: center;color:white; padding: 10px; background-color: #ff2121;">Sign Up</button>
-                                                                                            
+										</div>
+									</form>                                                  
 										<div class="text-center">
 											<h5 class="have">Have an account? <a class="red" href="{{ url_for('warehouse_login') }}">Sign In</a></h5>
 												
 										</div>
-									</form>
+									
 
-								</div>
+								
 							</div>
 						</div>
 					</div>
@@ -93,7 +94,6 @@
 {% endblock %}
 {% block scripts %}
 <script>
-	super()
 	
 	$(document).ready(function(){
 		if (navigator.geolocation) {

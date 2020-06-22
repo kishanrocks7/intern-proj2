@@ -8,10 +8,10 @@ from flask_mail import Mail, Message
 from databaselibrary import getdbcur
 
 
-def countbar():
-    sql = 'SELECT commodityType , commodityUnits FROM producer;'
+def countbar(warehouseid):
+    sql = 'SELECT commodityType , commodityUnits FROM producer where warehouseid = %s'
     cur = getdbcur()
-    cur.execute(sql)
+    cur.execute(sql,warehouseid)
     n = cur.rowcount
     cbar=[0,0,0,0,0,0,0,0]
     if n >= 1:
@@ -45,16 +45,17 @@ def countbar():
 
 def producerhome():
     if 'user_id' in session:
-        cbar = countbar()
-        sql = 'select * from producer'
+        warehouseid = str(session['user_id'])
+        cbar = countbar(warehouseid)
+        sql = 'select * from producer where warehouseid =  %s'
         cur = getdbcur()
-        cur.execute(sql)
+        cur.execute(sql,warehouseid)
         n = cur.rowcount
         if n >= 1:
             data = cur.fetchall()
             cd = [list(i) for i in data]
             for i in range(0,len(cd)):
-                for j in range(1,len(cd[i])):
+                for j in range(1,len(cd[i])-1):
                     cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
             td = tuple(tuple(i) for i in cd)
             return render_template('producers.html',pdata = td,cbar = cbar)
@@ -66,7 +67,8 @@ def producerhome():
 
 def addproducer():
     if 'user_id' in session:
-        cbar = countbar()
+        warehouseid = str(session['user_id'])
+        cbar = countbar(warehouseid)
         if request.method == 'POST':
             fullkey = uuid.uuid4()
             uid = fullkey.time
@@ -79,9 +81,9 @@ def addproducer():
             commodityType = str(pybase64.b64encode((request.form['commodityType'].lower()).encode("utf-8")),"utf-8")
             commodityUnits = str(pybase64.b64encode((request.form['commodityUnits'].lower()).encode("utf-8")),"utf-8")
             aadharNumber = str(pybase64.b64encode((request.form['aadharNumber'].lower()).encode("utf-8")),"utf-8")
-            addquery ='insert into producer values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+            addquery ='insert into producer values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
             cur = getdbcur()
-            cur.execute(addquery,( uid,name,age,gender,phoneNumber,email,address,commodityType,commodityUnits,aadharNumber ))
+            cur.execute(addquery,( uid,name,age,gender,phoneNumber,email,address,commodityType,commodityUnits,aadharNumber,warehouseid))
             n = cur.rowcount
             if (n == 1):
                 flash(' New Producer details added!')
@@ -142,10 +144,11 @@ def deleteproducer():
 
 def searchproducer():
     if 'user_id' in session:
-        cbar = countbar()
+        warehouseid = str(session['user_id'])
+        cbar = countbar(warehouseid)
         if request.method == 'POST':
             si = str(pybase64.b64encode((request.form['searchinp'].lower()).encode("utf-8")),"utf-8")
-            searchquery = "select * from producer where (name like  '%"+si+"%'  OR commodityType like   '%"+si+"%' )  "
+            searchquery = "select * from producer where (name like  '%"+si+"%'  OR commodityType like   '%"+si+"%' )  and warehouseid = '"+warehouseid+"' "
             cur =getdbcur()
             cur.execute(searchquery)
             n =cur.rowcount
@@ -153,7 +156,7 @@ def searchproducer():
                 data = cur.fetchall()
                 cd = [list(i) for i in data]
                 for i in range(0,len(cd)):
-                    for j in range(1,len(cd[i])):
+                    for j in range(1,len(cd[i])-1):
                         cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
                 td = tuple(tuple(i) for i in cd)
                 return render_template('producers.html',pdata = td,pmsg="Search Results!",cbar = cbar)

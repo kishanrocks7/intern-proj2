@@ -31,6 +31,8 @@ from clients import addclient,outletclients,changeclient,deleteclient,searchclie
 from staff import staffhome,addstaff,searchstaff,deletestaff,changestaff
 #Other Funcions
 from others import getthreeblogs,homedata,addmember,addflex,clientreview
+#nearest warehouse functions
+from nearestwarehouse import nearestone
 
 ##################### SECRET KEY USED AT THE TIME OF PAYMENT GATEWAYS ##########################
 app.secret_key= 'secret4key'
@@ -94,13 +96,6 @@ def warehouse_profile():
 def faqs():
     return render_template('faq.html')
 
-@app.route('/warehouse_products')
-def warehouse_products():
-    return render_template('warehouse_products.html')
-
-@app.route('/nearest_warehouses')
-def nearest_warehouses():
-    return render_template('nearestwarehouses.html')
 
 @app.route('/database_crud')
 def database_crud():
@@ -242,6 +237,10 @@ def delete_staff_details():
 @app.route('/change_staff_details',methods = ['GET','POST'])
 def change_staff_details():
     return changestaff()
+
+@app.route('/nearest_warehouses')
+def nearest_warehouses():
+    return nearestone()
 
 # ###################ROUTES END HERE #########################
 
