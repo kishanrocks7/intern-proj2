@@ -9,15 +9,16 @@ from databaselibrary import getoutletcur
 
 def outletclients():
     if 'outlet_id' in session:
-        sql = 'select * from clients'
+        outletid = str(session['outlet_id'])
+        sql = 'select * from clients where outletid = %s'
         cur = getoutletcur()
-        cur.execute(sql)
+        cur.execute(sql,outletid)
         n = cur.rowcount
         if n >= 1:
             data = cur.fetchall()
             cd = [list(i) for i in data]
             for i in range(0,len(cd)):
-                for j in range(1,len(cd[i])):
+                for j in range(1,len(cd[i])-1):
                     cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
             td = tuple(tuple(i) for i in cd)
             return render_template('Outlet/outlet_clients.html',pdata = td)
@@ -29,6 +30,7 @@ def outletclients():
 def addclient():
     if 'outlet_id' in session:
         if request.method == 'POST':
+            outletid = str(session['outlet_id'])
             fullkey = uuid.uuid4()
             uid = fullkey.time
             name = str(pybase64.b64encode((request.form['name'].lower()).encode("utf-8")),"utf-8")
@@ -39,9 +41,9 @@ def addclient():
             purpose = str(pybase64.b64encode((request.form['purposevisit'].lower()).encode("utf-8")),"utf-8")
             commodityType = str(pybase64.b64encode((request.form['commoditytype'].lower()).encode("utf-8")),"utf-8")
             lastvisited = str(pybase64.b64encode((request.form['lastvisited'].lower()).encode("utf-8")),"utf-8")
-            addquery ='insert into clients values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+            addquery ='insert into clients values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
             cur = getoutletcur()
-            cur.execute(addquery,( uid,name,age,gender,lastvisited,email,phoneNumber,commodityType,purpose))
+            cur.execute(addquery,( uid,name,age,gender,lastvisited,email,phoneNumber,commodityType,purpose,outletid))
             n = cur.rowcount
             if (n == 1):
                 flash(' New Client details added!')
@@ -104,8 +106,9 @@ def deleteclient():
 def searchclient():
     if 'outlet_id' in session:
         if request.method == 'POST':
+            outletid = str(session['outlet_id'])
             si = str(pybase64.b64encode((request.form['searchinp'].lower()).encode("utf-8")),"utf-8")
-            searchquery = "select * from clients where (name like  '%"+si+"%'  OR commodityPurchased like   '%"+si+"%' )  "
+            searchquery = "select * from clients where (name like  '%"+si+"%'  OR commodityPurchased like   '%"+si+"%' )  and outletid = '"+outletid+"' "
             cur =getoutletcur()
             cur.execute(searchquery)
             n =cur.rowcount
@@ -113,7 +116,7 @@ def searchclient():
                 data = cur.fetchall()
                 cd = [list(i) for i in data]
                 for i in range(0,len(cd)):
-                    for j in range(1,len(cd[i])):
+                    for j in range(1,len(cd[i])-1):
                         cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
                 td = tuple(tuple(i) for i in cd)
                 return render_template('Outlet/outlet_clients.html',pdata = td,pmsg="Search Results!")

@@ -16,10 +16,17 @@ def wreg():
         em = request.form['email']
         passwd = request.form['password']
         cpasswd = request.form['confirmpassword']
+        longitude = request.form['longitude']
+        latitude =  request.form['latitude']
+        if(not latitude or not longitude):
+            flash('You denied the location access !!')
+            return redirect(url_for('warehouse_register'))
         if(passwd!=cpasswd):
             #flash msg
             flash('Password and Confirm Password does not match')
             return redirect(url_for('warehouse_register'))
+        print(request.form['longitude'])
+        print(request.form['latitude'])
         wname = str(pybase64.b64encode((request.form['warehouseName'].lower()).encode("utf-8")),"utf-8")
         mname = str(pybase64.b64encode((request.form['managerName'].lower()).encode("utf-8")),"utf-8")
         email = str(pybase64.b64encode((request.form['email'].lower()).encode("utf-8")),"utf-8")

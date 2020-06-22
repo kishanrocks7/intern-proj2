@@ -20,6 +20,7 @@
 											 <h5 style="text-align: center;color: #ff2121; margin-bottom: 30px;">{{ msg[0] }}</h5>
 											 {% endif %}
 											 {% endwith %}
+											 <h5 style="text-align: center;color: #ff2121; margin-bottom: 30px;" id="errmsg"></h5>
 								<h1 style="text-align: center;color: #ff2121;">Sign Up</h1>
 								<div style="width: 50%; margin: 25px auto;font-family: 'Montserrat', sans-serif;">
 									<form action="{{ url_for('warehouse_register') }}" method="post">
@@ -58,6 +59,13 @@
 											<input id="confirmpassword"  type="password" name="confirmpassword" class="form-control" placeholder="Re-enter password.." required>
 											<small id="confirmpasswordHelp" class="form-text text-muted"></small>
 										</div>
+										<div class="form-group">
+											<input id="longitude"  type="text" name="longitude" class="form-control" style="display: none;" required>
+										</div>
+										<div class="form-group">
+											<input id="latitude"  type="text" name="latitude" class="form-control" style="display: none;"  required>
+										</div>
+									
 										<div class="form-group text-center">
 										
                                              <button class="btn btn-block " style="text-align: center;color:white; padding: 10px; background-color: #ff2121;">Sign Up</button>
@@ -82,4 +90,22 @@
 {% block organisation %}
 {% endblock %}
 {% block blogs %}
+{% endblock %}
+{% block scripts %}
+<script>
+	super()
+	
+	$(document).ready(function(){
+		if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition);
+	  	}
+	});
+	
+	function showPosition(position) {
+		$('#longitude').val(position.coords.longitude);
+		$('#latitude').val(position.coords.latitude);
+	  
+	} 
+	
+</script>
 {% endblock %}

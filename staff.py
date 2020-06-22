@@ -9,26 +9,28 @@ from databaselibrary import getoutletcur
 
 def staffhome():
     if 'outlet_id' in session:
-        sql = 'select * from staff'
+        outletid = str(session['outlet_id'])
+        sql = 'select * from staff where outletid = %s'
         cur = getoutletcur()
-        cur.execute(sql)
+        cur.execute(sql,outletid)
         n = cur.rowcount
         if n >= 1:
             data = cur.fetchall()
             cd = [list(i) for i in data]
             for i in range(0,len(cd)):
-                for j in range(1,len(cd[i])):
+                for j in range(1,len(cd[i])-1):
                     cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
             td = tuple(tuple(i) for i in cd)
             return render_template('Outlet/staff.html',pdata = td)
         else:
-            return render_template('Outlet/staff.html', pmsg = "currently there is NO Producer information !")
+            return render_template('Outlet/staff.html', pmsg = "currently there is NO Staff information !")
     flash('You must login first to view Staff List!')
     return redirect(url_for('outlet_login'))
 
 def addstaff():
     if 'outlet_id' in session:
         if request.method == 'POST':
+            outletid = str(session['outlet_id'])
             fullkey = uuid.uuid4()
             uid = fullkey.time
             name = str(pybase64.b64encode((request.form['name'].lower()).encode("utf-8")),"utf-8")
@@ -39,9 +41,9 @@ def addstaff():
             address = str(pybase64.b64encode((request.form['address'].lower()).encode("utf-8")),"utf-8")
             post = str(pybase64.b64encode((request.form['post'].lower()).encode("utf-8")),"utf-8")
             aadharNumber = str(pybase64.b64encode((request.form['aadharNumber'].lower()).encode("utf-8")),"utf-8")
-            addquery ='insert into staff values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+            addquery ='insert into staff values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
             cur = getoutletcur()
-            cur.execute(addquery,( uid,name,phoneNumber,email,gender,age,address,post,aadharNumber ))
+            cur.execute(addquery,( uid,name,phoneNumber,email,gender,age,address,post,aadharNumber,outletid ))
             n = cur.rowcount
             if (n == 1):
                 flash(' New Staff added!')
@@ -56,8 +58,9 @@ def addstaff():
 def searchstaff():
     if 'outlet_id' in session:
         if request.method == 'POST':
+            outletid = str(session['outlet_id'])
             si = str(pybase64.b64encode((request.form['searchinp'].lower()).encode("utf-8")),"utf-8")
-            searchquery = "select * from staff where (name like  '%"+si+"%'  OR post like   '%"+si+"%' )  "
+            searchquery = "select * from staff where (name like  '%"+si+"%'  OR post like  '%"+si+"%') and outletid = '"+outletid+"' "
             cur =getoutletcur()
             cur.execute(searchquery)
             n =cur.rowcount
@@ -65,7 +68,7 @@ def searchstaff():
                 data = cur.fetchall()
                 cd = [list(i) for i in data]
                 for i in range(0,len(cd)):
-                    for j in range(1,len(cd[i])):
+                    for j in range(1,len(cd[i])-1):
                         cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
                 td = tuple(tuple(i) for i in cd)
                 return render_template('Outlet/staff.html',pdata = td,pmsg="Search Results!")
