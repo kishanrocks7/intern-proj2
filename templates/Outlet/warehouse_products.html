@@ -1,4 +1,42 @@
-{% extends 'warehouse_dashboard.html' %}
+{% extends 'Outlet/outlet_home.html' %}
+
+{% block includes %}
+
+<link href="https://fonts.googleapis.com/css?family=Montserrant:300,400,500,600,700" rel="stylesheet">
+	<!-- Bootstrap css       -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="../static/css/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="../static/css/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="../static/css/bootstrap.css">
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="../static/css/magnific-popup.css">
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="../static/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../static/css/owl.theme.default.min.css">
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="../static/css/flexslider.css">
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="../static/fonts/flaticon/font/flaticon.css">
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="../static/css/style.css">
+	<link rel="stylesheet" href="../static/css/curd.css">
+	<!-- Modernizr JS -->
+	<script src="../static/js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="../static/js/respond.min.js"></script>
+	<![endif]-->
+	<script src="https://kit.fontawesome.com/b2208ecd95.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+
+{% endblock %}
+
 {% block slider %}
 {% endblock %}
 {% block content %}
@@ -17,7 +55,7 @@
 			<h4>Stocks </h4>
 		</div>
 		<div class="col-md-3 text-center">
-			<h4>Quantity</h4>
+
 		</div>
 		<div class="col-md-2 text-center">
 		</div>
@@ -35,7 +73,7 @@
 			<p style="margin:5px auto;">{{cbar[0]}}</p>
 		</div>
 		<div class="col-md-3 text-center">
-			<input style="margin:5px auto;" type="number">
+			
 		</div>
 		<div class="col-md-2 text-center">
 			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#BP">Buy</button>
@@ -53,7 +91,7 @@
 			<p style="margin:5px auto;">{{cbar[1]}}</p>
 		</div>
 		<div class="col-md-3 text-center">
-			<input style="margin:5px auto;" type="number">
+			
 		</div>
 		<div class="col-md-2 text-center">
 			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#TM">Buy</button>
@@ -71,7 +109,7 @@
 			<p style="margin:5px auto;">{{cbar[2]}}</p>
 		</div>
 		<div class="col-md-3 text-center">
-			<input style="margin:5px auto;" type="number">
+			
 		</div>
 		<div class="col-md-2 text-center">
 			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto; " data-toggle="modal" data-target="#CM">Buy</button>
@@ -89,7 +127,7 @@
 			<p style="margin:5px auto;">{{cbar[3]}}</p>
 		</div>
 		<div class="col-md-3 text-center">
-			<input style="margin:5px auto;" type="number">
+			
 		</div>
 		<div class="col-md-2 text-center">
 			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#RC">Buy</button>
@@ -107,7 +145,7 @@
 			<p style="margin:5px auto;">{{cbar[4]}}</p>
 		</div>
 		<div class="col-md-3 text-center">
-			<input style="margin:5px auto;" type="number">
+			
 		</div>
 		<div class="col-md-2 text-center">
 			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#M">Buy</button>
@@ -125,7 +163,7 @@
 			<p style="margin:5px auto;">{{cbar[5]}}</p>
 		</div>
 		<div class="col-md-3 text-center">
-			<input style="margin:5px auto;" type="number">
+			
 		</div>
 		<div class="col-md-2 text-center">
 			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#CL">Buy</button>
@@ -143,7 +181,7 @@
 			<p style="margin:5px auto;">{{cbar[6]}}</p>
 		</div>
 		<div class="col-md-3 text-center">
-			<input style="margin:5px auto;" type="number">
+			
 		</div>
 		<div class="col-md-2 text-center">
 			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#CU">Buy</button>
@@ -161,7 +199,7 @@
 			<p style="margin:5px auto;">{{cbar[7]}}</p>
 		</div>
 		<div class="col-md-3 text-center">
-			<input style="margin:5px auto;" type="number">
+			
 		</div>
 		<div class="col-md-2 text-center">
 			<button class="btn"  style="color: white; background: #ff2121; margin: 3px auto;" data-toggle="modal" data-target="#CP">Buy</button>
@@ -177,7 +215,7 @@
     
       <!-- Modal content-->
       <div class="modal-content">
-		<center><h4 class="modal-title" style="">Orders</h4></center>
+		<center><h4 class="modal-title" >Orders</h4></center>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
@@ -188,13 +226,25 @@
           <div class="row">
               <div class="col col-lg-4">
                   <p class="fontstyle">Black pepper</p>
-
+                  <input style="display: none;" value="black pepper" name="pname">
               </div>
-              
-              <div class="col col-lg-4">
-                  <p class="fontstyle">3 units</p>
-              </div>
-              
+              <!---input count col-->
+              <div class="col-6">
+                <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[0]}}">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+        </div>
+              <!--- end input count col-->
           </div>
                
         </div>
@@ -203,7 +253,7 @@
          
         <div class="modal-footer"><!--class="btn btn-default"-->
             <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn buttonStyle2" >Confirm</button>
             
           
        </div>
@@ -233,12 +283,26 @@
           <div class="row">
               <div class="col col-lg-4">
                   <p class="fontstyle">Turmeric</p>
-
+                  <input style="display: none;" value="turmeric" name="pname">
               </div>
               
-              <div class="col col-lg-4">
-                  <p class="fontstyle">3 units</p>
-              </div>
+              <!---input count col-->
+              <div class="col-6">
+                <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[1]}}">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+        </div>
+              <!--- end input count col-->
               
           </div>
                
@@ -248,7 +312,7 @@
          
         <div class="modal-footer"><!--class="btn btn-default"-->
             <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn buttonStyle2" >Confirm</button>
             
           
        </div>
@@ -278,12 +342,26 @@
           <div class="row">
               <div class="col col-lg-4">
                   <p class="fontstyle">Cinnamon</p>
-
+                  <input style="display: none;" value="cinnamon" name="pname">
               </div>
               
-              <div class="col col-lg-4">
-                  <p class="fontstyle">3 units</p>
-              </div>
+              <!---input count col-->
+              <div class="col-6">
+                <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[2]}}">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+        </div>
+              <!--- end input count col-->
               
           </div>
                
@@ -293,7 +371,7 @@
          
         <div class="modal-footer"><!--class="btn btn-default"-->
             <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn buttonStyle2" >Confirm</button>
             
           
        </div>
@@ -323,12 +401,26 @@
           <div class="row">
               <div class="col col-lg-4">
                   <p class="fontstyle">Red Chilly</p>
-
+                  <input style="display: none;" value="red chilly" name="pname">
               </div>
               
-              <div class="col col-lg-4">
-                  <p class="fontstyle">3 units</p>
-              </div>
+              <!---input count col-->
+              <div class="col-6">
+                <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[3]}}">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+        </div>
+              <!--- end input count col-->
               
           </div>
                
@@ -338,7 +430,7 @@
          
         <div class="modal-footer"><!--class="btn btn-default"-->
             <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn buttonStyle2" >Confirm</button>
             
           
        </div>
@@ -368,12 +460,26 @@
           <div class="row">
               <div class="col col-lg-4">
                   <p class="fontstyle">Mustard</p>
-
+                  <input style="display: none;" value="mustard" name="pname">
               </div>
               
-              <div class="col col-lg-4">
-                  <p class="fontstyle">3 units</p>
-              </div>
+              <!---input count col-->
+              <div class="col-6">
+                <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[4]}}">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+        </div>
+              <!--- end input count col-->
               
           </div>
                
@@ -383,7 +489,7 @@
          
         <div class="modal-footer"><!--class="btn btn-default"-->
             <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn buttonStyle2" >Confirm</button>
             
           
        </div>
@@ -413,12 +519,26 @@
           <div class="row">
               <div class="col col-lg-4">
                   <p class="fontstyle">Clove</p>
-
+                  <input style="display: none;" value="clove" name="pname">
               </div>
               
-              <div class="col col-lg-4">
-                  <p class="fontstyle">3 units</p>
-              </div>
+              <!---input count col-->
+              <div class="col-6">
+                <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[5]}}">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+        </div>
+              <!--- end input count col-->
               
           </div>
                
@@ -428,7 +548,7 @@
          
         <div class="modal-footer"><!--class="btn btn-default"-->
             <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn buttonStyle2" >Confirm</button>
             
           
        </div>
@@ -458,12 +578,26 @@
           <div class="row">
               <div class="col col-lg-4">
                   <p class="fontstyle">Cumin</p>
-
+                  <input style="display: none;" value="cumin" name="pname">
               </div>
               
-              <div class="col col-lg-4">
-                  <p class="fontstyle">3 units</p>
-              </div>
+              <!---input count col-->
+              <div class="col-6">
+                <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[6]}}">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+        </div>
+              <!--- end input count col-->
               
           </div>
                
@@ -473,7 +607,7 @@
          
         <div class="modal-footer"><!--class="btn btn-default"-->
             <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn buttonStyle2" >Confirm</button>
             
           
        </div>
@@ -503,12 +637,26 @@
           <div class="row">
               <div class="col col-lg-4">
                   <p class="fontstyle">Chick pea</p>
-
+                  <input style="display: none;" value="chick pea" name="pname">
               </div>
               
-              <div class="col col-lg-4">
-                  <p class="fontstyle">3 units</p>
-              </div>
+              <!---input count col-->
+              <div class="col-6">
+                <div class="input-group">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-left-minus btn btn-danger btn-number"  data-type="minus" data-field="">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+            </span>
+            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[7]}}">
+            <span class="input-group-btn">
+                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </span>
+        </div>
+        </div>
+              <!--- end input count col-->
               
           </div>
                
@@ -518,7 +666,7 @@
          
         <div class="modal-footer"><!--class="btn btn-default"-->
             <button type="button" class="btn buttonStyle1" data-dismiss="modal">Decline</button>
-            <button type="button" class="btn buttonStyle2" data-dismiss="modal">Confirm</button>
+            <button type="button" class="btn buttonStyle2" >Confirm</button>
             
           
        </div>
@@ -570,7 +718,6 @@
     font-family: sans-serif;
     color: black;
 }
-
  .modal-title
  {
 	 margin-top: 40px;
@@ -579,4 +726,53 @@
 </style>
 
 
+
 {% endblock %}
+
+{% block scripts %}
+
+<script>
+  $(document).ready(function (e) {
+			$("#profilebutton").click(function (e) {
+				$("#profilecontent").toggle();
+			});
+		});
+
+  $(document).ready(function(){
+  
+    var quantitiy=0;
+       $('.quantity-right-plus').click(function(e){
+            
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field namey
+            var quantity = parseInt($('.quantity').val());
+            
+            // If is not undefined
+                
+                $('.quantity').val(quantity + 1);
+    
+              
+                // Increment
+            
+        });
+    
+         $('.quantity-left-minus').click(function(e){
+            // Stop acting like a button
+            e.preventDefault();
+            // Get the field name
+            var quantity = parseInt($('.quantity').val());
+            
+            // If is not undefined
+          
+                // Increment
+                if(quantity>0){
+                $('.quantity').val(quantity - 1);
+                }
+        });
+        
+    });
+  
+  </script>
+
+{%  endblock  %}

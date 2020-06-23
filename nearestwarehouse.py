@@ -15,23 +15,18 @@ def getnearestwarehouse(id):
     cur = getdbcur()
     cur.execute(sql)
     waredata = cur.fetchall()
-    print(waredata)
     sql = 'select latitude,longitude from outlet where id = %s '
     cur = getoutletcur()
     cur.execute(sql,id)
     outdata = cur.fetchone()
-    print(outdata)
     mind = 9999999999999
     warehouseid = 0
     for i in waredata:
-        print(geodesic((i[0],i[1]),outdata).km)
+
         distance = geodesic((i[0],i[1]),outdata)
         if distance < mind :
             mind = distance
             warehouseid=i[2]
-    print("minimum")
-    print(warehouseid)
-    print(mind)
     return warehouseid
 
 
@@ -39,6 +34,7 @@ def nearestone():
     if 'outlet_id' in session:
         warehouseid = getnearestwarehouse(session['outlet_id'])
         cbar = countbar(warehouseid)
+
         return render_template('Outlet/warehouse_products.html',cbar=cbar)
     flash('You must login first to view This page!')
     return redirect(url_for('outlet_login'))
