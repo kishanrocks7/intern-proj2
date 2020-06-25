@@ -34,7 +34,7 @@ from others import getthreeblogs,homedata,addmember,addflex,clientreview
 #nearest warehouse functions
 from nearestwarehouse import nearestone,reqware
 #notifications
-from notification import accept_order,reject_order,outletnotification
+from notification import accept_order,reject_order,outletnotification,deleteaccepted,deleterejected
 ##################### SECRET KEY USED AT THE TIME OF PAYMENT GATEWAYS ##########################
 app.secret_key= 'secret4key'
 
@@ -262,6 +262,14 @@ def rejectorder():
 @app.route('/outlet_notification',methods = ['GET','POST'])
 def outlet_notification():
     return outletnotification()
+
+@app.route('/deleterejectedorder',methods= ['GET','POST'])
+def deleterejectedorder():
+    return deleterejected()
+
+@app.route('/deleteacceptedorder',methods= ['GET','POST'])
+def deleteacceptedorder():
+    return deleteaccepted()
 # ###################ROUTES END HERE #########################
 
 ####################MAIN APP IS RUN FROM HERE #######################

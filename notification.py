@@ -91,27 +91,48 @@ def reject_order():
 def outletnotification():
     if 'outlet_id' in session:
         outletId = session['outlet_id']
+        if 'notifcountoutlet' in session:
+            session.pop('notifcountoutlet',None)
         sql = 'select * from outletnotification where outletId=%s'
         cur = getoutletcur()
         cur.execute(sql,(outletId))
         n = cur.rowcount
         if n >= 1:
             notifications = cur.fetchall()
-            accept = []
-            reject = []
-            for i in notifications:
-                if i[4] == 'accept':
-                    a = 'Your last order for '+ str(i[5])+' is accepted by the warehouse !!.' 
-                    accept.append(a)
-                else:
-                    a =  'Your last order for '+ str(i[5])+' is rejected by the warehouse !!.'
-                    b = str(i[4])
-                    temp=[]
-                    temp.append(a)
-                    temp.append(b)
-                    reject.append(temp)
-            return render_template('Outlet/outlet_notification.html',accept=accept,reject=reject)
+            return render_template('Outlet/outlet_notification.html',notifdata = notifications)
         flash('There is no notification for now')
         return render_template('Outlet/outlet_notification.html')
     flash('You are not logged in...')
     return redirect(url_for('outlet_login')) 
+
+
+def deleteaccepted():
+    if 'outlet_id' in session:
+        if request.method == 'POST':
+            respid = request.form['responseid']
+            sql = 'delete from outletnotification where responseId=%s'
+            cur = getoutletcur()
+            cur.execute(sql,(respid))
+            n = cur.rowcount
+            if n==1:
+                return redirect('outlet_notification')
+            flash('Deletion Failed !!')
+            return redirect('outlet_notification')
+    flash('You are not logged in...')
+    return redirect(url_for('outlet_login')) 
+
+def deleterejected():
+    if 'outlet_id' in session:
+        if request.method == 'POST':
+            respid = request.form['responseid']
+            sql = 'delete from outletnotification where responseId=%s'
+            cur = getoutletcur()
+            cur.execute(sql,(respid))
+            n = cur.rowcount
+            if n==1:
+                return redirect('outlet_notification')
+            flash('Deletion Failed !!')
+            return redirect('outlet_notification')
+    flash('You are not logged in...')
+    return redirect(url_for('outlet_login')) 
+    
