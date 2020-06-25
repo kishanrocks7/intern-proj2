@@ -105,11 +105,16 @@
 									</div>
 									<div class="col-md-2">
 										<p style="padding-top: 4%; margin-left: 60px;">notification</p>
-										<div class="notification">
-											<span class="icon"><i class=" icon-bell"></i></span>
+										<div class="notification row">
+											<a href="{{url_for('warehouse_notification')}}" style="text-decoration: none;">
+											<span class="icon"><i class=" icon-bell" style="position: relative;"></i></span>
+											{% if 'notifcount' in session %}
+											<span class="badge badge-light" style="position: absolute;">{{session['notifcount']}}</span>
+											 {% endif %} 
+											</a>
 										</div>
 									</div>
-
+									
 								</div>
 							</div>
 						</div>
@@ -358,6 +363,8 @@
 	<script src="../static/js/sticky-kit.min.js"></script>
 	<!-- Main -->
 	<script src="../static/js/main.js"></script>
+	{% block scripts %}
+	{% endblock %}
 	<script>
 		$(document).ready(function (e) {
 			$("#profilebutton").click(function (e) {

@@ -1,0 +1,25 @@
+{% extends 'Outlet/outlet_home.html' %}
+{% block content %}
+
+{% with msg = get_flashed_messages() %}
+{% if msg %}
+{% for wmsg in msg %}
+<h5 class="text-center" style="color: #ff2121;">{{wmsg}}</h5>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+{% if accept %}
+{% for orderinfo in accept %}
+{{orderinfo}}
+{% endfor %}
+{% endif %}
+
+{% if reject %}
+{% for i in reject %}
+<h3>{{i[0]}}</h3>
+<h3>reason:{{i[1]}}</h3>
+{% endfor %}
+{% endif %}
+
+{%  endblock %}

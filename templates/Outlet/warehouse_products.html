@@ -42,6 +42,11 @@
 {% block content %}
 <!--products -->
 <!--head-->
+{% with msg = get_flashed_messages() %}
+        {% if msg %}
+        <h5 style="margin-bottom: 30px; margin-top: 30px; text-align: center; color: #ff2121;">{{msg[0]}}</h5>
+        {% endif %}
+        {% endwith %}
 <h1 class="text-center" style="font-family: monsterrat; margin-bottom: 30px;">products</h1>
 <div class="container" style="margin-bottom: 50px; border: 1px solid rgba(0,0,0,0.2); box-shadow:0 0 13px grey;">
   <div class="row" style="height: 40px;  color: white; background-color: #ff2121; box-shadow: 0 0 3px black;">
@@ -186,7 +191,7 @@
 	<!-- block ends-->
 
 <!-- Modal BP -->
-<form method="post" action="send_request" enctype="multipart/form-data">
+<form method="post" action="{{url_for('send_request_warehouse')}}" enctype="multipart/form-data">
 <div class="modal fade" id="BP" role="dialog">
     <div class="modal-dialog">
     
@@ -213,7 +218,7 @@
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
             </span>
-            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[0]}}">
+            <input type="number"  name="quantity" pattern="[1-9]([0-9])*" class="quantity form-control input-number" value="0" min="1" title="min 1 order and not place more than available" max="{{cbar[0]}}">
             <span class="input-group-btn">
                 <button type="button" class="quantity-right-plus btn" style="background: #5cb85c; color:white;" data-type="plus" data-field="">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -249,7 +254,7 @@
 </div>
 
 <!-- Modal TM -->
-<form method="post" action="send_request" enctype="multipart/form-data">
+<form method="post" action="{{url_for('send_request_warehouse')}}" enctype="multipart/form-data">
 <div class="modal fade" id="TM" role="dialog">
     <div class="modal-dialog">
     
@@ -278,7 +283,7 @@
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
             </span>
-            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[1]}}">
+            <input type="number"  name="quantity" pattern="[1-9]([0-9])*" class="quantity form-control input-number" value="0" min="1" title="min 1 order and not place more than available" max="{{cbar[1]}}">
             <span class="input-group-btn">
                 <button type="button" class="quantity-right-plus btn" style="background: #5cb85c; color:white;" data-type="plus" data-field="">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -316,7 +321,7 @@
 </div>
 
 <!-- Modal CM -->
-<form method="post" action="send_request" enctype="multipart/form-data">
+<form method="post" action="{{url_for('send_request_warehouse')}}" enctype="multipart/form-data">
 <div class="modal fade" id="CM" role="dialog">
     <div class="modal-dialog">
     
@@ -345,7 +350,7 @@
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
             </span>
-            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[2]}}">
+            <input type="number"  name="quantity" pattern="[1-9]([0-9])*" class="quantity form-control input-number" value="0" min="1" title="min 1 order and not place more than available" max="{{cbar[2]}}">
             <span class="input-group-btn">
                 <button type="button" class="quantity-right-plus btn" style="background: #5cb85c; color:white;" data-type="plus" data-field="">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -382,7 +387,7 @@
 </div>
 
 <!-- Modal RC -->
-<form method="post" action="send_request" enctype="multipart/form-data">
+<form method="post" action="{{url_for('send_request_warehouse')}}" enctype="multipart/form-data">
 <div class="modal fade" id="RC" role="dialog">
     <div class="modal-dialog">
     
@@ -411,7 +416,7 @@
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
             </span>
-            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[3]}}">
+            <input type="number"  name="quantity" pattern="[1-9]([0-9])*" class="quantity form-control input-number" value="0" min="1" title="min 1 order and not place more than available" max="{{cbar[3]}}">
             <span class="input-group-btn">
                 <button type="button" class="quantity-right-plus btn" style="background: #5cb85c; color:white;" data-type="plus" data-field="">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -448,7 +453,7 @@
 </div>
 
 <!-- Modal M -->
-<form method="post" action="send_request" enctype="multipart/form-data">
+<form method="post" action="{{url_for('send_request_warehouse')}}" enctype="multipart/form-data">
 <div class="modal fade" id="M" role="dialog">
     <div class="modal-dialog">
     
@@ -477,7 +482,7 @@
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
             </span>
-            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[4]}}">
+            <input type="number"  name="quantity" pattern="[1-9]([0-9])*" class="quantity form-control input-number" value="0" min="1" title="min 1 order and not place more than available" max="{{cbar[4]}}">
             <span class="input-group-btn">
                 <button type="button" class="quantity-right-plus btn" style="background: #5cb85c; color:white;" data-type="plus" data-field="">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -514,7 +519,7 @@
 </div>
 
 <!-- Modal CL -->
-<form method="post" action="send_request" enctype="multipart/form-data">
+<form method="post" action="{{url_for('send_request_warehouse')}}" enctype="multipart/form-data">
 <div class="modal fade" id="CL" role="dialog">
     <div class="modal-dialog">
     
@@ -543,7 +548,7 @@
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
             </span>
-            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[5]}}">
+            <input type="number"  name="quantity" pattern="[1-9]([0-9])*" class="quantity form-control input-number" value="0" min="1" title="min 1 order and not place more than available" max="{{cbar[5]}}">
             <span class="input-group-btn">
                 <button type="button" class="quantity-right-plus btn" style="background: #5cb85c; color:white;" data-type="plus" data-field="">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -580,7 +585,7 @@
 </div>
 
 <!-- Modal CU -->
-<form method="post" action="send_request" enctype="multipart/form-data">
+<form method="post" action="{{url_for('send_request_warehouse')}}" enctype="multipart/form-data">
 <div class="modal fade" id="CU" role="dialog">
     <div class="modal-dialog">
     
@@ -609,7 +614,7 @@
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
             </span>
-            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[6]}}">
+            <input type="number"  name="quantity" pattern="[1-9]([0-9])*" class="quantity form-control input-number" value="0" min="1" title="min 1 order and not place more than available" max="{{cbar[6]}}">
             <span class="input-group-btn">
                 <button type="button" class="quantity-right-plus btn" style="background: #5cb85c; color:white;" data-type="plus" data-field="">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -646,7 +651,7 @@
 </div>
 
 <!-- Modal BP -->
-<form method="post" action="send_request" enctype="multipart/form-data">
+<form method="post" action="{{url_for('send_request_warehouse')}}" enctype="multipart/form-data">
 <div class="modal fade" id="CP" role="dialog">
     <div class="modal-dialog">
     
@@ -675,7 +680,7 @@
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
             </span>
-            <input type="text"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="please don't input quantity maximum then available" max="{{cbar[7]}}">
+            <input type="number" pattern="[1-9]([0-9])*"  name="quantity" class="quantity form-control input-number" value="0" min="1" title="min 1 order and not place more than available" max="{{cbar[7]}}">
             <span class="input-group-btn">
                 <button type="button" class="quantity-right-plus btn" style="background: #5cb85c; color:white;" data-type="plus" data-field="">
                     <span class="glyphicon glyphicon-plus"></span>
@@ -754,8 +759,18 @@
  .modal-title
  {
 	 margin-top: 40px;
- }        
+ }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 </style>
 
 

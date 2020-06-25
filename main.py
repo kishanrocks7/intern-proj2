@@ -18,7 +18,7 @@ app.config['MAIL_PASSWORD'] = '12345@aB'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 #warehouse functions
-from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass
+from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass,warenotif
 # producer functions
 from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
 #blogger Functions
@@ -32,8 +32,9 @@ from staff import staffhome,addstaff,searchstaff,deletestaff,changestaff
 #Other Funcions
 from others import getthreeblogs,homedata,addmember,addflex,clientreview
 #nearest warehouse functions
-from nearestwarehouse import nearestone
-
+from nearestwarehouse import nearestone,reqware
+#notifications
+from notification import accept_order,reject_order,outletnotification
 ##################### SECRET KEY USED AT THE TIME OF PAYMENT GATEWAYS ##########################
 app.secret_key= 'secret4key'
 
@@ -242,6 +243,25 @@ def change_staff_details():
 def nearest_warehouses():
     return nearestone()
 
+@app.route('/send_request_warehouse',methods=['GET','POST'])
+def  send_request_warehouse():
+    return reqware()
+
+@app.route('/warehouse_notification',methods = ['GET','POST'])
+def warehouse_notification():
+    return warenotif()
+
+@app.route('/acceptorder',methods = ['GET','POST'])
+def acceptorder():
+    return accept_order()
+
+@app.route('/rejectorder',methods = ['GET','POST'])
+def rejectorder():
+    return reject_order()
+
+@app.route('/outlet_notification',methods = ['GET','POST'])
+def outlet_notification():
+    return outletnotification()
 # ###################ROUTES END HERE #########################
 
 ####################MAIN APP IS RUN FROM HERE #######################
