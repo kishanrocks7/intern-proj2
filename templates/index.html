@@ -136,6 +136,7 @@
 						</div>
 					{% endblock %}
 					{% block countingbar %}
+					{% if 'totalbar' in session %}
 						<!-- counting bar -->
 						<div id="colorlib-counter" class="colorlib-counters">
 							<div class="overlay"></div>
@@ -148,10 +149,10 @@
 													<p class="wrap">
 														<span class="icon"><i class="flaticon-healthy"></i></span>
 														<span class="colorlib-counter js-counter" data-from="0"
-															data-to="3297" data-speed="5000"
+															data-to="{{session['totalbar'][3]}}" data-speed="5000"
 															data-refresh-interval="50"></span>
 													</p>
-													<span class="colorlib-counter-label">Satisfied Customer</span>
+													<span class="colorlib-counter-label">Total Users</span>
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-6 animate-box">
@@ -159,7 +160,7 @@
 													<p class="wrap">
 														<span class="icon"><i class="flaticon-hospital"></i></span>
 														<span class="colorlib-counter js-counter" data-from="0"
-															data-to="378" data-speed="5000"
+															data-to="{{session['totalbar'][2]}}" data-speed="5000"
 															data-refresh-interval="50"></span>
 													</p>
 													<span class="colorlib-counter-label">Outlets</span>
@@ -170,10 +171,10 @@
 													<p class="wrap">
 														<span class="icon"><i class="flaticon-healthy-1"></i></span>
 														<span class="colorlib-counter js-counter" data-from="0"
-															data-to="400" data-speed="5000"
+															data-to="{{session['totalbar'][0]}}" data-speed="5000"
 															data-refresh-interval="50"></span>
 													</p>
-													<span class="colorlib-counter-label">Outlet Managers</span>
+													<span class="colorlib-counter-label">Producers</span>
 												</div>
 											</div>
 											<div class="col-md-3 col-sm-6 animate-box">
@@ -181,7 +182,7 @@
 													<p class="wrap">
 														<span class="icon"><i class="flaticon-ambulance"></i></span>
 														<span class="colorlib-counter js-counter" data-from="0"
-															data-to="30" data-speed="5000"
+															data-to="{{session['totalbar'][1]}}" data-speed="5000"
 															data-refresh-interval="50"></span>
 													</p>
 													<span class="colorlib-counter-label">Warehouses</span>
@@ -192,6 +193,7 @@
 								</div>
 							</div>
 						</div>
+						{% endif %}
 					{% endblock %}
 						<!-- menu -->
 
@@ -220,11 +222,11 @@
 			<!-- flex and slider-1  -->
 			<!-- jinja 2 blocks -->
 			{% block slider %}
-
+			{% if 'flex_data' in session %}
 			<aside id="colorlib-hero">
 				<div class="flexslider">
 					<ul class="slides">
-						{% for flex in flexdata %}
+						{% for flex in session['flex_data']  %}
 						<li style="background-image: url(../static/photos/{{flex[3]}});">
 							<div class="overlay"></div>
 							<div class="container">
@@ -243,7 +245,7 @@
 				</div>
 			</aside>
 			<br><br><br>
-
+				{%  endif %}
 			<!-- The Jinja 2 Block ends here -->
 			{% endblock %}
 

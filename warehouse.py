@@ -185,7 +185,7 @@ def wareprofile():
                 data = cur.fetchall()
                 cd = [list(i) for i in data]
                 for i in range(0,len(cd)):
-                    for j in range(1,len(cd[i])-3):
+                    for j in range(1,len(cd[i])-5):
                         cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
                 td = tuple(tuple(i) for i in cd)
                 return render_template('warehouse_profile.html',profmsg = "Profile Updated !",pdata = td)

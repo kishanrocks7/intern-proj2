@@ -8,27 +8,43 @@ from werkzeug.utils import secure_filename
 #importing mail
 from flask_mail import Mail, Message
 ########importing database lib##########
-from databaselibrary import getblogcur,getdbcur
+from databaselibrary import getblogcur,getdbcur,getoutletcur
 ##############endlib ###############3
 
 
 def homedata():
     cur = getdbcur()
+    outletcur = getoutletcur()
     sql = 'select * from team'
     cur.execute(sql)
-    n = cur.rowcount
     teamdata = cur.fetchall()
-    cur = getdbcur()
     sql = 'select * from flex'
     cur.execute(sql)
     flexdata = cur.fetchall()
+    session['flex_data'] = flexdata
     sql = 'select * from testimonial'
     cur.execute(sql)
     reviewdata = cur.fetchall()
     ##Getting Blogs from the blogdb ##
     blogdata = getthreeblogs()
-    #################################
-    return render_template('index.html',teamdata = teamdata,flexdata = flexdata, reviewdata = reviewdata,blogdata=blogdata)
+    ###########geeting total users (oulets,producer,warehouses)##
+    totalbar = []
+    sql = 'select * from producer'
+    cur.execute(sql)
+    totalproducer = cur.rowcount
+    totalbar.append(totalproducer)
+    sql = 'select * from warehouse'
+    cur.execute(sql)
+    totalwarehouse = cur.rowcount
+    totalbar.append(totalwarehouse)
+    sql = 'select * from outlet'
+    outletcur.execute(sql)
+    totaloutlet = outletcur.rowcount
+    totalbar.append(totaloutlet)
+    totalbar.append(sum(totalbar))
+    session['totalbar'] = totalbar
+    ########################################
+    return render_template('index.html',teamdata = teamdata,reviewdata = reviewdata,blogdata=blogdata)
 
 
 def addmember():
