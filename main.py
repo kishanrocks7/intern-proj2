@@ -22,7 +22,7 @@ from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,chang
 # producer functions
 from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
 #blogger Functions
-from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog
+from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog,addques,faq,postans
 #Outlet Functions 
 from outlet import outletregister,outletforget,resoutletpass,outletdash,outletprofile
 #Client Functions
@@ -95,7 +95,7 @@ def warehouse_profile():
 
 @app.route('/faqs')
 def faqs():
-    return render_template('faq.html')
+    return faq()
 
 
 @app.route('/database_crud')
@@ -270,6 +270,14 @@ def deleterejectedorder():
 @app.route('/deleteacceptedorder',methods= ['GET','POST'])
 def deleteacceptedorder():
     return deleteaccepted()
+
+@app.route('/post_question',methods= ['GET','POST'])
+def post_question():
+    return addques()
+
+@app.route('/post_answer',methods= ['GET','POST'])
+def post_answer():
+    return postans()
 # ###################ROUTES END HERE #########################
 
 ####################MAIN APP IS RUN FROM HERE #######################
