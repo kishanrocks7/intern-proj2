@@ -6,7 +6,7 @@ from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
 from datetime import date
 ##################database libraries ##########
-from databaselibrary import getblogcur
+from databaselibrary import getblogcur,getfaqcur
 ############Lib end ###########
 
 def bloggerregister():
@@ -248,6 +248,7 @@ def displayallblogs():
         td = tuple(tuple(i) for i in cd)
         print(td)
         return render_template('Blog/blog.html',bdata = td)
+
     flash('There is no blogs . Add some blogs here !!')
     return render_template('Blog/blog.html')    
 
@@ -364,4 +365,58 @@ def editblog(blogid):
             return redirect(url_for('blog_post',blogid=str(blogid)))
     return redirect(url_for('blog_post',blogid=str(blogid)))
 
-        
+def faq():
+    sql = 'select * from questions'
+    cur = getfaqcur()
+    cur.execute(sql)
+    n =cur.rowcount
+    if n>= 1:
+        data = cur.fetchall()
+        return render_template('faq.html', quesdata = data)
+    flash('There is no questions Posted Yet !')
+    return render_template('faq.html')
+
+def addques():
+    if 'blogger_id' in session:
+        userId = session['blogger_id']
+        if request.method == 'POST': 
+            userName = session['blogger_name']
+            d = str(date.today())
+            fullkey = uuid.uuid4()
+            quesId = fullkey.time
+            question = request.form['question'].replace('\r\n','<br>')
+            cur = getfaqcur()
+            sql = 'insert into questions(quesId,userId,date,userName,question) values(%s,%s,%s,%s,%s) '
+            cur.execute(sql,(quesId,userId,d,userName,question))
+            n = cur.rowcount
+            if n == 1:
+                flash("Your question is successfully Posted..wait for It's answer ! ")
+                return redirect(url_for('faqs'))
+            flash('There is error in Posting question !')
+            return redirect(url_for('faqs'))
+        return redirect(url_for('faqs'))
+    flash("You must login to  Post a question Or register if you don't have an account !")
+    return redirect(url_for('blogger_login'))
+
+def postans():
+    if 'blogger_id' in session:
+        userId = session['blogger_id']
+        if request.method == 'POST': 
+            quesId = request.form['quesid']
+            userName = session['blogger_name']
+            d = str(date.today())
+            fullkey = uuid.uuid4()
+            ansId = fullkey.time
+            answer = request.form['answer'].replace('\r\n','<br>')
+            cur = getfaqcur()
+            sql = 'update questions set ansuserId =%s,ansId =%s,ansuserName =%s,ansdate=%s,answer =%s where quesId = %s'
+            cur.execute(sql,(userId,ansId,userName,d,answer,quesId))
+            n = cur.rowcount
+            if n == 1:
+                flash("Your answer is successfully take for the question ! ")
+                return redirect(url_for('faqs'))
+            flash('There is error in Posting answer !')
+            return redirect(url_for('faqs'))
+        return redirect(url_for('faqs'))
+    flash("You must login to  Post a answer Or register if you don't have an account !")
+    return redirect(url_for('blogger_login'))

@@ -18,14 +18,20 @@
                 <li class="dropdown-item"><a
                         href="{{ url_for('logout') }}">Logout</a></li>
             </div>
-        </div>
+		</div>
+		
     </div>
 </div>
 <div class="col-md-2">
+	<a href="{{url_for('outlet_notification')}}" style="text-decoration: none; color: black;">
 	<p style="padding-top: 4%; margin-left: 60px;">notification</p>
 	<div class="notification">
-		<span class="icon"><i class=" icon-bell"></i></span>
+		<span class="icon" style="position: relative;"><i class=" icon-bell"></i></span>
+		{% if 'notifcountoutlet' in session %}
+		<span class="badge badge-light" style="position: absolute;">{{session['notifcountoutlet']}}</span>
+		{% endif %} 
 	</div>
+</a>
 </div>
 
 {% endif %}
@@ -36,10 +42,9 @@
 {% endblock %}
 {% block content %}
    <!-- nearby warehouses Button -->
-   <div id="colorlib-blog">
 	<div class="container">
 		<div class="row ">
-            <div class="col-md-6 col-md-offset-3 text-center colorlib-heading">
+            <div class="col-md-6 col-md-offset-3 text-center">
                 <h2 style="color: black; ;"><B>UTILITIES</B></h2>
                 
             </div>
@@ -83,7 +88,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 
 {% endblock %}
 

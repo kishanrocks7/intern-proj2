@@ -74,7 +74,14 @@ def wdashboard():
         if sqlres == 1 :
             session['user_id'] = user_id 
             session['user_name'] = manager_name
-            return render_template('warehouse_dashboard.html', m_name = manager_name)
+            wareid = session['user_id']
+            sql = 'select * from warehousenotification where warehouseId = "'+wareid+'"   '
+            cur = getdbcur()
+            cur.execute(sql)
+            n =cur.rowcount
+            if n>0:
+                session['notifcount'] = n
+            return render_template('warehouse_dashboard.html')
         else:
             flash("Incorrect credentials!")
             return redirect(url_for('warehouse_login'))
@@ -178,7 +185,7 @@ def wareprofile():
                 data = cur.fetchall()
                 cd = [list(i) for i in data]
                 for i in range(0,len(cd)):
-                    for j in range(1,len(cd[i])-3):
+                    for j in range(1,len(cd[i])-5):
                         cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
                 td = tuple(tuple(i) for i in cd)
                 return render_template('warehouse_profile.html',profmsg = "Profile Updated !",pdata = td)
@@ -243,3 +250,21 @@ def lgout():
         return redirect(url_for('outlet_login'))
     flash('You are not Logged in to your account!')
     return redirect(url_for('home'))
+
+
+def warenotif():
+    if 'user_id' in session:
+        if 'notifcount' in session:
+            session.pop('notifcount',None)
+        wareid = session['user_id']
+        sql = 'select * from warehousenotification where warehouseId = "'+wareid+'"   '
+        cur = getdbcur()
+        cur.execute(sql)
+        n =cur.rowcount
+        if n >= 1:
+            notifdata = cur.fetchall()
+            return render_template('warehouse_notification.html',notifdata = notifdata )
+        flash('There is no new order!!')
+        return render_template('warehouse_notification.html')
+    flash('You are not logged in...')
+    return redirect(url_for('warehouse_login'))

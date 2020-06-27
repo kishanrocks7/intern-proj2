@@ -105,11 +105,16 @@
 									</div>
 									<div class="col-md-2">
 										<p style="padding-top: 4%; margin-left: 60px;">notification</p>
-										<div class="notification">
-											<span class="icon"><i class=" icon-bell"></i></span>
+										<div class="notification row">
+											<a href="{{url_for('warehouse_notification')}}" style="text-decoration: none;">
+											<span class="icon"><i class=" icon-bell" style="position: relative;"></i></span>
+											{% if 'notifcount' in session %}
+											<span class="badge badge-light" style="position: absolute;">{{session['notifcount']}}</span>
+											 {% endif %} 
+											</a>
 										</div>
 									</div>
-
+									
 								</div>
 							</div>
 						</div>
@@ -138,74 +143,37 @@
 	</div>
 	</nav>
 
-	{% block slider %}
 	<!-- flex and slider-1  -->
+			<!-- jinja 2 blocks -->
+			{% block slider %}
+			{% if 'flex_data' in session %}
+			<aside id="colorlib-hero">
+				<div class="flexslider">
+					<ul class="slides">
+						{% for flex in session['flex_data']  %}
+						<li style="background-image: url(../static/photos/{{flex[3]}});">
+							<div class="overlay"></div>
+							<div class="container">
+								<div class="row">
+									<div class="col-md-8 col-md-offset-2 col-md-pull-2 slider-text">
+										<div class="slider-text-inner">
+											<h1><strong>{{flex[1]}}</strong></h1>
+											<h2>{{flex[2]}}</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</aside>
+			<br><br><br>
+				{%  endif %}
 
-	<aside id="colorlib-hero">
-		<div class="flexslider">
-			<ul class="slides">
-				<li style="background-image: url(../static/images/img_1.jpg);">
-					<div class="overlay"></div>
-					<div class="container">
-						<div class="row">
-							<div class="col-md-8 col-md-offset-2 col-md-pull-2 slider-text">
-								<div class="slider-text-inner">
-									<h1>Your Health <strong>is always <br>in the first place</strong></h1>
-									<h2>Separated they live in Bookmarksgrove right at the coast of the Semantics, a
-										large language ocean.</h2>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li style="background-image: url(../static/images/img_5.jpg);">
-					<div class="overlay"></div>
-					<div class="container">
-						<div class="row">
-							<div class="col-md-8 col-md-offset-2 col-md-pull-2 slider-text">
-								<div class="slider-text-inner">
-									<h1>Helping to improve <strong>quality stimulate</strong> innovation</h1>
-									<h2>Separated they live in Bookmarksgrove right at the coast of the Semantics, a
-										large language ocean.</h2>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li style="background-image: url(../static/images/img_1.webp);">
-					<div class="overlay"></div>
-					<div class="container">
-						<div class="row">
-							<div class="col-md-8 col-md-offset-2 col-md-pull-2 slider-text">
-								<div class="slider-text-inner">
-									<h1>Your Health <strong>is always <br>in the first place</strong></h1>
-									<h2>Separated they live in Bookmarksgrove right at the coast of the Semantics, a
-										large language ocean.</h2>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li style="background-image: url(../static/images/img_2.jpg);">
-					<div class="overlay"></div>
-					<div class="container">
-						<div class="row">
-							<div class="col-md-8 col-md-offset-2 col-md-pull-2 slider-text">
-								<div class="slider-text-inner">
-									<h1>Helping to improve <strong>quality stimulate</strong> innovation</h1>
-									<h2>Separated they live in Bookmarksgrove right at the coast of the Semantics, a
-										large language ocean.</h2>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-			</ul>
+				{% endblock %}
+			<!-- The Jinja 2 Block ends here -->
 		</div>
-	</aside>
-	<br><br><br>
-	{% endblock %}
-
 	{% block content %}
 	<!-- Farmers Button -->
 	<div class="services">
@@ -358,6 +326,8 @@
 	<script src="../static/js/sticky-kit.min.js"></script>
 	<!-- Main -->
 	<script src="../static/js/main.js"></script>
+	{% block scripts %}
+	{% endblock %}
 	<script>
 		$(document).ready(function (e) {
 			$("#profilebutton").click(function (e) {

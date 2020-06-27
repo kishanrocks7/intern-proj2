@@ -71,9 +71,15 @@ def outletdash():
         cur.execute(sql,(user_id, em_or_num, em_or_num , mname, passwd))
         sqlres = cur.rowcount
         details = cur.fetchone()
-
         if sqlres == 1 :
+            outletId = session['outlet_id']
+            sql = 'select * from outletnotification where outletId=%s'
+            cur = getoutletcur()
+            cur.execute(sql,(outletId))
+            n = cur.rowcount
             outlettype = str(pybase64.b64decode(details[0]),"utf-8")
+            if n > 0:
+                session['notifcountoutlet'] = n
             session['outlet_id'] = user_id 
             session['user_name'] = manager_name
             session['outlet_type'] = outlettype
@@ -192,7 +198,7 @@ def outletprofile():
             data = cur.fetchall()
             cd = [list(i) for i in data]
             for i in range(0,len(cd)):
-                for j in range(3,len(cd[i])):
+                for j in range(3,len(cd[i])-2):
                     cd[i][j] = str(pybase64.b64decode(cd[i][j]),"utf-8")
             td = tuple(tuple(i) for i in cd)
             return render_template('Outlet/outlet_profile.html',pdata = td)

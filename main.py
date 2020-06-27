@@ -18,11 +18,11 @@ app.config['MAIL_PASSWORD'] = '12345@aB'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 #warehouse functions
-from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass
+from warehouse import wdashboard,wreg,wareforget,respass,wareprofile,lgout,changepass,warenotif
 # producer functions
 from producer import producerhome,addproducer,changeproducer,deleteproducer,searchproducer
 #blogger Functions
-from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog
+from blog import bloggerlogin,bloggerregister,bloggerforgot,bloggerprofile,changebloggerpass,addblog,displayallblogs,viewblog,addcomment,deletecomment,deleteblog,editblog,addques,faq,postans
 #Outlet Functions 
 from outlet import outletregister,outletforget,resoutletpass,outletdash,outletprofile
 #Client Functions
@@ -32,8 +32,9 @@ from staff import staffhome,addstaff,searchstaff,deletestaff,changestaff
 #Other Funcions
 from others import getthreeblogs,homedata,addmember,addflex,clientreview
 #nearest warehouse functions
-from nearestwarehouse import nearestone
-
+from nearestwarehouse import nearestone,reqware
+#notifications
+from notification import accept_order,reject_order,outletnotification,deleteaccepted,deleterejected
 ##################### SECRET KEY USED AT THE TIME OF PAYMENT GATEWAYS ##########################
 app.secret_key= 'secret4key'
 
@@ -58,6 +59,7 @@ def warehouse_register():
 
 @app.route('/forgot_password',methods = ['GET','POST'])
 def forgot_password():
+    
     return wareforget()
 
 @app.route('/reset_password',methods = ['GET','POST'])
@@ -94,7 +96,7 @@ def warehouse_profile():
 
 @app.route('/faqs')
 def faqs():
-    return render_template('faq.html')
+    return faq()
 
 
 @app.route('/database_crud')
@@ -242,6 +244,41 @@ def change_staff_details():
 def nearest_warehouses():
     return nearestone()
 
+@app.route('/send_request_warehouse',methods=['GET','POST'])
+def  send_request_warehouse():
+    return reqware()
+
+@app.route('/warehouse_notification',methods = ['GET','POST'])
+def warehouse_notification():
+    return warenotif()
+
+@app.route('/acceptorder',methods = ['GET','POST'])
+def acceptorder():
+    return accept_order()
+
+@app.route('/rejectorder',methods = ['GET','POST'])
+def rejectorder():
+    return reject_order()
+
+@app.route('/outlet_notification',methods = ['GET','POST'])
+def outlet_notification():
+    return outletnotification()
+
+@app.route('/deleterejectedorder',methods= ['GET','POST'])
+def deleterejectedorder():
+    return deleterejected()
+
+@app.route('/deleteacceptedorder',methods= ['GET','POST'])
+def deleteacceptedorder():
+    return deleteaccepted()
+
+@app.route('/post_question',methods= ['GET','POST'])
+def post_question():
+    return addques()
+
+@app.route('/post_answer',methods= ['GET','POST'])
+def post_answer():
+    return postans()
 # ###################ROUTES END HERE #########################
 
 ####################MAIN APP IS RUN FROM HERE #######################
