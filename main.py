@@ -9,6 +9,7 @@ from flask_mail import Mail, Message
 # This is main app point
 app = Flask(__name__)
 #upload Folder config
+
 app.config['UPLOAD_FOLDER']='./static/photos'
 # mail configs
 app.config['MAIL_SERVER']='smtp.gmail.com'
